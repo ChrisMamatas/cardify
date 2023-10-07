@@ -7,13 +7,7 @@ export default function Navbar() {
             <Link to={"/"} className={"title"}>Cardify</Link>
             <ul>
                 <li>
-                    <Link to={"/play"}>Play</Link>
-                </li>
-                <li>
-                    <Link to={"/friends"}>Friends</Link>
-                </li>
-                <li>
-                    <Link to={"/settings"}>Settings</Link>
+                    <Link to={"/profile"}>Profile</Link>
                 </li>
             </ul>
         </nav>

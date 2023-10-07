@@ -4,6 +4,8 @@
 
 body {
   margin: 0;
+  color: white;
+  background-color: #333333;
 }
 
 .title {
@@ -11,8 +13,8 @@ body {
 }
 
 .nav {
-  background-color: #333;
-  color: white;
+  background-color: #3e011a;
+  color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;

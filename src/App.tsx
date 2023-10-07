@@ -2,23 +2,27 @@ import './App.css'
 import Navbar from "./navigation/Navbar.tsx";
 import { Route, Routes } from "react-router-dom"
 import Home from "./pages/Home.tsx";
-import Play from "./pages/Play.tsx";
-import Friends from "./pages/Friends.tsx";
-import Settings from "./pages/Settings.tsx"
+import Social from "./pages/Social.tsx";
+import Profile from "./pages/Profile.tsx"
+import Battle from "./pages/Battle.tsx";
+import Arena from "./pages/Arena.tsx";
+import Cards from "./pages/Cards.tsx";
 
 function App() {
 
 
-  return (
+   return (
       <>
-        <Navbar />
-        <Routes>
-          <Route path={"/"} element={<Home/>} />
-          <Route path={"/play"} element={<Play/>} />
-          <Route path={"/friends"} element={<Friends/>} />
-          <Route path={"/settings"} element={<Settings/>} />
-        </Routes>
-      </> 
+          <Navbar/>
+          <Routes>
+              <Route path={"/"} element={<Home/>} />
+              <Route path={"/profile"} element={<Profile/>} />
+              <Route path={"/battle"} element={<Battle/>} />
+              <Route path={"/arena"} element={<Arena/>} />
+              <Route path={"/cards"} element={<Cards/>} />
+              <Route path={"/social"} element={<Social/>} />
+          </Routes>
+      </>
   )
 }
 
