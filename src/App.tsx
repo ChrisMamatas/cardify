@@ -12,7 +12,7 @@ function App() {
 
 
    return (
-      <>
+      <div>
           <Navbar/>
           <Routes>
               <Route path={"/"} element={<Home/>} />
@@ -22,7 +22,8 @@ function App() {
               <Route path={"/cards"} element={<Cards/>} />
               <Route path={"/social"} element={<Social/>} />
           </Routes>
-      </>
+
+      </div>
   )
 }
 

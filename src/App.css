@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   color: white;
@@ -11,15 +7,13 @@ body {
 .title {
   font-size: 2rem;
 }
-
 .nav {
-  background-color: #3e011a;
-  color: black;
+  background-color: black;
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
-  padding: 0 1rem;
+  padding: 0.5rem 2rem;
 }
 
 .nav ul {
@@ -32,7 +26,7 @@ body {
 
 .nav a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: inherit;
   height: 100%;
   display: flex;
   align-items: center;
