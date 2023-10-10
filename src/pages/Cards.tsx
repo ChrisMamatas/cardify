@@ -1,7 +1,7 @@
 import { Route, Routes, useHref } from 'react-router-dom';
-import CardComponent from '../Components/Card';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import CreateCard from './CreateCard';
+import CardComponent from '../components/Card';
 
 const cardData = [
     {
