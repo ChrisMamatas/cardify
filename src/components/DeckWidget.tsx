@@ -1,13 +1,16 @@
+import { Link } from "react-router-dom"
 import "./Widgets.css"
 
 interface Props {
     className?: string
 }
-export default function DeckWidget({ className } : Props) {
+export default function DeckWidget({ className }: Props) {
 
     return (
-        <div className={className} id={"deck"}>
-            <p>Deck</p>
-        </div>
+        <Link to={"/Cards"}>
+            <div className={className} >
+                <p>Deck</p>
+            </div>
+        </Link>
     )
 }
