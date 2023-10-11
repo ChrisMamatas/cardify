@@ -11,7 +11,6 @@ interface CardProps {
 }
 
 
-
 const CardComponent: React.FC<CardProps> = ({
     title,
     description,
@@ -20,18 +19,23 @@ const CardComponent: React.FC<CardProps> = ({
     onButtonClick,
 }) => {
     return (
-        <Card style={{ width: '18rem', margin: '16px' }}>
-            <Card.Img variant="top" src={imageUrl} />
-            <Card.Body>
-                <Card.Title>{title}</Card.Title>
-                <Card.Text>{description}</Card.Text>
-                {buttonText && (
-                    <Button variant="primary" onClick={onButtonClick}>
-                        {buttonText}
-                    </Button>
-                )}
-            </Card.Body>
-        </Card>
+        <div>
+
+            <Card style={{ width: '18rem', margin: '16px' }}>
+                <Card.Img variant="top" src={imageUrl} />
+                <Card.Body>
+                    <Card.Title>{title}</Card.Title>
+                    <Card.Text>{description}</Card.Text>
+                    {buttonText && (
+                        <Button variant="primary" onClick={onButtonClick}>
+                            {buttonText}
+                        </Button>
+                    )}
+                </Card.Body>
+            </Card>
+
+
+        </div>
     );
 };
 
