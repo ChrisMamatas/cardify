@@ -36,20 +36,12 @@ export default function Home() {
 
         <div className={"center-container"}>
             <div className={"grid-container"}>
-<<<<<<< HEAD
-                <ProfileWidget className={"Widget top-row"}/>
-                <DeckWidget className={"Widget top-row"}/>
-                <PlayWidget className={"Widget top-row"}/>
-                <FriendsWidget className={"Widget span-two-rows bottom-row"}/>
-                <Temp className={"Widget span-two-rows-and-columns bottom-row"}/>
-=======
 
                 <ProfileWidget className={"Widget top-row"} />
                 <DeckWidget className={"Widget top-row"} />
                 <PlayWidget className={"Widget top-row"} />
                 <FriendsWidget className={"Widget span-two-rows bottom-row"} />
                 <Temp className={"Widget span-two-rows-and-columns bottom-row"} />
->>>>>>> b7c7cdcde62f9e7867c8e7894390b06ce3f9b0b8
             </div>
         </div>
     )
