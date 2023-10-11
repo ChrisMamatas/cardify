@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './Temp.css'
 
 interface Props {
@@ -7,7 +8,9 @@ export default function Temp({ className }: Props) {
 
     return (
         <div className={className}>
-            <p>PLACEHOLDER</p>
+            <Link to={"/Trading"}>
+                <p>Trade</p>
+            </Link>
         </div>
     )
 }

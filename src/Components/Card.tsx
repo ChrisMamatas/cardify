@@ -5,12 +5,11 @@ import { Card, Button } from 'react-bootstrap';
 interface CardProps {
     title: string;
     description: string;
-    imageUrl: string;
+    imageUrl?: string;
     buttonText?: string;
     onButtonClick?: () => void;
+    width?: string;
 }
-
-
 
 const CardComponent: React.FC<CardProps> = ({
     title,
@@ -18,20 +17,24 @@ const CardComponent: React.FC<CardProps> = ({
     imageUrl,
     buttonText,
     onButtonClick,
+    width
 }) => {
     return (
-        <Card style={{ width: '18rem', margin: '16px' }}>
-            <Card.Img variant="top" src={imageUrl} />
-            <Card.Body>
-                <Card.Title>{title}</Card.Title>
-                <Card.Text>{description}</Card.Text>
-                {buttonText && (
-                    <Button variant="primary" onClick={onButtonClick}>
-                        {buttonText}
-                    </Button>
-                )}
-            </Card.Body>
-        </Card>
+        <div>
+            <Card style={{width: width ? width : "18em", margin: 1 }}>
+                <Card.Img variant="top" src={imageUrl ? imageUrl : "https://via.placeholder.com/150"} />
+                <Card.Body>
+                    <Card.Title>{title}</Card.Title>
+                    <Card.Text>{description}</Card.Text>
+                    {/*{buttonText && (*/}
+                    {/*    <Button variant="primary" onClick={onButtonClick}>*/}
+                    {/*        {buttonText}*/}
+                    {/*    </Button>*/}
+                    {/*)}*/}
+                </Card.Body>
+            </Card>
+        </div>
+
     );
 };
 

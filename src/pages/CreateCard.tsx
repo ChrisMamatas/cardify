@@ -1,27 +1,56 @@
+import { Container } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import "./CreateCard.css"
 
 export default function CreateCard() {
     return (
-        <Form>
-            <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-                <Form.Label column sm="2">
-                    Email
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control plaintext readOnly defaultValue="email@example.com" />
-                </Col>
-            </Form.Group>
+        <Container style={{ marginTop: "32px" }} >
+            <Row md="12" >
+                <Col md="12">
 
-            <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                <Form.Label column sm="2">
-                    Password
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form>
+                        <Form.Group as={Row} className="mb-3 label" controlId="formPlaintextEmail">
+                            <Form.Label column md="2">
+                                Name
+                            </Form.Label>
+                            <Col md="10">
+                                <Form.Control type='' defaultValue="email@example.com" />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} className="mb-3 label" controlId="formPlaintextPassword">
+                            <Form.Label column md="2">
+                                Description
+                            </Form.Label>
+                            <Col md="10">
+                                <Form.Control type="password" placeholder="Password" />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group controlId="formFile" className="mb-3 label">
+                            <Form.Label column md="2">Picture</Form.Label>
+                            <Form.Control type="file" />
+                        </Form.Group>
+
+                    </Form>
                 </Col>
-            </Form.Group>
-        </Form>
+            </Row>
+            <div style={{ marginTop: "4em" }}>
+                <h4 className='label'>Preview</h4>
+                <Row md="6" style={{ marginTop: "4em" }}>
+                    <Col md="4">
+
+                    </Col>
+                    <Col md="4" style={{ backgroundColor: "light-gray", height: "40em", borderRadius: "50px" }}>
+
+                    </Col>
+                    <Col md="4">
+
+                    </Col>
+                </Row>
+            </div>
+
+        </Container >
     );
 }

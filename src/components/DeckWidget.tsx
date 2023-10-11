@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom"
+import { Link, Route, Routes } from "react-router-dom"
 import "./Widgets.css"
+import CreateCard from "../pages/CreateCard"
 
 interface Props {
     className?: string
@@ -7,10 +8,15 @@ interface Props {
 export default function DeckWidget({ className }: Props) {
 
     return (
-        <Link to={"/Cards"}>
-            <div className={className} >
-                <p>Deck</p>
-            </div>
-        </Link>
+        <div>
+            <Link to={"/Cards"}>
+                <div className={className} >
+                    <p>Deck</p>
+                </div>
+            </Link>
+            <Routes>
+                <Route path={"/CreateCard"} element={<CreateCard />} />
+            </Routes>
+        </div>
     )
 }
