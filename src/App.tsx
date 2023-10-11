@@ -10,7 +10,6 @@ import Cards from "./pages/Cards.tsx";
 
 function App() {
 
-
    return (
       <div>
           <Navbar/>

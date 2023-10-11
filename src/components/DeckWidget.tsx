@@ -8,7 +8,7 @@ export default function DeckWidget({ className }: Props) {
 
     return (
         <Link to={"/Cards"}>
-            <div className={className} >
+            <div className={className}>
                 <p>Deck</p>
             </div>
         </Link>

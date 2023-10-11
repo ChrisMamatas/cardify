@@ -37,7 +37,6 @@ export default function Home() {
 
         <div className={"center-container"}>
             <div className={"grid-container"}>
-
                 <ProfileWidget className={"Widget top-row"}/>
                 <DeckWidget className={"Widget top-row"}/>
                 <PlayWidget className={"Widget top-row"}/>
