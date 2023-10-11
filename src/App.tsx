@@ -7,24 +7,29 @@ import Profile from "./pages/Profile.tsx"
 import Battle from "./pages/Battle.tsx";
 import Arena from "./pages/Arena.tsx";
 import Cards from "./pages/Cards.tsx";
+import CreateCard from './pages/CreateCard.tsx';
+import Trading from './pages/Trading.tsx';
 
 function App() {
 
+    return (
+        <div>
+            <Navbar />
+            <Routes>
+                <Route path={"/"} element={<Home />} />
+                <Route path={"/profile"} element={<Profile />} />
+                <Route path={"/battle"} element={<Battle />} />
+                <Route path={"/arena"} element={<Arena />} />
+                <Route path={"/cards"} element={<Cards />} />
+                <Route path={"/social"} element={<Social />} />
 
-   return (
-      <div>
-          <Navbar/>
-          <Routes>
-              <Route path={"/"} element={<Home/>} />
-              <Route path={"/profile"} element={<Profile/>} />
-              <Route path={"/battle"} element={<Battle/>} />
-              <Route path={"/arena"} element={<Arena/>} />
-              <Route path={"/cards"} element={<Cards/>} />
-              <Route path={"/social"} element={<Social/>} />
-          </Routes>
+                <Route path={"/createcard"} element={<CreateCard />} />
+                <Route path={"/trading"} element={<Trading />} />
 
-      </div>
-  )
+            </Routes>
+
+        </div>
+    )
 }
 
 export default App

@@ -1,4 +1,5 @@
 import "./Widgets.css"
+import {Link} from "react-router-dom";
 
 interface Props {
     className?: string
@@ -8,10 +9,14 @@ export default function PlayWidget({ className } : Props) {
     return (
         <div className={className}>
             <div>
-                <p>Play 1</p>
+                <Link to={"/battle"}>
+                    <button>Battle</button>
+                </Link>
             </div>
             <div>
-                <p>Play 2</p>
+                <Link to={"/arena"}>
+                    <button>Arena</button>
+                </Link>
             </div>
         </div>
 

@@ -1,12 +1,10 @@
-<<<<<<< HEAD
 * {
   box-sizing: border-box;
 }
 html, body, #root {
   height:100%;
 }
-=======
->>>>>>> homescreen
+
 body {
   margin: 0;
   color: white;

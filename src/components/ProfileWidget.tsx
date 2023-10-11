@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import './Widgets.css'
-
 interface Props {
     className?: string
 }
