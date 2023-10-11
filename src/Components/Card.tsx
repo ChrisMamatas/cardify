@@ -11,6 +11,10 @@ interface CardProps {
     width?: string;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b7c7cdcde62f9e7867c8e7894390b06ce3f9b0b8
 const CardComponent: React.FC<CardProps> = ({
     title,
     description,
@@ -20,6 +24,7 @@ const CardComponent: React.FC<CardProps> = ({
     width
 }) => {
     return (
+<<<<<<< HEAD
         <Card style={{width: width ? width : "18em", margin: 1 }}>
             <Card.Img variant="top" src={imageUrl ? imageUrl : "https://via.placeholder.com/150"} />
             <Card.Body>
@@ -32,6 +37,25 @@ const CardComponent: React.FC<CardProps> = ({
                 {/*)}*/}
             </Card.Body>
         </Card>
+=======
+        <div>
+
+            <Card style={{ width: '18rem', margin: '16px' }}>
+                <Card.Img variant="top" src={imageUrl} />
+                <Card.Body>
+                    <Card.Title>{title}</Card.Title>
+                    <Card.Text>{description}</Card.Text>
+                    {buttonText && (
+                        <Button variant="primary" onClick={onButtonClick}>
+                            {buttonText}
+                        </Button>
+                    )}
+                </Card.Body>
+            </Card>
+
+
+        </div>
+>>>>>>> b7c7cdcde62f9e7867c8e7894390b06ce3f9b0b8
     );
 };
 
