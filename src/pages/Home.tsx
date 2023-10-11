@@ -1,4 +1,3 @@
-import {Link} from "react-router-dom";
 import ProfileWidget from "../components/ProfileWidget.tsx";
 import PlayWidget from "../components/PlayWidget.tsx";
 import "./Home.css"
@@ -38,11 +37,11 @@ export default function Home() {
         <div className={"center-container"}>
             <div className={"grid-container"}>
 
-                <ProfileWidget className={"Widget top-row"}/>
-                <DeckWidget className={"Widget top-row"}/>
-                <PlayWidget className={"Widget top-row"}/>
-                <FriendsWidget className={"Widget span-two-rows bottom-row"}/>
-                <Temp className={"Widget span-two-rows-and-columns bottom-row"}/>
+                <ProfileWidget className={"Widget top-row"} />
+                <DeckWidget className={"Widget top-row"} />
+                <PlayWidget className={"Widget top-row"} />
+                <FriendsWidget className={"Widget span-two-rows bottom-row"} />
+                <Temp className={"Widget span-two-rows-and-columns bottom-row"} />
             </div>
         </div>
     )

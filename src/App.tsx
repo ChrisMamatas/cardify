@@ -8,6 +8,7 @@ import Battle from "./pages/Battle.tsx";
 import Arena from "./pages/Arena.tsx";
 import Cards from "./pages/Cards.tsx";
 import CreateCard from './pages/CreateCard.tsx';
+import Trading from './pages/Trading.tsx';
 
 function App() {
 
@@ -24,6 +25,8 @@ function App() {
                 <Route path={"/social"} element={<Social />} />
 
                 <Route path={"/createcard"} element={<CreateCard />} />
+                <Route path={"/trading"} element={<Trading />} />
+
             </Routes>
 
         </div>
