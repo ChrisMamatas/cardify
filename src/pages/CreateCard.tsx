@@ -42,7 +42,7 @@ export default function CreateCard() {
                     <Col md="4">
 
                     </Col>
-                    <Col md="4" style={{ backgroundColor: "light-gray", height: "40em", borderRadius: "50px" }}>
+                    <Col md="4" style={{ backgroundColor: "white", height: "40em", borderRadius: "50px" }}>
 
                     </Col>
                     <Col md="4">

@@ -24,7 +24,7 @@ export default function Profile() {
                         Username
                     </Col>
                     <Col>
-                        col2
+
                     </Col>
                 </Row>
 

@@ -3,8 +3,8 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 
 interface CardProps {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     imageUrl?: string;
     buttonText?: string;
     onButtonClick?: () => void;
@@ -21,17 +21,17 @@ const CardComponent: React.FC<CardProps> = ({
 }) => {
     return (
         <div>
-            <Card style={{width: width ? width : "18em", margin: 1 }}>
+            <Card style={{width: width ? width : "18em", height:width ? width+10 : "20rem", margin: 1 }}>
                 <Card.Img variant="top" src={imageUrl ? imageUrl : "https://via.placeholder.com/150"} />
-                <Card.Body>
-                    <Card.Title>{title}</Card.Title>
-                    <Card.Text>{description}</Card.Text>
-                    {/*{buttonText && (*/}
-                    {/*    <Button variant="primary" onClick={onButtonClick}>*/}
-                    {/*        {buttonText}*/}
-                    {/*    </Button>*/}
-                    {/*)}*/}
-                </Card.Body>
+                {/*<Card.Body>*/}
+                {/*    /!*<Card.Title>{title}</Card.Title>*!/*/}
+                {/*    /!*<Card.Text>{description}</Card.Text>*!/*/}
+                {/*    /!*{buttonText && (*!/*/}
+                {/*    /!*    <Button variant="primary" onClick={onButtonClick}>*!/*/}
+                {/*    /!*        {buttonText}*!/*/}
+                {/*    /!*    </Button>*!/*/}
+                {/*    /!*)}*!/*/}
+                {/*</Card.Body>*/}
             </Card>
         </div>
 

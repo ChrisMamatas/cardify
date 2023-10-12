@@ -13,7 +13,7 @@ import Trading from './pages/Trading.tsx';
 function App() {
 
     return (
-        <div>
+        <>
             <Navbar />
             <Routes>
                 <Route path={"/"} element={<Home />} />
@@ -28,7 +28,7 @@ function App() {
 
             </Routes>
 
-        </div>
+        </>
     )
 }
 

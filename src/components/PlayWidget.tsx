@@ -1,24 +1,15 @@
 import "./Widgets.css"
 import {Link} from "react-router-dom";
 
-interface Props {
-    className?: string
-}
-export default function PlayWidget({ className } : Props) {
+export default function PlayWidget() {
 
     return (
-        <div className={className}>
-            <div>
-                <Link to={"/battle"}>
-                    <button>Battle</button>
-                </Link>
+        <Link to={"/battle"} className={"link"}>
+            <div className={"Widget center"}>
+                <h1>
+                    Play
+                </h1>
             </div>
-            <div>
-                <Link to={"/arena"}>
-                    <button>Arena</button>
-                </Link>
-            </div>
-        </div>
-
+        </Link>
     )
 }

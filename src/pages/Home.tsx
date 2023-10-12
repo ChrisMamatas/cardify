@@ -4,44 +4,33 @@ import "./Home.css"
 import SocialWidget from "../Components/SocialWidget.tsx";
 import DeckWidget from "../components/DeckWidget.tsx";
 import Temp from "../components/Temp.tsx";
+import { Container, Row, Col } from "react-bootstrap";
 
 export default function Home() {
 
     return (
-        /* <div>
-             <h1>
-                 Home
-             </h1>
-             <div>
-                 <button>
-                     <Link to={"/Social"}>Social</Link>
-                 </button>
-             </div>
-             <div>
-                 <button>
-                     <Link to={"/Cards"}>Cards</Link>
-                 </button>
-             </div>
-             <div>
-                 <button>
-                     <Link to={"/Battle"}>Battle</Link>
-                 </button>
-             </div>
-             <div>
-                 <button>
-                     <Link to={"/Arena"}>Arena</Link>
-                 </button>
-             </div>
-         </div>*/
-
-        <div className={"center-container"}>
-            <div className={"grid-container"}>
-                <ProfileWidget className={"Widget top-row"}/>
-                <DeckWidget className={"Widget top-row"}/>
-                <PlayWidget className={"Widget top-row"}/>
-                <SocialWidget className={"Widget span-two-rows bottom-row"}/>
-                <Temp className={"Widget span-two-rows-and-columns bottom-row"}/>
-            </div>
+        <div className={"m-4"}>
+            <Container>
+                <Row className={"m-4"}>
+                    <Col md={4}>
+                        <ProfileWidget/>
+                    </Col>
+                    <Col md={4}>
+                        <DeckWidget/>
+                    </Col>
+                    <Col md={4}>
+                        <PlayWidget />
+                    </Col>
+                </Row>
+                <Row className={"m-4"}>
+                    <Col md={4}>
+                        <SocialWidget />
+                    </Col>
+                    <Col md={8}>
+                        <Temp />
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 }

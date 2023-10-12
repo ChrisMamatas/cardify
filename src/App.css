@@ -46,3 +46,8 @@ body {
 .nav li.hover {
   background-color: #777;
 }
+
+.link {
+  text-decoration: none; /* Remove underline */
+  color: inherit;
+}

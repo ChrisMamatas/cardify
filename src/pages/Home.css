@@ -1,30 +1,30 @@
-.center-container {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100vh; /* Ensure the container takes up the full height of its parent */
-}
+/*.center-container {*/
+/*    display: flex;*/
+/*    justify-content: center; !* Center horizontally *!*/
+/*    align-items: center; !* Center vertically *!*/
+/*    height: 100vh; !* Ensure the container takes up the full height of its parent *!*/
+/*}*/
 
-.grid-container {
-    display: grid;
-    grid-template-columns: 35vh 50vh 35vh; /* Example: 3 columns with different widths */
-    grid-template-rows: auto; /* Auto-sized rows, adjust as needed */
-    gap: 26px; /* Gap between grid items */
-}
+/*.grid-container {*/
+/*    display: grid;*/
+/*    grid-template-columns: 35vh 50vh 35vh; !* Example: 3 columns with different widths *!*/
+/*    grid-template-rows: auto; !* Auto-sized rows, adjust as needed *!*/
+/*    gap: 26px; !* Gap between grid items *!*/
+/*}*/
 
-.span-two-rows {
-    grid-row: span 2;
-}
+/*.span-two-rows {*/
+/*    grid-row: span 2;*/
+/*}*/
 
-.span-two-rows-and-columns {
-    grid-row: span 2;
-    grid-column: span 2;
-}
+/*.span-two-rows-and-columns {*/
+/*    grid-row: span 2;*/
+/*    grid-column: span 2;*/
+/*}*/
 
-.top-row {
-    height: 20vh;
-}
+/*.top-row {*/
+/*    height: 20vh;*/
+/*}*/
 
-.bottom-row {
-    height: 40vh;
-}
+/*.bottom-row {*/
+/*    height: 40vh;*/
+/*}*/

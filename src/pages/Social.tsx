@@ -18,13 +18,10 @@ export default function Social() {
 
         return (
             <div>
-                <div style={{padding: "2%"}}/>
 
-                <div>
-                    <button style={{position: "sticky", width: "90%", left: "5%", top: "5%"}}>
+                    <button style={{position: "sticky", width: "90%", left: "5%", marginTop: "5%"}}>
                         Add Friend
                     </button>
-                </div>
 
                 <div>
 

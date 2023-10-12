@@ -1,22 +1,13 @@
 .Widget {
-    background-color: #f0f0f0;
-    padding: 20px;
-    border: 1px solid #ddd;
+    height: 100%;
+    background-color: #555;
+    padding: 10px;
+    /*border: 1px solid #ddd;*/
     border-radius: 5px;
-    text-align: center;
-    align-content: center;
 }
 
 .Widget p {
     font-size: 18px;
     font-weight: bold;
-    color: #333;
-}
-
-#top-row {
-    width: 30vh;
-}
-
-#friends {
-    height: 40vh;
+    color: white;
 }
