@@ -1,6 +1,7 @@
 // src/CardBox.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
+import "./Card.css"
 
 interface CardProps {
     title?: string;
@@ -11,6 +12,7 @@ interface CardProps {
     width?: string;
 }
 
+
 const CardComponent: React.FC<CardProps> = ({
     title,
     description,
@@ -19,20 +21,19 @@ const CardComponent: React.FC<CardProps> = ({
     onButtonClick,
     width
 }) => {
+    const [flip, setFlip] = useState(false);
     return (
-        <div>
-            <Card style={{width: width ? width : "18em", height:width ? width+10 : "20rem", margin: 1 }}>
-                <Card.Img variant="top" src={imageUrl ? imageUrl : "https://via.placeholder.com/150"} />
-                {/*<Card.Body>*/}
-                {/*    /!*<Card.Title>{title}</Card.Title>*!/*/}
-                {/*    /!*<Card.Text>{description}</Card.Text>*!/*/}
-                {/*    /!*{buttonText && (*!/*/}
-                {/*    /!*    <Button variant="primary" onClick={onButtonClick}>*!/*/}
-                {/*    /!*        {buttonText}*!/*/}
-                {/*    /!*    </Button>*!/*/}
-                {/*    /!*)}*!/*/}
-                {/*</Card.Body>*/}
-            </Card>
+        <div className={`card ${flip ? "flip" : ""}`}>
+            <div className="front" onClick={() => setFlip(!flip)}>
+                <Card >
+                    <Card.Img variant="top" src={imageUrl ? imageUrl : "src/assets/DefaultCard/Front.png"} />
+                </Card>
+            </div>
+            <div className='back' onClick={() => setFlip(!flip)}>
+                <Card >
+                    <Card.Img variant="top" src={imageUrl ? imageUrl : "src/assets/DefaultCard/Back.png"} />
+                </Card>
+            </div>
         </div>
 
     );
