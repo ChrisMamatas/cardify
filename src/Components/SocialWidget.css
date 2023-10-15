@@ -1,3 +1,8 @@
 p {
     margin: 0;
 }
+
+.friend-item:hover {
+    cursor: pointer;
+    background-color: #777777;
+}

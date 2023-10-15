@@ -1,7 +1,10 @@
 import {Link} from "react-router-dom";
-import {Image} from "react-bootstrap";
 import "./Widgets.css"
 import "./SocialWidget.css"
+import { BsPersonAdd } from "react-icons/bs";
+import { Button, Image, OverlayTrigger, Popover } from "react-bootstrap"
+import {useRef, useState} from "react";
+import FriendOptions from "./FriendOptions.tsx";
 
 interface Friends {
     username: string,
@@ -72,36 +75,41 @@ const friends: Friends[] = [
         online: true,
         profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     },
-
-
-
-
 ]
 
 export default function SocialWidget() {
 
     return (
-        <Link to={"/Social"} className={"link"}>
-            <div className={"Widget"}>
-                <div className={"d-flex justify-content-between"}>
-                    <p>Friends</p>
-                    <p>+</p>
-                </div>
-                <div style={{ height: "30rem", overflowY: 'auto'}}>
-                    <div>
-                        {friends.map((friend) => (
-                            <div className={"d-flex"} key={friend.username} style={{border: '1px solid rgba(0, 0, 0, 0.05)'}}>
-                                <Image src={friend.profile_picture} height={50}/>
-                                <div>
-                                    <p>{friend.username}</p>
-                                    <p>{friend.online ? "Online" : "Offline"}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+        <div className={"Widget"}>
+            <div className={"header"}>
+                <h5>Friends</h5>
+                <h5><BsPersonAdd/></h5>
             </div>
-
-        </Link>
+            <div className={"overflow-y-auto"} style={{height: "30rem"}}>
+                {friends.map((friend) => (
+                    <OverlayTrigger
+                        trigger="click"
+                        key={friend.username}
+                        placement={"top"}
+                        overlay={
+                            <Popover id={`popover-positioned`}>
+                                <Popover.Header as="h3">{`Popover`}</Popover.Header>
+                                <Popover.Body>
+                                    <strong>Holy guacamole!</strong> Check this info.
+                                </Popover.Body>
+                            </Popover>
+                        }
+                    >
+                        <div className={"d-flex p-2 align-items-center friend-item"}>
+                            <Image src={friend.profile_picture} height={50}/>
+                            <div className={"px-2"}>
+                                <p>{friend.username}</p>
+                                <p style={{fontSize: "0.75em"}}>{friend.online ? "Online" : "Offline"}</p>
+                            </div>
+                       </div>
+                    </OverlayTrigger>
+                ))}
+            </div>
+        </div>
     )
 }
