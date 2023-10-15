@@ -1,6 +1,6 @@
 import { Container, Row, Col, Image } from "react-bootstrap";
-import Showcase from "../Components/profile/Showcase"
-import BestCards from "../Components/profile/BestCards.tsx";
+import Showcase from "../components/profile/Showcase"
+import BestCards from "../components/profile/BestCards.tsx";
 import "./Profile.css"
 export default function Profile() {
 
@@ -9,7 +9,7 @@ export default function Profile() {
             <Container fluid className={"justify-content-between"}>
                 <Row className={"mv-10"}>
                     <Col>
-                        <Image src={"https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={200}/>
+                        <Image src={"https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={200} />
 
                     </Col>
                     <Col>
@@ -30,10 +30,10 @@ export default function Profile() {
 
                 <Row>
                     <Col>
-                        <Showcase/>
+                        <Showcase />
                     </Col>
                     <Col>
-                        <BestCards/>
+                        <BestCards />
                     </Col>
                 </Row>
             </Container>
