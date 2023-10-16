@@ -1,7 +1,7 @@
 import ProfileWidget from "../components/ProfileWidget.tsx";
 import BattleWidget from "../Components/BattleWidget.tsx";
 import "./Home.css"
-import SocialWidget from "../Components/SocialWidget.tsx";
+import SocialWidget from "../components/SocialWidget.tsx";
 import DeckWidget from "../components/DeckWidget.tsx";
 import Temp from "../components/Temp.tsx";
 import { Container, Row, Col } from "react-bootstrap";
@@ -14,10 +14,10 @@ export default function Home() {
             <Container>
                 <Row className={"m-4"}>
                     <Col md={4}>
-                        <ProfileWidget/>
+                        <ProfileWidget />
                     </Col>
                     <Col md={4}>
-                        <DeckWidget/>
+                        <DeckWidget />
                     </Col>
                     <Col>
                         <div  style={{marginBottom: "6%", height: "45%"}}>

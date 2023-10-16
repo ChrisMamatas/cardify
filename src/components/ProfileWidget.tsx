@@ -30,19 +30,19 @@ export default function ProfileWidget() {
                         <p>{profile.username} - {profile.level}</p>
                     </Row>
 
-                    <Row style={{ padding: 0 }}>
-                        <Col>
-                            <PreviewCard />
-                        </Col>
-                        <Col>
-                            <PreviewCard />
-                        </Col>
-                        <Col>
-                            <PreviewCard />
-                        </Col>
-                        <Col>
-                            <PreviewCard />
-                        </Col>
+                    <Row>
+                        <div style={{ padding: 0, height: "30rem", display: "flex", flexWrap: "wrap" }} className="overflow-y-auto flex " >
+                            <PreviewCard height="170px" />
+                            <PreviewCard height="170px" />
+                            <PreviewCard height="170px" />
+                            <PreviewCard height="170px" />
+                            <PreviewCard height="170px" />
+                            <PreviewCard height="170px" />
+                            <PreviewCard height="170px" />
+                            <PreviewCard height="170px" />
+                            <PreviewCard height="170px" />
+
+                        </div>
                     </Row>
                 </Container>
             </div>
