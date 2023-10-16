@@ -2,7 +2,16 @@ p {
     margin: 0;
 }
 
+.friend-list {
+}
+
+.friend-item {
+    overflow: visible;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, .15);
+    border-radius: 10px;
+    
+}
 .friend-item:hover {
     cursor: pointer;
-    background-color: #777777;
+    background-color: var(--accent);
 }

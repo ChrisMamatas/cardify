@@ -82,7 +82,7 @@ export default function SocialWidget() {
                 <h5>Friends</h5>
                 <h5><BsPersonAdd /></h5>
             </div>
-            <div className={"overflow-y-auto"} style={{ height: "30rem" }}>
+            <div className={"overflow-y-auto friend-list"} style={{ height: "30rem" }}>
                 {friends.map((friend) => (
                     <OverlayTrigger
                         trigger="click"
@@ -97,7 +97,7 @@ export default function SocialWidget() {
                             </Popover>
                         }
                     >
-                        <div className={"d-flex p-2 align-items-center friend-item"}>
+                        <div className={"d-flex p-2 m-2 align-items-center friend-item"}>
                             <Image src={friend.profile_picture} height={50} />
                             <div className={"px-2"}>
                                 <p>{friend.username}</p>
