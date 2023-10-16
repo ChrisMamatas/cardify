@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import './Widgets.css'
 import { Container, Image, Row, Col } from "react-bootstrap";
-import Card from "./cards/FullCard";
+import PreviewCard from "./cards/PreviewCard";
 
 const profile = {
     username: "username",
@@ -32,16 +32,16 @@ export default function ProfileWidget() {
 
                     <Row style={{ padding: 0 }}>
                         <Col>
-                            <Card />
+                            <PreviewCard />
                         </Col>
                         <Col>
-                            <Card />
+                            <PreviewCard />
                         </Col>
                         <Col>
-                            <Card />
+                            <PreviewCard />
                         </Col>
                         <Col>
-                            <Card />
+                            <PreviewCard />
                         </Col>
                     </Row>
                 </Container>

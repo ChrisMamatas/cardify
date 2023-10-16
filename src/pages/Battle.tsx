@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-import Card from "../components/cards/FullCard.tsx";
+import PreviewCard from "../components/cards/PreviewCard.tsx";
 
 export default function Battle() {
 
@@ -9,31 +9,31 @@ export default function Battle() {
             <Container>
                 <Row className={"m-4"}>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
 
                 </Row>
                 <Row className={"m-4"}>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                 </Row>
 

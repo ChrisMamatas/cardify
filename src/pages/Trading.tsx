@@ -1,5 +1,5 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
-import FullCard from "../components/cards/FullCard";
+import PreviewCard from "../components/cards/PreviewCard";
 
 const cardData = [
     {
@@ -42,13 +42,7 @@ export default function Trading() {
                         <Row md={12}>
                             {cardData.map((card, index) => (
                                 <Col md={6}>
-                                    <FullCard
-                                        key={index}
-                                        title={card.title}
-                                        description={card.description}
-                                        imageUrl={card.imageUrl}
-                                        buttonText={card.buttonText}
-                                        onButtonClick={() => alert(`${card.title} clicked!`)} />
+                                    <PreviewCard />
                                 </Col>
                             ))}
                         </Row>
@@ -61,24 +55,12 @@ export default function Trading() {
                         <Row md={12}>
                             <Col md={6}>
                                 <h3 style={{ textAlign: "center" }}>My Card</h3>
-                                <FullCard
-                                    key={"1"}
-                                    title={"My Card"}
-                                    description={"My Card Description"}
-                                    imageUrl={"https://via.placeholder.com/150"}
-                                    buttonText={"Button"}
-                                    onButtonClick={() => alert(`${"My Card"} clicked!`)} />
+                                <PreviewCard />
                             </Col>
                             <Col md={6}>
                                 <h3 style={{ textAlign: "center" }}>Friends Card</h3>
 
-                                <FullCard
-                                    key={"1"}
-                                    title={"My Card"}
-                                    description={"My Card Description"}
-                                    imageUrl={"https://via.placeholder.com/150"}
-                                    buttonText={"Button"}
-                                    onButtonClick={() => alert(`${"My Card"} clicked!`)} />
+                                <PreviewCard />
                             </Col>
                         </Row>
                         <Row md={12} style={{ marginTop: "2em" }}>
@@ -98,13 +80,7 @@ export default function Trading() {
                         <Row md={12}>
                             {cardData.map((card, index) => (
                                 <Col md={6}>
-                                    <FullCard
-                                        key={index}
-                                        title={card.title}
-                                        description={card.description}
-                                        imageUrl={card.imageUrl}
-                                        buttonText={card.buttonText}
-                                        onButtonClick={() => alert(`${card.title} clicked!`)} />
+                                    <PreviewCard />
                                 </Col>
                             ))}
                         </Row>
