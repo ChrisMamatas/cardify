@@ -1,10 +1,7 @@
-import {Link} from "react-router-dom";
 import "./Widgets.css"
 import "./SocialWidget.css"
 import { BsPersonAdd } from "react-icons/bs";
-import { Button, Image, OverlayTrigger, Popover } from "react-bootstrap"
-import {useRef, useState} from "react";
-import FriendOptions from "./FriendOptions.tsx";
+import { Image, OverlayTrigger, Popover } from "react-bootstrap"
 
 interface Friends {
     username: string,
@@ -62,15 +59,15 @@ const friends: Friends[] = [
         username: "user10",
         online: true,
         profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },{
+    }, {
         username: "user11",
         online: true,
         profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },{
+    }, {
         username: "user12",
         online: true,
         profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },{
+    }, {
         username: "user13",
         online: true,
         profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
@@ -83,9 +80,9 @@ export default function SocialWidget() {
         <div className={"Widget"}>
             <div className={"header"}>
                 <h5>Friends</h5>
-                <h5><BsPersonAdd/></h5>
+                <h5><BsPersonAdd /></h5>
             </div>
-            <div className={"overflow-y-auto"} style={{height: "30rem"}}>
+            <div className={"overflow-y-auto"} style={{ height: "30rem" }}>
                 {friends.map((friend) => (
                     <OverlayTrigger
                         trigger="click"
@@ -101,12 +98,12 @@ export default function SocialWidget() {
                         }
                     >
                         <div className={"d-flex p-2 align-items-center friend-item"}>
-                            <Image src={friend.profile_picture} height={50}/>
+                            <Image src={friend.profile_picture} height={50} />
                             <div className={"px-2"}>
                                 <p>{friend.username}</p>
-                                <p style={{fontSize: "0.75em"}}>{friend.online ? "Online" : "Offline"}</p>
+                                <p style={{ fontSize: "0.75em" }}>{friend.online ? "Online" : "Offline"}</p>
                             </div>
-                       </div>
+                        </div>
                     </OverlayTrigger>
                 ))}
             </div>
