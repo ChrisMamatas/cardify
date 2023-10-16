@@ -1,5 +1,5 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
-import CardComponent from "../components/cards/FullCard";
+import FullCard from "../components/cards/FullCard";
 
 const cardData = [
     {
@@ -42,7 +42,7 @@ export default function Trading() {
                         <Row md={12}>
                             {cardData.map((card, index) => (
                                 <Col md={6}>
-                                    <CardComponent
+                                    <FullCard
                                         key={index}
                                         title={card.title}
                                         description={card.description}
@@ -61,7 +61,7 @@ export default function Trading() {
                         <Row md={12}>
                             <Col md={6}>
                                 <h3 style={{ textAlign: "center" }}>My Card</h3>
-                                <CardComponent
+                                <FullCard
                                     key={"1"}
                                     title={"My Card"}
                                     description={"My Card Description"}
@@ -72,7 +72,7 @@ export default function Trading() {
                             <Col md={6}>
                                 <h3 style={{ textAlign: "center" }}>Friends Card</h3>
 
-                                <CardComponent
+                                <FullCard
                                     key={"1"}
                                     title={"My Card"}
                                     description={"My Card Description"}
@@ -98,7 +98,7 @@ export default function Trading() {
                         <Row md={12}>
                             {cardData.map((card, index) => (
                                 <Col md={6}>
-                                    <CardComponent
+                                    <FullCard
                                         key={index}
                                         title={card.title}
                                         description={card.description}

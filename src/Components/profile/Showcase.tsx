@@ -1,4 +1,4 @@
-import Card from "../cards/FullCard.tsx";
+import Card from "../cards/PreviewCard";
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function Showcase() {
@@ -9,17 +9,17 @@ export default function Showcase() {
                 Showcase
             </Row>
             <Row>
-                <Col className={"m-0 p-0"}>
-                    <Card title={"tmp"} description={"Lorem ipsum"} imageUrl={""} buttonText={"button"} width={"8em"} />
+                <Col>
+                    <Card />
                 </Col>
                 <Col>
-                    <Card title={"tmp"} description={"Lorem ipsum"} imageUrl={""} buttonText={"button"} width={"8em"} />
+                    <Card />
                 </Col>
                 <Col>
-                    <Card title={"tmp"} description={"Lorem ipsum"} imageUrl={""} buttonText={"button"} width={"8em"} />
+                    <Card />
                 </Col>
                 <Col>
-                    <Card title={"tmp"} description={"Lorem ipsum"} imageUrl={""} buttonText={"button"} width={"8em"} />
+                    <Card />
                 </Col>
             </Row>
         </Container>

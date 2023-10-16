@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-import Card from "../cards/FullCard.tsx";
+import Card from "../cards/PreviewCard.tsx";
 
 export default function BestCards() {
 
@@ -11,16 +11,16 @@ export default function BestCards() {
                 </Row>
                 <Row>
                     <Col>
-                        <Card title={"temp"} width={"8em"} description={"Lorem ipsum"} />
+                        <Card />
                     </Col>
                     <Col>
-                        <Card title={"temp"} width={"8em"} description={"Lorem ipsum"} />
+                        <Card />
                     </Col>
                     <Col>
-                        <Card title={"temp"} width={"8em"} description={"Lorem ipsum"} />
+                        <Card />
                     </Col>
                     <Col>
-                        <Card title={"temp"} width={"8em"} description={"Lorem ipsum"} />
+                        <Card />
                     </Col>
                 </Row>
             </Container>
