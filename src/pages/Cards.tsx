@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import CardComponent from '../components/Card';
+import PreviewCard from '../components/cards/PreviewCard';
 
 const cardData = [
     {
@@ -61,13 +61,7 @@ export default function Cards() {
                 <Row md={12}>
                     {cardData.map((card, index) => (
                         <Col md={3}>
-                            <CardComponent
-                                key={index}
-                                title={card.title}
-                                description={card.description}
-                                imageUrl={card.imageUrl}
-                                buttonText={card.buttonText}
-                                onButtonClick={() => alert(`${card.title} clicked!`)} />
+                            <PreviewCard />
                         </Col>
                     ))}
                 </Row>

@@ -1,5 +1,5 @@
-import {Col, Container, Row} from "react-bootstrap";
-import Card from "../Components/Card.tsx";
+import { Col, Container, Row } from "react-bootstrap";
+import PreviewCard from "../components/cards/PreviewCard.tsx";
 
 export default function Battle() {
 
@@ -9,36 +9,36 @@ export default function Battle() {
             <Container>
                 <Row className={"m-4"}>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
 
                 </Row>
                 <Row className={"m-4"}>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                     <Col>
-                        <Card title={"tmp"} description={"Lorem ipsum"} width={"10em"} />
+                        <PreviewCard />
                     </Col>
                 </Row>
 
                 <Row>
-                    <button style={{alignSelf: "center"}}>
+                    <button style={{ alignSelf: "center" }}>
                         Confirm
                     </button>
                 </Row>
