@@ -1,5 +1,5 @@
-import {Col, Container, Row} from "react-bootstrap";
-import Card from "../Components/Card.tsx";
+import { Col, Container, Row } from "react-bootstrap";
+import Card from "../components/cards/FullCard.tsx";
 
 export default function Battle() {
 
@@ -38,7 +38,7 @@ export default function Battle() {
                 </Row>
 
                 <Row>
-                    <button style={{alignSelf: "center"}}>
+                    <button style={{ alignSelf: "center" }}>
                         Confirm
                     </button>
                 </Row>

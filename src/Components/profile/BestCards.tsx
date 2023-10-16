@@ -1,5 +1,5 @@
-import {Col, Container, Row} from "react-bootstrap";
-import Card from "../Card.tsx";
+import { Col, Container, Row } from "react-bootstrap";
+import Card from "../cards/FullCard.tsx";
 
 export default function BestCards() {
 

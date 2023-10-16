@@ -1,5 +1,5 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
-import CardComponent from "../components/Card";
+import CardComponent from "../components/cards/FullCard";
 
 const cardData = [
     {
