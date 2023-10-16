@@ -1,10 +1,11 @@
 import ProfileWidget from "../components/ProfileWidget.tsx";
-import PlayWidget from "../components/PlayWidget.tsx";
+import BattleWidget from "../Components/BattleWidget.tsx";
 import "./Home.css"
 import SocialWidget from "../Components/SocialWidget.tsx";
 import DeckWidget from "../components/DeckWidget.tsx";
 import Temp from "../components/Temp.tsx";
 import { Container, Row, Col } from "react-bootstrap";
+import ArenaWidget from "../Components/ArenaWidget.tsx";
 
 export default function Home() {
 
@@ -18,8 +19,13 @@ export default function Home() {
                     <Col md={4}>
                         <DeckWidget/>
                     </Col>
-                    <Col md={4}>
-                        <PlayWidget />
+                    <Col>
+                        <div  style={{marginBottom: "6%", height: "45%"}}>
+                            <BattleWidget />
+                        </div>
+                        <div  style={{height: "45%"}}>
+                            <ArenaWidget />
+                        </div>
                     </Col>
                 </Row>
                 <Row className={"m-4"}>

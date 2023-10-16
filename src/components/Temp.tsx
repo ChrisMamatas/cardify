@@ -76,6 +76,9 @@ export default function Temp() {
             </div>
             <div className={"d-flex flex-column justify-content-end"}>
                 <input type={"text"} placeholder={"Type here"}/>
+                <button style={{paddingInline:"1%", marginBottom: "0.2em", left: "87%", position: "absolute", borderRadius: "45%", fontSize: "80%"}}>
+                    Send
+                </button>
             </div>
         </div>
     );
