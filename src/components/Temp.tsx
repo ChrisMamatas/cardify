@@ -48,12 +48,21 @@ interface Message {
 function ChatMessage({ message } : Message) {
     if (message.type === "received") {
         return (
-            <p>User1: {message.content}</p>
+            <div>
+                <p style={{padding: "0.5em", display: "inline-block", backgroundColor: "var(--accent)", borderRadius: "90px"}}>
+                    User1: {message.content}
+                </p>
+            </div>
+
         )
     }
     else {
         return (
-            <p>You: {message.content}</p>
+            <div className = "justify-content-end">
+                <p style={{padding: "0.5em", display: "inline-block", backgroundColor: "var(--secondary)", borderRadius: "90px"}}>
+                    You: {message.content}
+                </p>
+            </div>
         )
     }
 
@@ -74,9 +83,9 @@ export default function Temp() {
                     ))
                 }
             </div>
-            <div className={"d-flex flex-column justify-content-end"}>
-                <input type={"text"} placeholder={"Type here"}/>
-                <button style={{paddingInline:"1%", marginBottom: "0.2em", left: "87%", position: "absolute", borderRadius: "45%", fontSize: "80%"}}>
+            <div className={"d-flex flex-direction-row gap-1 justify-content-end"}>
+                <input type={"text"} placeholder={"Type here"} style={{paddingRight: "6%"}} className={"w-100"}/>
+                <button style={{ position: "absolute", borderRadius: "45%", fontSize: "80%", marginTop: "0.2em", marginRight: "0.2em", opacity: "70%"}}>
                     Send
                 </button>
             </div>
