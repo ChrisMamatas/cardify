@@ -32,10 +32,10 @@ export default function ProfileWidget() {
 
                     <Row>
                         <div style={{ padding: 0,  display: "flex", flexWrap: "wrap" }}  >
-                            <PreviewCard height="100px" />
-                            <PreviewCard height="100px" />
-                            <PreviewCard height="100px" />
-                            <PreviewCard height="100px" />
+                            <PreviewCard height="90px" />
+                            <PreviewCard height="90px" />
+                            <PreviewCard height="90px" />
+                            <PreviewCard height="90px" />
                         </div>
                     </Row>
                 </Container>

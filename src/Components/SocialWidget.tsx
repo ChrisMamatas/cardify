@@ -83,7 +83,7 @@ export default function SocialWidget() {
                 <h5>Friends</h5>
                 <h5><BsPersonAdd /></h5>
             </div>
-            <div className={"overflow-y-auto friend-list"} style={{ height: "30rem" }}>
+            <div className={"overflow-y-auto friend-list"} style={{ height: "25rem" }}>
                 {friends.map((friend) => (
                     <OverlayTrigger
                         trigger="click"
