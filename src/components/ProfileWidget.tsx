@@ -31,17 +31,11 @@ export default function ProfileWidget() {
                     </Row>
 
                     <Row>
-                        <div style={{ padding: 0, height: "30rem", display: "flex", flexWrap: "wrap" }} className="overflow-y-auto flex " >
-                            <PreviewCard height="170px" />
-                            <PreviewCard height="170px" />
-                            <PreviewCard height="170px" />
-                            <PreviewCard height="170px" />
-                            <PreviewCard height="170px" />
-                            <PreviewCard height="170px" />
-                            <PreviewCard height="170px" />
-                            <PreviewCard height="170px" />
-                            <PreviewCard height="170px" />
-
+                        <div style={{ padding: 0,  display: "flex", flexWrap: "wrap" }}  >
+                            <PreviewCard height="100px" />
+                            <PreviewCard height="100px" />
+                            <PreviewCard height="100px" />
+                            <PreviewCard height="100px" />
                         </div>
                     </Row>
                 </Container>

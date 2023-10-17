@@ -1,5 +1,4 @@
 import './App.css'
-import Navbar from "./navigation/Navbar.tsx";
 import { Route, Routes } from "react-router-dom"
 import Home from "./pages/Home.tsx";
 import Social from "./pages/Social.tsx";
@@ -9,12 +8,13 @@ import Arena from "./pages/Arena.tsx";
 import Cards from "./pages/Cards.tsx";
 import CreateCard from './pages/CreateCard.tsx';
 import Trading from './pages/Trading.tsx';
+import CustomNavbar from "./navigation/Navbar.tsx";
 
 function App() {
 
     return (
         <>
-            <Navbar />
+            <CustomNavbar />
             <Routes>
                 <Route path={"/"} element={<Home />} />
                 <Route path={"/profile"} element={<Profile />} />

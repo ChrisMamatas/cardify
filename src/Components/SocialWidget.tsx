@@ -1,7 +1,8 @@
 import "./Widgets.css"
 import "./SocialWidget.css"
 import { BsPersonAdd } from "react-icons/bs";
-import { Image, OverlayTrigger, Popover } from "react-bootstrap"
+import {Image, OverlayTrigger, Popover, Table} from "react-bootstrap"
+import ProfileWidget from "./ProfileWidget.tsx";
 
 interface Friends {
     username: string,
@@ -89,10 +90,22 @@ export default function SocialWidget() {
                         key={friend.username}
                         placement={"top"}
                         overlay={
-                            <Popover id={`popover-positioned`}>
-                                <Popover.Header as="h3">{`Popover`}</Popover.Header>
+                            <Popover id={`popover-positioned`} >
                                 <Popover.Body>
-                                    <strong>Holy guacamole!</strong> Check this info.
+                                    <Table striped bordered hover>
+                                        <thead>
+                                        <tr>
+                                            <th>{friend.username}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>First Name</td></tr>
+                                            <tr><td>First Name</td></tr>
+                                            <tr><td>First Name</td></tr>
+                                            <tr><td>First Name</td></tr>
+                                        </tbody>
+
+                                    </Table>
                                 </Popover.Body>
                             </Popover>
                         }
