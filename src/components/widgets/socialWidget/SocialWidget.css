@@ -46,7 +46,6 @@ p {
     tbody {
         tr {
             display: flex;
-            width: 100%;
             text-decoration: none;
             justify-content: space-between;
             align-items: center;
@@ -54,8 +53,16 @@ p {
             border-style: none;
             margin-top: .25em;
             border-radius: 10px;
-            text-align: center;
             padding: 0.5em;
+        }
+
+        a {
+            border-style: none;
+            text-align: center;
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+            background-color: var(--primary);
         }
 
         td {
@@ -63,12 +70,13 @@ p {
             margin: 0;
             color: rgb(255, 255, 255);
             border-style: none;
-        }
-
-        a {
-            text-decoration: none;
+            text-align: center;
             padding: 0;
             margin: 0;
+            width: 100%;
+
         }
+
+
     }
 }
