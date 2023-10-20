@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from "react";
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 import './Temp.css';
 
 const chats = [
@@ -7,15 +9,15 @@ const chats = [
         username: "user1",
         messages: [
             {
-                content: "How are you",
+                content: "This the Timeline",
                 type: "received"
             },
             {
-                content: "Good! Want to play",
+                content: "Cool!",
                 type: "sent"
             },
             {
-                content: "Lets do this.",
+                content: "I know",
                 type: "received"
             },
         ]
@@ -24,7 +26,7 @@ const chats = [
         username: "user2",
         messages: [
             {
-                content: "How are you guy 2",
+                content: "Hello this is user 2",
                 type: "received"
             },
             {
@@ -53,36 +55,54 @@ function ChatMessage({ message } : Message) {
                     User1: {message.content}
                 </p>
             </div>
-
         )
     }
     else {
         return (
             <div style={{display: "grid"}}>
-                <p style={{padding: "0.5em", justifyItems: "", marginBottom: "0.5em", backgroundColor: "var(--secondary)", borderRadius: "90px"}}>
+                <p style={{padding: "0.5em", justifySelf: "end", marginBottom: "0.5em", backgroundColor: "var(--secondary)", borderRadius: "90px"}}>
                     You: {message.content}
                 </p>
             </div>
         )
     }
-
 }
-
 export default function Temp() {
     return (
         <div className={"Widget d-flex flex-column"}>
+            <Tabs justify style={{backgroundColor: "var(--primary)"}}>
+                <Tab eventKey="Timeline" title="TimeLine" style={{backgroundColor: "var(--primary)"}}>
+                    <div className={"d-flex flex-column flex-grow-1 justify-content-end"} style={{backgroundColor: "var(--primary)", height: "25rem"}}>
+                        {
+                            chats[0].messages.map((msg) => (
+                                <ChatMessage message={msg} />
+                            ))
+                        }
+                    </div>
+                </Tab>
 
-            <div className={"header justify-content-start"}>
-                <h5>Feed</h5>
-                <h5>Chat</h5>
-            </div>
-            <div className={"d-flex flex-column flex-grow-1 justify-content-end"}>
-                {
-                    chats[0].messages.map((msg) => (
-                        <ChatMessage message={msg} />
-                    ))
-                }
-            </div>
+                <Tab eventKey="Chat1" title="Chat1" style={{backgroundColor: "var(--accent)"}}>
+                    <div className={"d-flex flex-column flex-grow-1 justify-content-end"} style={{backgroundColor: "var(--primary)", height: "25rem"}}>
+                        {
+                            chats[0].messages.map((msg) => (
+                                <ChatMessage message={msg} />
+                            ))
+                        }
+                    </div>
+                </Tab>
+
+                <Tab eventKey="Chat2" title="Chat2" style={{backgroundColor: "var(--accent)"}}>
+                    <div className={"d-flex flex-column flex-grow-1 justify-content-end"} style={{backgroundColor: "var(--primary)", height: "25rem"}}>
+                        {
+                            chats[0].messages.map((msg) => (
+                                <ChatMessage message={msg} />
+                            ))
+                        }
+                    </div>
+                </Tab>
+            </Tabs>
+
+
             <div className={"d-flex flex-direction-row gap-1 justify-content-end"}>
                 <input type={"text"} placeholder={"Type here"} style={{paddingRight: "6%"}} className={"w-100"}/>
                 <button style={{ position: "absolute", borderRadius: "45%", fontSize: "80%", marginTop: "0.2em", marginRight: "0.2em", opacity: "70%"}}>
