@@ -9,14 +9,10 @@ export const AuthProvider = ({ children }: any) => {
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
-            console.log("auth state changed")
-            setCurrentUser(user);
-            if (!user) {
-                redirect("/login")
-            }
+            console.log(user)
         });
 
-    }, []);
+    }, [currentUser]);
 
     return (
         <AuthContext.Provider value={{ currentUser }}>

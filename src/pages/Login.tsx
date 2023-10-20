@@ -3,7 +3,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel"
 import Form from 'react-bootstrap/Form';
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../firebaseConfig.ts";
-import { Link, redirect } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Image} from "react-bootstrap";
 import {AuthContext} from "../utils/Auth.tsx";
 
@@ -12,11 +12,13 @@ export default function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    const navigate = useNavigate()
+
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
 
         signInWithEmailAndPassword(auth, email, password)
-            .then((res) => console.log(res))
+            .then((res) => navigate("/"))
             .catch((error) => alert(error))
 
     }

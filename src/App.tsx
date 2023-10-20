@@ -1,5 +1,5 @@
 import './App.css'
-import {Route, Routes} from "react-router-dom"
+import {Route, Routes, Navigate} from "react-router-dom"
 import Home from "./pages/Home.tsx";
 import Social from "./pages/Social.tsx";
 import Profile from "./pages/Profile.tsx"
@@ -11,15 +11,16 @@ import Trading from './pages/Trading.tsx';
 import CustomNavbar from "./navigation/Navbar.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
-import { AuthProvider } from "./utils/Auth.tsx";
-import PrivateRoute from "./utils/PrivateRoute.tsx";
+import {AuthContext, AuthProvider} from "./utils/Auth.tsx";
+import React from "react";
+// import PrivateRoute from "./utils/PrivateRoute.tsx";
 
 function App() {
 
     return (
         <>
             <AuthProvider>
-                <CustomNavbar />
+                {/*<CustomNavbar />*/}
                 <Routes>
                     <Route path={"/"} element={<Home />} />
                     <Route path={"/login"} element={<Login />} />
