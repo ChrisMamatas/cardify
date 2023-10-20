@@ -1,8 +1,8 @@
-import "./Widgets.css"
+import "../../Widgets.css"
 import "./SocialWidget.css"
 import { BsPersonAdd } from "react-icons/bs";
-import {Image, OverlayTrigger, Popover, Table} from "react-bootstrap"
-import ProfileWidget from "./ProfileWidget.tsx";
+import { Image, OverlayTrigger, Popover, Table } from "react-bootstrap"
+import { Link } from "react-router-dom";
 
 interface Friends {
     username: string,
@@ -90,19 +90,23 @@ export default function SocialWidget() {
                         key={friend.username}
                         placement={"top"}
                         overlay={
-                            <Popover id={`popover-positioned`} >
+                            <Popover id={`popover-positioned`} style={{ backgroundColor: "#424B54" }} >
                                 <Popover.Body>
-                                    <Table striped bordered hover>
+                                    <Table striped bordered hover className="social-popup">
                                         <thead>
-                                        <tr>
-                                            <th>{friend.username}</th>
-                                        </tr>
+                                            <tr>
+                                                <th>{friend.username}</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                            <tr><td>First Name</td></tr>
-                                            <tr><td>First Name</td></tr>
-                                            <tr><td>First Name</td></tr>
-                                            <tr><td>First Name</td></tr>
+                                            <tr>
+                                                <Link className="social-popup" to={"/trading"}><td>Trade</td></Link>
+                                            </tr>
+                                            <tr>
+                                                <td>Message</td>
+                                            </tr>
+                                            {/* <tr><td>First Name</td></tr> */}
+                                            {/* <tr><td>First Name</td></tr> */}
                                         </tbody>
 
                                     </Table>

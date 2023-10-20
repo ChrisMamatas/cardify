@@ -1,6 +1,7 @@
 import { Link, Route, Routes } from "react-router-dom"
-import "./Widgets.css"
-import CreateCard from "../pages/CreateCard"
+import CreateCard from "../../../pages/CreateCard"
+import "../../Widgets.css"
+import "./DeckWidget.css"
 
 export default function DeckWidget() {
 

@@ -1,11 +1,11 @@
-import ProfileWidget from "../components/ProfileWidget.tsx";
-import BattleWidget from "../Components/BattleWidget.tsx";
+import ProfileWidget from "../components/widgets/profileWidget/ProfileWidget.tsx";
+import BattleWidget from "../components/widgets/battleWidget/BattleWidget.tsx";
 import "./Home.css"
-import SocialWidget from "../components/SocialWidget.tsx";
-import DeckWidget from "../components/DeckWidget.tsx";
+import SocialWidget from "../components/widgets/socialWidget/SocialWidget.tsx";
+import DeckWidget from "../components/widgets/deckWidget/DeckWidget.tsx";
 import Temp from "../components/Temp.tsx";
 import { Container, Row, Col } from "react-bootstrap";
-import ArenaWidget from "../Components/ArenaWidget.tsx";
+import ArenaWidget from "../components/widgets/arenaWidget/ArenaWidget.tsx";
 
 export default function Home() {
 
@@ -20,10 +20,10 @@ export default function Home() {
                         <DeckWidget />
                     </Col>
                     <Col>
-                        <div  style={{marginBottom: "6%", height: "45%"}}>
+                        <div style={{ marginBottom: "6%", height: "45%" }}>
                             <BattleWidget />
                         </div>
-                        <div  style={{height: "45%"}}>
+                        <div style={{ height: "45%" }}>
                             <ArenaWidget />
                         </div>
                     </Col>
