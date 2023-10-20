@@ -49,7 +49,7 @@ function ChatMessage({ message } : Message) {
     if (message.type === "received") {
         return (
             <div>
-                <p style={{padding: "0.5em", display: "inline-block", backgroundColor: "var(--accent)", borderRadius: "90px"}}>
+                <p style={{padding: "0.5em", marginBottom: "0.5em", display: "inline-block", backgroundColor: "var(--accent)", borderRadius: "90px"}}>
                     User1: {message.content}
                 </p>
             </div>
@@ -58,8 +58,8 @@ function ChatMessage({ message } : Message) {
     }
     else {
         return (
-            <div className = "justify-content-end">
-                <p style={{padding: "0.5em", display: "inline-block", backgroundColor: "var(--secondary)", borderRadius: "90px"}}>
+            <div style={{display: "grid"}}>
+                <p style={{padding: "0.5em", justifyItems: "", marginBottom: "0.5em", backgroundColor: "var(--secondary)", borderRadius: "90px"}}>
                     You: {message.content}
                 </p>
             </div>
