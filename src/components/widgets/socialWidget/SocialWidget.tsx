@@ -108,7 +108,6 @@ export default function SocialWidget() {
                                             {/* <tr><td>First Name</td></tr> */}
                                             {/* <tr><td>First Name</td></tr> */}
                                         </tbody>
-
                                     </Table>
                                 </Popover.Body>
                             </Popover>

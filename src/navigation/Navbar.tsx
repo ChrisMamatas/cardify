@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "./Navbar.css"
+import {auth} from "../../firebaseConfig.ts";
 
 export default function CustomNavbar() {
 
@@ -30,7 +31,7 @@ export default function CustomNavbar() {
                                 Something
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => auth.signOut()}>
                                 Logout
                             </NavDropdown.Item>
                         </NavDropdown>
