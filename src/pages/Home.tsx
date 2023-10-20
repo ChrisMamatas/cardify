@@ -10,7 +10,7 @@ import ArenaWidget from "../components/widgets/arenaWidget/ArenaWidget.tsx";
 export default function Home() {
 
     return (
-        <div className={"m-4"}>
+        <div className={"p-2"}>
             <Container>
                 <Row className={"m-4"}>
                     <Col md={4}>
