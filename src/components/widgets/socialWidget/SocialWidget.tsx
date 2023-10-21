@@ -90,6 +90,11 @@ export default function SocialWidget() {
 
     return (
         <div className={"Widget"}>
+            <div className={"header"}>
+                <h5>Friends</h5>
+                <h5><BsPersonAdd /></h5>
+            </div>
+
             <div className={"overflow-y-auto friend-list"} style={{ height: "25rem" }}>
                 {friends.map(friend => (
                     <div onClick={() => createPopup(friend)} key={friend.username}>
