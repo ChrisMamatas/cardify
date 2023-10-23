@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function ArenaWidget() {
 
     return (
-        <Link to={"/Arena"} className={"link"}>
+        <Link to={"/ArenaSelector"} className={"link"}>
             <div className={"Widget center GradientArena"}>
                 <h1 style={{ color: "Black" }}>
                     Arena

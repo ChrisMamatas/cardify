@@ -1,8 +1,8 @@
-import { Col, Container, Row } from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import PreviewCard from "../components/cards/PreviewCard.tsx";
 
-export default function Battle() {
 
+export default function ArenaDrafter() {
     return (
         <div>
             <h1 className="center">
@@ -12,41 +12,40 @@ export default function Battle() {
             <Container>
                 <Row className={"m-4"}>
                     <Col>
-                        <PreviewCard />
+                        <PreviewCard/>
                     </Col>
                     <Col>
-                        <PreviewCard />
+                        <PreviewCard/>
                     </Col>
                     <Col>
-                        <PreviewCard />
+                        <PreviewCard/>
                     </Col>
                     <Col>
-                        <PreviewCard />
+                        <PreviewCard/>
                     </Col>
 
                 </Row>
                 <Row className={"m-4"}>
                     <Col>
-                        <PreviewCard />
+                        <PreviewCard/>
                     </Col>
                     <Col>
-                        <PreviewCard />
+                        <PreviewCard/>
                     </Col>
                     <Col>
-                        <PreviewCard />
+                        <PreviewCard/>
                     </Col>
                     <Col>
-                        <PreviewCard />
+                        <PreviewCard/>
                     </Col>
                 </Row>
 
                 <Row>
-                    <button style={{ alignSelf: "center" }}>
+                    <button style={{alignSelf: "center"}}>
                         Confirm
                     </button>
                 </Row>
             </Container>
         </div>
-
     )
 }
