@@ -1,4 +1,4 @@
-import { Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {MdSettings} from "react-icons/md"
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -8,6 +8,13 @@ import "./Navbar.css"
 import {auth} from "../../firebaseConfig.ts";
 
 export default function CustomNavbar() {
+
+    const navigate = useNavigate()
+
+    async function logout() {
+        await auth.signOut()
+        navigate("/login")
+    }
 
     return (
         <Navbar variant="dark" bg="dark" expand="lg">
@@ -31,7 +38,7 @@ export default function CustomNavbar() {
                                 Something
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item onClick={() => auth.signOut()}>
+                            <NavDropdown.Item onClick={logout}>
                                 Logout
                             </NavDropdown.Item>
                         </NavDropdown>
