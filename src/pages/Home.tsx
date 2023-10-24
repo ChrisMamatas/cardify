@@ -6,6 +6,8 @@ import DeckWidget from "../components/widgets/deckWidget/DeckWidget.tsx";
 import Temp from "../components/Temp.tsx";
 import { Container, Row, Col } from "react-bootstrap";
 import ArenaWidget from "../components/widgets/arenaWidget/ArenaWidget.tsx";
+import {auth} from "../../firebaseConfig.ts";
+import {redirect} from "react-router-dom";
 
 export default function Home() {
 

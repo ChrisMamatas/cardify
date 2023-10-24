@@ -1,5 +1,6 @@
+import React, {useEffect, useState} from "react";
 import './App.css'
-import {Route, Routes, Navigate} from "react-router-dom"
+import {Route, Routes, redirect, useLocation, useNavigate, useNavigation} from "react-router-dom"
 import Home from "./pages/Home.tsx";
 import Social from "./pages/Social.tsx";
 import Profile from "./pages/Profile.tsx"
@@ -12,10 +13,26 @@ import CustomNavbar from "./navigation/Navbar.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import {AuthContext, AuthProvider} from "./utils/Auth.tsx";
-import React from "react";
+import {auth} from "../firebaseConfig.ts"
 // import PrivateRoute from "./utils/PrivateRoute.tsx";
 
 function App() {
+
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    // console.log(location)
+
+    useEffect(() => {
+        if (!auth.currentUser && (location.pathname !== "/login" && location.pathname !== "/register")) {
+            console.log("should rediret, app.tsx")
+            navigate("/login")
+        }
+        else {
+            console.log(auth.currentUser)
+        }
+    }, []);
+
 
     return (
         <>
