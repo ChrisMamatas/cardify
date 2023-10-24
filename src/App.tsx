@@ -37,7 +37,9 @@ function App() {
     return (
         <>
             <AuthProvider>
-                <CustomNavbar />
+                {
+                    location.pathname !== "/login" && location.pathname !== "/register" &&  <CustomNavbar />
+                }
                 <Routes>
                     <Route path={"/"} element={<Home />} />
                     <Route path={"/login"} element={<Login />} />
