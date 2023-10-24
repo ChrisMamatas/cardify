@@ -29,11 +29,7 @@ function App() {
 
     useEffect(() => {
         if (!auth.currentUser && (location.pathname !== "/login" && location.pathname !== "/register")) {
-            console.log("should rediret, app.tsx")
             navigate("/login")
-        }
-        else {
-            console.log(auth.currentUser)
         }
     }, []);
 
