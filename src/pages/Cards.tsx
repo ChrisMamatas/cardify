@@ -68,8 +68,8 @@ export default function Cards() {
                 <Row style={{ marginTop: "32px" }}>
                     <Col md={6}>
                         <Link to={"/createcard"}>
-                            <Button variant="primary" size="lg" style={{ float: 'left', width: '100%' }}>Create Card
-
+                            <Button variant="primary" size="lg" style={{ float: 'left', width: '100%' }}>
+                                Create Card
                             </Button>
                         </Link>
                     </Col>

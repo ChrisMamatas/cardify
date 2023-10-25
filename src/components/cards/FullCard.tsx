@@ -19,6 +19,7 @@ const CardComponent: React.FC<CardProps> = ({
 }) => {
     const [flip, setFlip] = useState(false);
     return (
+
         <div className={cardStyles["card-container"]} onClick={(event) => {
             if (event.target === event.currentTarget) {
                 onClickOff();

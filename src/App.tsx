@@ -13,6 +13,8 @@ import CustomNavbar from "./navigation/Navbar.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import {AuthContext, AuthProvider} from "./utils/Auth.tsx";
+import React from "react";
+import ArenaDrafter from "./pages/ArenaDrafter.tsx";
 import {auth} from "../firebaseConfig.ts"
 // import PrivateRoute from "./utils/PrivateRoute.tsx";
 
@@ -50,7 +52,7 @@ function App() {
                     <Route path={"/arenaSelector"} element={<ArenaSelector />} />
                     <Route path={"/cards"} element={<Cards />} />
                     <Route path={"/social"} element={<Social />} />
-
+                    <Route path={"/ArenaDrafter"} element={<ArenaDrafter/>}/>
                     <Route path={"/createcard"} element={<CreateCard />} />
                     <Route path={"/trading"} element={<Trading />} />
 
