@@ -77,9 +77,7 @@ export default function Cards() {
                         <Button variant="primary" size="lg" style={{ float: 'right', width: '100%' }}>Delete Card</Button>
                     </Col>
                 </Row>
-
             </Container>
-
         </>
     );
 };

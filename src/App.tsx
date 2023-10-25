@@ -13,7 +13,6 @@ import CustomNavbar from "./navigation/Navbar.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import {AuthContext, AuthProvider} from "./utils/Auth.tsx";
-import React from "react";
 import ArenaDrafter from "./pages/ArenaDrafter.tsx";
 import {auth} from "../firebaseConfig.ts"
 // import PrivateRoute from "./utils/PrivateRoute.tsx";
