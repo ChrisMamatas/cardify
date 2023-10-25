@@ -1,3 +1,20 @@
 div.browse:hover{
-    background-color: Red;
+    background-color: var(--accent);
+    border-radius: 10%;
+    margin-top: 0;
+    justify-content: center;
+}
+
+.custom {
+    background-color: var(--accent);
+    visibility: hidden;
+    font-size: small;
+}
+
+div.browse:hover .custom{
+    background-color: var(--accent);
+    margin-top: 0;
+    justify-content: center;
+    visibility: visible;
+    font-size: small;
 }
