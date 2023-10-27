@@ -15,6 +15,7 @@ import Register from "./pages/Register.tsx";
 import {AuthContext, AuthProvider} from "./utils/Auth.tsx";
 import ArenaDrafter from "./pages/ArenaDrafter.tsx";
 import {auth} from "../firebaseConfig.ts"
+import BattleMatch from "./pages/BattleMatch.tsx";
 // import PrivateRoute from "./utils/PrivateRoute.tsx";
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
 
                     <Route path={"/profile"} element={<Profile />} />
                     <Route path={"/battle"} element={<Battle />} />
+                    <Route path={"/battleMatch"} element={<BattleMatch />} />
                     <Route path={"/arenaSelector"} element={<ArenaSelector />} />
                     <Route path={"/cards"} element={<Cards />} />
                     <Route path={"/social"} element={<Social />} />

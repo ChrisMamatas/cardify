@@ -1,7 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import PreviewCard from "../components/cards/PreviewCard.tsx";
 import {Link, Route, Routes} from "react-router-dom";
-import ArenaDrafter from "./ArenaDrafter.tsx";
 
 export default function ArenaSelector() {
 
