@@ -3,59 +3,9 @@ import { Link } from 'react-router-dom';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import PreviewCard from '../components/cards/PreviewCard';
 import { auth } from "../../firebaseConfig.ts";
-import dotenv from "dotenv"
-import path from "path"
 
-// const cardData = [
-//     {
-//         title: "Card 1",
-//         description: "This is the description for card 1.",
-//         imageUrl: "https://via.placeholder.com/150",
-//         buttonText: "More Info",
-//     },
-//     {
-//         title: "Card 2",
-//         description: "This is the description for card 2.",
-//         imageUrl: "https://via.placeholder.com/150",
-//         buttonText: "Details",
-//     },
-//     {
-//         title: "Card 3",
-//         description: "This is the description for card 3.",
-//         imageUrl: "https://via.placeholder.com/150",
-//         buttonText: "Learn More",
-//     },
-//     {
-//         title: "Card 4",
-//         description: "This is the description for card 4.",
-//         imageUrl: "https://via.placeholder.com/150",
-//         buttonText: "Click Me",
-//     },
-//     {
-//         title: "Card 5",
-//         description: "This is the description for card 5.",
-//         imageUrl: "https://via.placeholder.com/150",
-//         buttonText: "More Info",
-//     },
-//     {
-//         title: "Card 6",
-//         description: "This is the description for card 6.",
-//         imageUrl: "https://via.placeholder.com/150",
-//         buttonText: "Details",
-//     },
-//     {
-//         title: "Card 7",
-//         description: "This is the description for card 7.",
-//         imageUrl: "https://via.placeholder.com/150",
-//         buttonText: "Learn More",
-//     },
-//     {
-//         title: "Card 8",
-//         description: "This is the description for card 8.",
-//         imageUrl: "https://via.placeholder.com/150",
-//         buttonText: "Click Me",
-//     },
-// ];
+
+
 
 export default function Cards() {
 
@@ -67,21 +17,25 @@ export default function Cards() {
 
 
     async function getData() {
-        fetch("http://localhost:8080/card")
-        .then((response) => {
-            if (response.ok) {
-                return response.json()
-            }
-            else {
-                throw new Error()
+        fetch("http://localhost:8080/card", {
+            headers: {
+                "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
             }
         })
-        .then((data) => {
-            console.log("data")
-            console.log(data)
-            setCards(data)
-        })
-        .catch((e) => alert(e))
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+                    throw new Error()
+                }
+            })
+            .then((data) => {
+                console.log("data")
+                console.log(data)
+                setCards(data)
+            })
+            .catch((e) => alert(e))
     }
 
     return (
@@ -97,7 +51,7 @@ export default function Cards() {
                     {
                         cards.map((card, index) => (
                             <Col md={3}>
-                                <PreviewCard imageUrl={"data:image/png;base64," + card.image}/>
+                                <PreviewCard imageUrl={"data:image/png;base64," + card.image} />
                             </Col>
                         ))
                     }

@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import "./CreateCard.css"
 import Button from 'react-bootstrap/esm/Button';
 import { useState } from 'react';
+import { auth } from '../../firebaseConfig';
 
 export default function CreateCard() {
     // const apiDomain = process.env.REACT_APP_Cardify_API || '';
@@ -27,18 +28,21 @@ export default function CreateCard() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+        let user = auth.currentUser;
+        let token = await user?.getIdToken();
         let request = {
             name: name,
             image: file
         }
+        console.log(request);
 
         try {
             const response = await fetch(apiDomain, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
                 },
                 body: JSON.stringify(request)
             });
