@@ -6,6 +6,7 @@ import Social from "./pages/Social.tsx";
 import Profile from "./pages/Profile.tsx"
 import Battle from "./pages/Battle.tsx";
 import ArenaSelector from "./pages/ArenaSelector.tsx";
+import ArenaMatch from "./pages/ArenaMatch.tsx"
 import Cards from "./pages/Cards.tsx";
 import CreateCard from './pages/CreateCard.tsx';
 import Trading from './pages/Trading.tsx';
@@ -50,6 +51,7 @@ function App() {
                     <Route path={"/profile"} element={<Profile />} />
                     <Route path={"/battle"} element={<Battle />} />
                     <Route path={"/battleMatch"} element={<BattleMatch />} />
+                    <Route path={"/arenaMatch"} element={<ArenaMatch />} />
                     <Route path={"/arenaSelector"} element={<ArenaSelector />} />
                     <Route path={"/cards"} element={<Cards />} />
                     <Route path={"/social"} element={<Social />} />

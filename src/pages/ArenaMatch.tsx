@@ -1,7 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { Modal, ModalProps, Button } from 'react-bootstrap';
 import PreviewCard from "../components/cards/PreviewCard.tsx";
-import "./BattleMatch.css"
+import "./ArenaMatch.css"
 import React, { useState } from "react";
 
 function WinModal(props: ModalProps) {
@@ -61,40 +61,36 @@ export default function BattleMatch() {
                 <LoseModal show={true} onHide={() => setLoss(false)} />
             )}
 
-                <h1 className="center">
-                    FIGHT BATTLE
-                </h1>
-                <div className="center">
-                    <Container>
-                        <Row>
-                            <Col className="center"><PreviewCard height="100px"/></Col> <Col/> <Col/> <Col/>
-                        </Row>
+            <h1 className="center">
+                FIGHT ARENA
+            </h1>
+            <div className="center">
+                <Container>
+                    <Row>
+                        <Col className="center"><PreviewCard height="100px"/></Col> <Col/> <Col/> <Col/>
+                    </Row>
 
-                        <Row>
-                            <Col className="Divider"/> <Col className="center"><PreviewCard height="100px"/></Col>
-                            <Col/> <Col/>
-                        </Row>
+                    <Row>
+                        <Col className="Divider"/> <Col className="center"><PreviewCard height="100px"/></Col> <Col/> <Col/>
+                    </Row>
 
-                        <Row>
-                            <Col className="center"><PreviewCard height="100px"/></Col> <Col className="Divider"/> <Col
-                            className="center"><PreviewCard height="100px"/></Col> <Col/>
-                        </Row>
+                    <Row>
+                        <Col className="center"><PreviewCard height="100px"/></Col> <Col className="Divider"/> <Col className="center"><PreviewCard height="100px"/></Col> <Col/>
+                    </Row>
 
-                        <Row>
-                            <Col/> <Col className="center"><PreviewCard height="100px"/></Col> <Col
-                            className="Divider"/> <Col className="center"><PreviewCard height="100px"/></Col>
-                        </Row>
+                    <Row>
+                        <Col/> <Col className="center"><PreviewCard height="100px"/></Col> <Col className="Divider"/> <Col className="center"><PreviewCard height="100px"/></Col>
+                    </Row>
 
-                        <Row>
-                            <Col/> <Col/> <Col className="center"><PreviewCard height="100px"/></Col> <Col
-                            className="Divider"/>
-                        </Row>
+                    <Row>
+                        <Col/> <Col/> <Col className="center"><PreviewCard height="100px"/></Col> <Col className="Divider"/>
+                    </Row>
 
-                        <Row>
-                            <Col/> <Col/> <Col/> <Col className="center"><PreviewCard height="100px"/></Col>
-                        </Row>
-                    </Container>
-                </div>
+                    <Row>
+                        <Col/> <Col/> <Col/> <Col className="center"><PreviewCard height="100px"/></Col>
+                    </Row>
+                </Container>
+            </div>
 
             <Button
                 variant="primary"
@@ -109,8 +105,8 @@ export default function BattleMatch() {
             <Button
                 variant="primary"
                 onClick={() => {
-                        setWin(false);
-                        setLoss(true) ;
+                    setWin(false);
+                    setLoss(true) ;
                 }}
             >
                 Click to lose

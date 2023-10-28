@@ -1,0 +1,6 @@
+.Divider{
+    position: relative;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(to top right, var(--primary) 45%, white 50%, var(--primary) 55%);
+}

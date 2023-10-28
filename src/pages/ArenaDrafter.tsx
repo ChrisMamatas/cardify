@@ -2,6 +2,7 @@ import {Col, Container, ProgressBar, Row} from "react-bootstrap";
 import PreviewCard from "../components/cards/PreviewCard.tsx";
 import "./ArenaDrafter.css";
 import {FiBookmark} from "react-icons/fi";
+import {Link} from "react-router-dom";
 
 export default function ArenaDrafter() {
     const now = 60;
@@ -91,6 +92,11 @@ export default function ArenaDrafter() {
                     </div>
                 </Row>
             </Container>
+            <Link to={"/ArenaMatch"}>
+                <button variant ="primary" size="lg" style={{ float: 'left', width: '100%' }}>
+                    Confirm
+                </button>
+            </Link>
         </div>
     )
 }
