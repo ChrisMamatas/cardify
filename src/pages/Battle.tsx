@@ -43,9 +43,9 @@ export default function Battle() {
 
                 <Row>
                     <Link to={"/BattleMatch"}>
-                    <button variant ="primary" size="lg" style={{ float: 'left', width: '100%' }}>
-                        Confirm
-                    </button>
+                        <button variant ="primary" size="lg" style={{ float: 'left', width: '100%' }}>
+                            Confirm
+                        </button>
                     </Link>
                 </Row>
             </Container>
