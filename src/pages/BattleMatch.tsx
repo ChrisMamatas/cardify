@@ -2,7 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Modal, ModalProps, Button } from 'react-bootstrap';
 import PreviewCard from "../components/cards/PreviewCard.tsx";
 import "./BattleMatch.css"
-import React, { useState } from "react";
+import { useState } from "react";
 
 function WinModal(props: ModalProps) {
     return (
@@ -110,7 +110,7 @@ export default function BattleMatch() {
                 variant="primary"
                 onClick={() => {
                         setWin(false);
-                        setLoss(true) ;
+                        setLoss(true);
                 }}
             >
                 Click to lose

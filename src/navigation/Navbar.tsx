@@ -11,6 +11,11 @@ export default function CustomNavbar() {
 
     const navigate = useNavigate()
 
+    async function updateinfo(){
+        navigate("/UpdateInfo")
+    }
+
+
     async function logout() {
         await auth.signOut()
         navigate("/login")
@@ -31,7 +36,8 @@ export default function CustomNavbar() {
                             className={"dropdown-menu-start" }
                             align={"end"}
                         >
-                            <NavDropdown.Item>
+
+                            <NavDropdown.Item onClick={updateinfo}>
                                 Update Info
                             </NavDropdown.Item>
                             <NavDropdown.Item>

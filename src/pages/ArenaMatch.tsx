@@ -2,7 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Modal, ModalProps, Button } from 'react-bootstrap';
 import PreviewCard from "../components/cards/PreviewCard.tsx";
 import "./ArenaMatch.css"
-import React, { useState } from "react";
+import { useState } from "react";
 
 function WinModal(props: ModalProps) {
     return (
