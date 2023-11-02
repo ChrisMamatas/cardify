@@ -3,7 +3,7 @@ import BattleWidget from "../components/widgets/battleWidget/BattleWidget.tsx";
 import "./Home.css"
 import SocialWidget from "../components/widgets/socialWidget/SocialWidget.tsx";
 import DeckWidget from "../components/widgets/deckWidget/DeckWidget.tsx";
-import Temp from "../components/Temp.tsx";
+import Chat from "../components/Chat.tsx";
 import { Container, Row, Col } from "react-bootstrap";
 import ArenaWidget from "../components/widgets/arenaWidget/ArenaWidget.tsx";
 import {auth} from "../../firebaseConfig.ts";
@@ -12,30 +12,33 @@ import {redirect} from "react-router-dom";
 export default function Home() {
 
     return (
-        <div className={"p-2"}>
+        <div>
             <Container>
-                <Row className={"m-4"}>
-                    <Col md={4}>
-                        <ProfileWidget />
-                    </Col>
-                    <Col md={4}>
-                        <DeckWidget />
+                <Row className="flex-nowrap center">
+                    <Col>
+                        <Row>
+                            <div className="xl-2-4 md-2-4 p-2"><ProfileWidget /></div>
+                        </Row>
+                        <Row>
+                            <div className="xl-1-4 md-1-4 p-2"><BattleWidget /></div>
+                        </Row>
+                        <Row>
+                            <div className="xl-1-4 md-1-4 p-2"><ArenaWidget /></div>
+                        </Row>
                     </Col>
                     <Col>
-                        <div style={{ marginBottom: "6%", height: "45%" }}>
-                            <BattleWidget />
-                        </div>
-                        <div style={{ height: "45%" }}>
-                            <ArenaWidget />
-                        </div>
+                        <Row>
+                            <div className="xl-full md-full p-2"><DeckWidget /></div>
+                        </Row>
                     </Col>
-                </Row>
-                <Row className={"m-4"}>
-                    <Col md={4}>
-                        <SocialWidget />
-                    </Col>
-                    <Col md={8}>
-                        <Temp />
+
+                    <Col>
+                        <Row>
+                            <div className="xl-1-4 md-1-4" style={{marginBottom: "2em"}}><SocialWidget /></div>
+                        </Row>
+                        <Row>
+                            <div className="xl-3-4 md-3-4"><Chat /></div>
+                        </Row>
                     </Col>
                 </Row>
             </Container>

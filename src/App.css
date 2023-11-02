@@ -2,8 +2,9 @@
   box-sizing: border-box;
 }
 html, body, #root {
-  --primary: #202124;
+  --primary: #202 124;
   --secondary: #B20D30;
+  --tertiary: #212529;
   --accent: #95afba;
   height:100%;
 }

@@ -28,3 +28,69 @@
 /*.bottom-row {*/
 /*    height: 40vh;*/
 /*}*/
+
+.xl-full{
+    height: 70rem;
+    width: 85rem;
+}
+
+.xl-3-4{
+    height: 53rem;
+    width: 63rem;
+}
+.xl-2-4{
+    height: 35rem;
+    width: 40rem;
+}
+
+.xl-1-4{
+    height: 17rem;
+    width: 40rem;
+}
+
+.xlTall{
+    height: 45rem;
+    width: 31.4rem;
+}
+.xlFriendsWidget{
+    height: 16rem;
+    width: 33rem;
+}
+
+.xlFriends{
+    height: 11rem;
+    width: 31rem;
+}
+
+.md-full{
+    height: 40.5rem;
+    width: 40rem;
+}
+
+.md-3-4{
+    height: 28.5rem;
+    width: 26.5rem;
+}
+.md-2-4{
+    height: 22.5rem;
+    width: 26.5rem;
+}
+
+.md-1-4{
+    height: 9rem;
+    width: 26.5rem;
+}
+
+.mdTall{
+    height: 22rem;
+    width: 23rem;
+}
+.mdFriendsWidget{
+    height: 10rem;
+    width: 25rem;
+}
+
+.mdFriends{
+    height: 5rem;
+    width: 23rem;
+}

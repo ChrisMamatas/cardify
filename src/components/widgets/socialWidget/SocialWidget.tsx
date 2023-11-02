@@ -89,13 +89,14 @@ export default function SocialWidget() {
     };
 
     return (
-        <div className={"Widget"}>
-            <div className={"header"}>
-                <h5>Friends</h5>
+
+        <div className="Widget xlFriendsWidget mdFriendsWidget" >
+            <div className={"header"} style={{backgroundColor:"var(--tertiary)"}}>
+                <h5 style={{marginBottom:"0rem"}}>Friends</h5>
                 <h5><BsPersonAdd /></h5>
             </div>
 
-            <div className={"overflow-y-auto friend-list"} style={{ height: "25rem" }}>
+            <div className="overflow-y-scroll friend-list xlFriends mdFriends">
                 {friends.map(friend => (
                     <div onClick={() => createPopup(friend)} key={friend.username}>
                         <OverlayTrigger
@@ -142,5 +143,6 @@ export default function SocialWidget() {
                 ))}
             </div>
         </div>
+
     );
 }
