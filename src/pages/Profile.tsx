@@ -20,19 +20,19 @@ export default function Profile() {
         console.log("token")
         console.log(idToken)
         // Create a new WebSocket connection when the component mounts.
-        const sock =  SockJS("http://localhost:8080/ws"); // Replace with your WebSocket server URL.
+        const sock = SockJS("http://localhost:8080/ws?token=" + encodeURIComponent(idToken || "")); // Replace with your WebSocket server URL.
 
-        sock.onopen = function() {
+        sock.onopen = function () {
             console.log('open');
             sock.send('test');
         };
 
-        sock.onmessage = function(e) {
+        sock.onmessage = function (e) {
             console.log('message', e.data);
             sock.close();
         };
 
-        sock.onclose = function() {
+        sock.onclose = function () {
             console.log('close');
         };
     }
@@ -57,7 +57,7 @@ export default function Profile() {
                     <Col>
                         <Image
                             src={"https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"}
-                            height={200}/>
+                            height={200} />
                         <button>Test websocket</button>
                         <input
                             type="text"
