@@ -8,8 +8,33 @@ import { Container, Row, Col } from "react-bootstrap";
 import ArenaWidget from "../components/widgets/arenaWidget/ArenaWidget.tsx";
 import {auth} from "../../firebaseConfig.ts";
 import {redirect} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 export default function Home() {
+
+    const [screenSize, setScreenSize] = useState('');
+
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth >= 3200) {
+                setScreenSize('xl');
+            } else if (window.innerWidth >= 1900) {
+                setScreenSize('lg');
+            } else if (window.innerWidth >= 700) {
+                setScreenSize('md');
+            }else {
+                setScreenSize('default'); // Set a default class name if no condition is met
+            }
+        }
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <div>
@@ -17,27 +42,27 @@ export default function Home() {
                 <Row className="flex-nowrap center">
                     <Col>
                         <Row>
-                            <div className="xl-2-4 md-2-4 p-2"><ProfileWidget /></div>
+                            <div className={`half-${screenSize} p-2`}><ProfileWidget /></div>
                         </Row>
                         <Row>
-                            <div className="xl-1-4 md-1-4 p-2"><BattleWidget /></div>
+                            <div className={`play-buttons-${screenSize} p-2`} ><BattleWidget /></div>
                         </Row>
                         <Row>
-                            <div className="xl-1-4 md-1-4 p-2"><ArenaWidget /></div>
+                            <div className={`play-buttons-${screenSize} p-2`} ><ArenaWidget /></div>
                         </Row>
                     </Col>
-                    <Col>
+                    <Col className="centred">
                         <Row>
-                            <div className="xl-full md-full p-2"><DeckWidget /></div>
+                            <div className={`full-${screenSize} p-2`}><DeckWidget /></div>
                         </Row>
                     </Col>
 
-                    <Col>
+                    <Col className="centred">
                         <Row>
-                            <div className="xl-1-4 md-1-4" style={{marginBottom: "2em"}}><SocialWidget /></div>
+                            <div className={`quarter-${screenSize} p-2`}><SocialWidget /></div>
                         </Row>
                         <Row>
-                            <div className="xl-3-4 md-3-4"><Chat /></div>
+                            <div className={`threefourths-${screenSize} p-2`}><Chat /></div>
                         </Row>
                     </Col>
                 </Row>

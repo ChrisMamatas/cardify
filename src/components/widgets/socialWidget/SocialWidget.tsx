@@ -3,7 +3,7 @@ import "./SocialWidget.css"
 import { BsPersonAdd } from "react-icons/bs";
 import { Image, OverlayTrigger, Popover, Table } from "react-bootstrap"
 import { Link } from "react-router-dom";
-import { SetStateAction, useState } from "react";
+import {SetStateAction, useEffect, useState} from "react";
 
 interface Friend {
     username: string,
@@ -77,6 +77,31 @@ const friends: Friend[] = [
 ]
 
 export default function SocialWidget() {
+
+    const [screenSize, setScreenSize] = useState('');
+
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth >= 3200) {
+                setScreenSize('xl');
+            } else if (window.innerWidth >= 1900) {
+                setScreenSize('lg');
+            } else if (window.innerWidth >= 700) {
+                setScreenSize('md');
+            }else {
+                setScreenSize('default'); // Set a default class name if no condition is met
+            }
+        }
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const [currentPopupUsername, setCurrentPopupUsername] = useState<string | null>(null);
     const createPopup = (friend: Friend) => {
         if (currentPopupUsername === friend.username) {
@@ -89,14 +114,12 @@ export default function SocialWidget() {
     };
 
     return (
-
-        <div className="Widget xlFriendsWidget mdFriendsWidget" >
+        <div  className={`friendsWidget-${screenSize} Widget`}>
             <div className={"header"} style={{backgroundColor:"var(--tertiary)"}}>
                 <h5 style={{marginBottom:"0rem"}}>Friends</h5>
                 <h5><BsPersonAdd /></h5>
             </div>
-
-            <div className="overflow-y-scroll friend-list xlFriends mdFriends">
+            <div className={`friends-${screenSize} overflow-y-scroll friend-list`}>
                 {friends.map(friend => (
                     <div onClick={() => createPopup(friend)} key={friend.username}>
                         <OverlayTrigger
@@ -125,7 +148,6 @@ export default function SocialWidget() {
                                                 {/* <tr><td>First Name</td></tr> */}
                                                 {/* <tr><td>First Name</td></tr> */}
                                             </tbody>
-
                                         </Table>
                                     </Popover.Body>
                                 </Popover>

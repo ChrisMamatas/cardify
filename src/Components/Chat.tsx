@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import './Chat.css';
@@ -48,6 +48,7 @@ interface Message {
 }
 
 function ChatMessage({ message } : Message) {
+
     if (message.type === "received") {
         return (
             <div>
@@ -68,11 +69,36 @@ function ChatMessage({ message } : Message) {
     }
 }
 export default function Chat() {
+
+    const [screenSize, setScreenSize] = useState('');
+
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth >= 3200) {
+                setScreenSize('xl');
+            } else if (window.innerWidth >= 1900) {
+                setScreenSize('lg');
+            } else if (window.innerWidth >= 700) {
+                setScreenSize('md');
+            }else {
+                setScreenSize('default'); // Set a default class name if no condition is met
+            }
+        }
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <div className={"Widget d-flex flex-column"}>
             <Tabs justify style={{backgroundColor: "var(--primary)", padding:"0px"}}>
                 <Tab eventKey="Timeline" title="TimeLine" style={{backgroundColor: "var(--primary)", height: "100%"}}>
-                    <div className={"d-flex flex-column flex-grow-1 justify-content-end xlTall mdTall"} style={{backgroundColor: "var(--tertiary)"}}>
+                    <div className={`tall-${screenSize} d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>
                         {
                             chats[0].messages.map((msg) => (
                                 <ChatMessage message={msg} />
@@ -82,7 +108,7 @@ export default function Chat() {
                 </Tab>
 
                 <Tab eventKey="Chat1" title="Chat1" style={{backgroundColor: "var(--primary)", height: "100%"}}>
-                    <div className={"d-flex flex-column flex-grow-1 justify-content-end xlTall mdTall"} style={{backgroundColor: "var(--tertiary)"}}>
+                    <div className={`tall-${screenSize} d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>
                         {
                             chats[0].messages.map((msg) => (
                                 <ChatMessage message={msg} />
@@ -92,7 +118,7 @@ export default function Chat() {
                 </Tab>
 
                 <Tab eventKey="Chat2" title="Chat2" style={{backgroundColor: "var(--primary)", height: "100%"}}>
-                    <div className={"d-flex flex-column flex-grow-1 justify-content-end xlTall mdTall"} style={{backgroundColor: "var(--tertiary)"}}>
+                    <div className={`tall-${screenSize} d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>
                         {
                             chats[0].messages.map((msg) => (
                                 <ChatMessage message={msg} />
@@ -102,8 +128,7 @@ export default function Chat() {
                 </Tab>
             </Tabs>
 
-
-            <div className={"d-flex flex-direction-row gap-1 justify-content-end "}>
+            <div className={"d-flex flex-direction-row gap-1 justify-content-end"}>
                 <input type={"text"} placeholder={"Type here"} className={"w-100"}/>
                 <button style={{ position: "absolute", borderRadius: "45%", fontSize: "80%", marginTop: "0.2em", marginRight: "0.2em", opacity: "70%"}}>
                     Send

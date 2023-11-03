@@ -29,68 +29,169 @@
 /*    height: 40vh;*/
 /*}*/
 
-.xl-full{
+.full-xl{
     height: 70rem;
     width: 85rem;
 }
 
-.xl-3-4{
-    height: 53rem;
-    width: 63rem;
+.full-lg{
+    height: 62rem;
+    width: 60rem;
 }
-.xl-2-4{
+
+.full-md{
+    height: 39rem;
+    width: 40rem;
+}
+
+/*.full-default{*/
+/*    height: 40rem;*/
+/*    width: 40rem;*/
+/*}*/
+
+.threefourths-xl{
+    height: 53rem;
+    width: 30rem;
+}
+
+.threefourths-lg{
+    height: 45rem;
+    width: 21rem;
+}
+
+.threefourths-md{
+    height: 28rem;
+    width: 21rem;
+}
+
+/*.threefourths-default{*/
+/*    height: 30rem;*/
+/*    width: 21rem;*/
+/*}*/
+
+.half-xl{
     height: 35rem;
     width: 40rem;
+    margin-left: 20rem;
 }
 
-.xl-1-4{
-    height: 17rem;
-    width: 40rem;
+.half-lg{
+    height: 28rem;
+    width: 30rem;
+    margin-left: 10rem;
 }
 
-.xlTall{
-    height: 45rem;
-    width: 31.4rem;
+.half-md{
+    height: 21rem;
+    width: 26.5rem;
+    margin-left: 5rem;
 }
-.xlFriendsWidget{
+
+/*.half-default{*/
+/*    height: 22.5rem;*/
+/*    width: 26.5rem;*/
+/*}*/
+
+.quarter-xl{
     height: 16rem;
-    width: 33rem;
-}
-
-.xlFriends{
-    height: 11rem;
-    width: 31rem;
-}
-
-.md-full{
-    height: 40.5rem;
     width: 40rem;
+    margin-bottom: 1rem;
 }
 
-.md-3-4{
-    height: 28.5rem;
-    width: 26.5rem;
-}
-.md-2-4{
-    height: 22.5rem;
-    width: 26.5rem;
+.quarter-lg{
+    height: 17rem;
+    width: 30rem;
 }
 
-.md-1-4{
+.quarter-md{
+    height: 10rem;
+    width: 26.5rem;
+    margin-bottom: 1rem;
+}
+
+/*.quarter-default{*/
+/*    height: 2rem;*/
+/*    width: 26.5rem;*/
+/*}*/
+
+.play-buttons-xl{
+    height: 17.5rem;
+    width: 40rem;
+    margin-left: 20rem;
+}
+
+.play-buttons-lg{
+    height: 17rem;
+    width: 30rem;
+    margin-left: 10rem;
+}
+
+.play-buttons-md{
     height: 9rem;
     width: 26.5rem;
+    margin-left: 5rem;
 }
 
-.mdTall{
-    height: 22rem;
-    width: 23rem;
+/*.play-buttons-default{*/
+
+/*}*/
+
+.tall-xl{
+    height: 45rem;
+    width: 27rem;
 }
-.mdFriendsWidget{
+
+.tall-lg{
+    height: 38rem;
+    width: 18rem;
+}
+
+.tall-md{
+    height: 21rem;
+    width: 18rem;
+}
+
+/*.tall-default{*/
+/*    height: 12rem;*/
+/*    width: 18rem;*/
+/*}*/
+
+.friendsWidget-xl{
+    height: 16rem;
+    width: 29rem;
+}
+
+.friendsWidget-lg{
+    height: 16rem;
+    width: 20rem;
+}
+
+.friendsWidget-md{
     height: 10rem;
-    width: 25rem;
+    width: 20rem;
 }
 
-.mdFriends{
-    height: 5rem;
-    width: 23rem;
+/*.friendsWidget-default{*/
+/*    height: 15rem;*/
+/*    width: 20rem;*/
+/*}*/
+
+.friends-xl{
+    height: 11rem;
+    width: 27rem;
 }
+
+.friends-lg{
+    height: 11rem;
+    width: 18rem;
+}
+
+.friends-md{
+    height: 5rem;
+    width: 18rem;
+}
+
+/*.friends-default{*/
+/*    height: 10rem;*/
+/*    width: 15rem;*/
+/*}*/
