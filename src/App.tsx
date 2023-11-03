@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import {useEffect} from "react";
 import './App.css'
-import {Route, Routes, redirect, useLocation, useNavigate, useNavigation} from "react-router-dom"
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom"
 import Home from "./pages/Home.tsx";
 import Social from "./pages/Social.tsx";
 import Profile from "./pages/Profile.tsx"
@@ -13,19 +13,17 @@ import Trading from './pages/Trading.tsx';
 import CustomNavbar from "./navigation/Navbar.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
-import {AuthContext, AuthProvider} from "./utils/Auth.tsx";
+import { AuthProvider} from "./utils/Auth.tsx";
 import ArenaDrafter from "./pages/ArenaDrafter.tsx";
 import {auth} from "../firebaseConfig.ts"
 import BattleMatch from "./pages/BattleMatch.tsx";
 import UpdateInfo from "./pages/UpdateInfo.tsx";
-// import PrivateRoute from "./utils/PrivateRoute.tsx";
+import UpdateProfile from "./pages/UpdateProfile.tsx";
 
 function App() {
 
     const location = useLocation()
     const navigate = useNavigate()
-
-    // console.log(location)
 
     useEffect(() => {
         if (!auth.currentUser && (location.pathname !== "/login" && location.pathname !== "/register")) {
@@ -38,12 +36,13 @@ function App() {
         <>
             <AuthProvider>
                 {
-                    location.pathname !== "/login" && location.pathname !== "/register" &&  <CustomNavbar />
+                    location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/update" && <CustomNavbar />
                 }
                 <Routes>
                     <Route path={"/"} element={<Home />} />
                     <Route path={"/login"} element={<Login />} />
                     <Route path={"/register"} element={<Register />} />
+                    <Route path={"/update"} element={<UpdateProfile />} />
 
                     <Route path={"/profile"} element={<Profile />} />
                     <Route path={"/updateInfo"} element={<UpdateInfo />} />

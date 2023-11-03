@@ -1,11 +1,10 @@
-import React, {useContext, useState} from "react"
+import React, {useState} from "react"
 import FloatingLabel from "react-bootstrap/FloatingLabel"
 import Form from 'react-bootstrap/Form';
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../firebaseConfig.ts";
 import {Link, useNavigate} from "react-router-dom";
 import {Image} from "react-bootstrap";
-import {AuthContext} from "../utils/Auth.tsx";
 
 export default function Login() {
 
@@ -18,16 +17,10 @@ export default function Login() {
         e.preventDefault()
 
         signInWithEmailAndPassword(auth, email, password)
-            .then((res) => navigate("/"))
+            .then(() => navigate("/"))
             .catch((error) => alert(error))
-
     }
 
-    const { currentUser }: any = useContext(AuthContext)
-
-    if (currentUser) {
-        return redirect("/")
-    }
 
     return (
         <div className={"d-flex flex-grow-1 justify-content-center align-items-center"} style={{height: "100vh"}}>
