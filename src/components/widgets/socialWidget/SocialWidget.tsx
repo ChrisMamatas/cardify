@@ -114,7 +114,7 @@ export default function SocialWidget() {
     };
 
     return (
-        <div  className={`friendsWidget-${screenSize} Widget`}>
+        <div className={`friendsWidget-${screenSize} Widget`}>
             <div className={"header"} style={{backgroundColor:"var(--tertiary)"}}>
                 <h5 style={{marginBottom:"0rem"}}>Friends</h5>
                 <h5><BsPersonAdd /></h5>
