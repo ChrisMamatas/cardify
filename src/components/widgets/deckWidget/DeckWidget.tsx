@@ -7,6 +7,7 @@ import "../../Widgets.css"
 import "./DeckWidget.css"
 import { Button, Col, Container, Row } from "react-bootstrap";
 import PreviewCard from "../../cards/PreviewCard.tsx";
+import CreateCard from "../../../pages/CreateCard.tsx";
 
 
 interface CardAttributes {
@@ -47,6 +48,10 @@ export default function DeckWidget() {
         getData()
     }, []);
 
+    const [showCreateCardModal, setShowCreateCardModal] = useState<boolean>(false);
+
+    const handleClose = () => setShowCreateCardModal(false);
+    const handleShow = () => setShowCreateCardModal(true);
 
     async function getData() {
         fetch("http://localhost:8080/card", {
@@ -91,18 +96,18 @@ export default function DeckWidget() {
                 {/* This row will be pushed to the bottom */}
                 <Row style={{ marginTop: "32px" }}>
                     <Col md={6}>
-                        <Link to={"/createcard"}>
-                            <Button variant="primary" size="lg" style={{ width: '100%' }}>
-                                Create Card
-                            </Button>
-                        </Link>
+                        <Button variant="primary" size="lg" style={{ width: '100%' }} onClick={handleShow}>
+                            Create Card
+                        </Button>
+
+                        <CreateCard showModal={showCreateCardModal} handleClose={handleClose}  />
                     </Col>
                     <Col md={6}>
                         <Button variant="primary" size="lg" style={{ width: '100%' }}>Delete Card</Button>
                     </Col>
                 </Row>
             </Container>
-        </div>
+        </div >
 
     )
 }
