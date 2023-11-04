@@ -5,8 +5,10 @@ import FullCard from './FullCard';
 
 interface PreviewProps {
     height?: string;
-    cardName?: string;
-    imageUrl?: string;
+    cardName: string;
+    baseImage: string;
+    frontCard: string;
+    backCard: string;
     onButtonClick?: () => void;
 }
 
@@ -14,7 +16,9 @@ interface PreviewProps {
 const PreviewCard: React.FC<PreviewProps> = ({
     height,
     cardName,
-    imageUrl,
+    baseImage,
+    frontCard,
+    backCard,
     onButtonClick
 
 }) => {
@@ -22,12 +26,12 @@ const PreviewCard: React.FC<PreviewProps> = ({
     return (
         <div>
             <Card className={cardStyles.card} style={{ height: height }} onClick={() => { setShowComponent(true) }}>
-                <Card.Img variant="top" src={imageUrl ? imageUrl : "src/assets/DefaultCard/Image.jpg"} />
+                <Card.Img variant="top" src={baseImage} />
                 <Card.ImgOverlay className={cardStyles["overlay-content"] + " align-middle"}>
                     <h1>{cardName ? cardName : "Default Card"}</h1>
                 </Card.ImgOverlay>
             </Card>
-            {showComponent ? <FullCard onClickOff={() => setShowComponent(false)} /> : null}
+            {showComponent ? <FullCard onClickOff={() => setShowComponent(false)} frontCard={'data:image/png;base64, ' + frontCard} backCard={'data:image/png;base64, ' + backCard} /> : null}
         </div>
 
     );
