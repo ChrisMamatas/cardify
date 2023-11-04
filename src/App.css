@@ -1,12 +1,15 @@
 * {
   box-sizing: border-box;
 }
-html, body, #root {
+
+html,
+body,
+#root {
   --primary: #202 124;
   --secondary: #B20D30;
   --tertiary: #212529;
   --accent: #95afba;
-  height:100%;
+  height: 100%;
 }
 
 body {
@@ -18,6 +21,7 @@ body {
 .title {
   font-size: 2rem;
 }
+
 .nav {
   background-color: var(--secondary);
   color: white;
@@ -52,6 +56,7 @@ body {
 }
 
 .link {
-  text-decoration: none; /* Remove underline */
+  text-decoration: none;
+  /* Remove underline */
   color: inherit;
 }
