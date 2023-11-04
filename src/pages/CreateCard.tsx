@@ -36,6 +36,7 @@ export default function CreateCard({ showModal, handleClose }: CreateCardProps) 
         let token = await user?.getIdToken();
         let request = {
             name: name,
+            description: description,
             image: file
         }
         console.log(request);
