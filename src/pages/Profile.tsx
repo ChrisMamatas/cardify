@@ -75,9 +75,9 @@ export default function Profile() {
     }
 
     return (
-        <div className={"d-flex m-2"}>
+        <div className={"d-flex m-5"}>
             <Container className={"mx-1"}>
-                <Row className={"t"}>
+                <Row className={"t"} style={{height: "25vh"}}>
                     <Col>
                         <div style={{display: "flex", flexDirection: "row"}}>
                             <div>
@@ -104,8 +104,8 @@ export default function Profile() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col className={"t mt-2"}>
-                        <div className={"d-flex mt-2"}>
+                    <Col className={"d-flex t mt-2"} style={{height: "20vh"}}>
+                        <div className={"d-flex mt-2 align-items-center"}>
                             <div>
                                 <Image src={"https://mtek3d.com/wp-content/uploads/2018/01/image-placeholder-500x500.jpg"} height={100} />
                             </div>
@@ -118,7 +118,7 @@ export default function Profile() {
                             </div>
 
                             <div className={"d-flex mx-5 justify-content-center"} style={{width: "100%"}}>
-                                {[0,0,0,0,0,0].map(() => {
+                                {[0,0,0,0,0,0,0,0,0,0,0].map(() => {
                                     return <RecentGame />
                                 })}
                             </div>
@@ -128,7 +128,7 @@ export default function Profile() {
                 </Row>
 
                 <Row className={"my-2"}>
-                    <Col className={"t"} style={{height: "24em", overflowY: "auto"}}>
+                    <Col className={"t"} style={{height: "43vh", overflowY: "auto"}}>
                         <h3>Activity</h3>
                         {["Gunther won their first game today!"].map((txt) => {
                             return (
