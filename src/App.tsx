@@ -1,6 +1,5 @@
-import {useEffect} from "react";
 import './App.css'
-import {Route, Routes, useLocation, useNavigate} from "react-router-dom"
+import {Route, Routes, useLocation } from "react-router-dom"
 import Home from "./pages/Home.tsx";
 import Social from "./pages/Social.tsx";
 import Profile from "./pages/Profile.tsx"
@@ -14,7 +13,6 @@ import CustomNavbar from "./navigation/Navbar.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import ArenaDrafter from "./pages/ArenaDrafter.tsx";
-import {auth} from "../firebaseConfig.ts"
 import BattleMatch from "./pages/BattleMatch.tsx";
 import UpdateInfo from "./pages/UpdateInfo.tsx";
 import UpdateProfile from "./pages/UpdateProfile.tsx";
@@ -22,17 +20,6 @@ import UpdateProfile from "./pages/UpdateProfile.tsx";
 function App() {
 
     const location = useLocation()
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        // if (!auth.currentUser && (location.pathname !== "/login" && location.pathname !== "/register")) {
-        //     navigate("/login")
-        // }
-        // console.log("auth")
-        // console.log(auth)
-        // console.log("end auth")
-    }, []);
-
 
     return (
         <>

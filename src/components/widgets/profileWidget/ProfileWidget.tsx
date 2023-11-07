@@ -2,16 +2,50 @@ import { Link } from "react-router-dom";
 import { Container, Image, Row, Col } from "react-bootstrap";
 import PreviewCard from "../../cards/PreviewCard";
 import "../../Widgets.css"
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {auth} from "../../../../firebaseConfig.ts";
 
-const profile = {
-    username: "username",
-    level: 32,
-    rank: "warrior"
+interface Profile {
+    username: string,
+    profilePicture: string,
+    elo: number,
+    uid: string
 }
 
 export default function ProfileWidget() {
 
+    const [profileData, setProfileData] = useState<Profile>()
+
+    useEffect(() => {
+
+        getData()
+    }, [])
+
+    async function getData() {
+
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+
+                const idToken = await user.getIdToken()
+                await fetch("http://localhost:8080/user", {
+                    headers: {
+                        "Authorization": "Bearer " + idToken
+                    }
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                        throw new Error()
+                    })
+                    .then((data) => {
+                        console.log(data)
+                        setProfileData(data)
+                    })
+                    .catch((e) => console.log(e))
+            }
+        })
+    }
 
     return (
         <Link to={"/Profile"} className={"link"}>
@@ -19,21 +53,19 @@ export default function ProfileWidget() {
 
                 <Container>
                     <Row className={"d-flex justify-content-center align-items-center"}>
-                        <Col md={4}>
-                            <Image src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} height={150} />
+                        <Col>
+                            <Image src={profileData?.profilePicture} height={150} width={150} />
+                            <h3>{profileData?.username}</h3>
                         </Col>
 
-                        <Col className={"d-flex justify-content-center align-items-center"}>
-                            <Image src={"https://cdn-icons-png.flaticon.com/512/473/473406.png"} height={100} />
+                        <Col className={"d-flex justify-content-center align-items-center flex-column"}>
+                            <Image src={"https://cdn-icons-png.flaticon.com/512/473/473406.png"} height={100} style={{marginBottom: 20}} />
+                            <p>{profileData?.elo}</p>
                         </Col>
                     </Row>
 
                     <Row>
-                        <p>{profile.username} - {profile.level}</p>
-                    </Row>
-
-                    <Row>
-                        <div style={{ padding: 0, display: "flex", flexWrap: "wrap" }}  >
+                        <div style={{ padding: 0, display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}  >
                             <PreviewCard height="90px" />
                             <PreviewCard height="90px" />
                             <PreviewCard height="90px" />
