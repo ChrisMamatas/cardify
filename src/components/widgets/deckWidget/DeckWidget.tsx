@@ -80,6 +80,7 @@ export default function DeckWidget() {
         <div className={"Widget center DeckWidget"} >
             <Container className="DeckWidgetContainer">
                 <Row md={12}>
+                    <h1 className="center">Deck</h1>
                     {
                         cards.map((card, index) => (
                             <Col md={3} key={index}> {/* Added key for list items */}

@@ -30,18 +30,27 @@
 /*}*/
 
 .full-xl{
-    height: 70rem;
+    height: 80rem;
     width: 85rem;
+    margin-top: 3rem;
+}
+
+.full-chris {
+    height: 90rem;
+    width: 60rem;
+    margin-top: 5rem;
 }
 
 .full-lg{
-    height: 62rem;
+    height: 60rem;
     width: 60rem;
+    margin-top: 2rem;
 }
 
 .full-md{
-    height: 39rem;
-    width: 40rem;
+    height: 37rem;
+    width: 35rem;
+    margin-top: 2rem;
 }
 
 /*.full-default{*/
@@ -50,18 +59,23 @@
 /*}*/
 
 .threefourths-xl{
-    height: 53rem;
-    width: 30rem;
+    height: 64rem;
+    width: 35rem;
+}
+
+.threefouths-chris {
+    height: 28rem;
+    width: 15rem;
 }
 
 .threefourths-lg{
-    height: 45rem;
-    width: 21rem;
+    height: 43rem;
+    width: 19rem;
 }
 
 .threefourths-md{
-    height: 28rem;
-    width: 21rem;
+    height: 27rem;
+    width: 19rem;
 }
 
 /*.threefourths-default{*/
@@ -70,21 +84,31 @@
 /*}*/
 
 .half-xl{
-    height: 35rem;
-    width: 40rem;
-    margin-left: 20rem;
+    height: 40rem;
+    width: 60rem;
+    margin-left: 10rem;
+    margin-top: 3rem;
+}
+
+.half-chris{
+    height: 50rem;
+    width: 50rem;
+    margin-left: 2rem;
+    margin-top: 5rem;
 }
 
 .half-lg{
     height: 28rem;
     width: 30rem;
-    margin-left: 10rem;
+    margin-left: 3rem;
+    margin-top: 2rem;
 }
 
 .half-md{
-    height: 21rem;
-    width: 26.5rem;
-    margin-left: 5rem;
+    height: 20rem;
+    width: 26rem;
+    margin-left: 1rem;
+    margin-top: 2rem;
 }
 
 /*.half-default{*/
@@ -95,18 +119,25 @@
 .quarter-xl{
     height: 16rem;
     width: 40rem;
-    margin-bottom: 1rem;
+    margin-top: 3rem;
+}
+
+.quarter-chris{
+    height: 25rem;
+    width: 40rem;
+    margin-top: 5rem;
 }
 
 .quarter-lg{
     height: 17rem;
-    width: 30rem;
+    width: 19rem;
+    margin-top: 2rem;
 }
 
 .quarter-md{
     height: 10rem;
-    width: 26.5rem;
-    margin-bottom: 1rem;
+    width: 8rem;
+    margin-top: 2rem;
 }
 
 /*.quarter-default{*/
@@ -115,21 +146,27 @@
 /*}*/
 
 .play-buttons-xl{
-    height: 17.5rem;
-    width: 40rem;
-    margin-left: 20rem;
-}
-
-.play-buttons-lg{
-    height: 17rem;
-    width: 30rem;
+    height: 20rem;
+    width: 60rem;
     margin-left: 10rem;
 }
 
+.play-buttons-chris {
+    height: 20rem;
+    width: 50rem;
+    margin-left: 2rem;
+}
+
+.play-buttons-lg{
+    height: 16rem;
+    width: 30rem;
+    margin-left: 3rem;
+}
+
 .play-buttons-md{
-    height: 9rem;
-    width: 26.5rem;
-    margin-left: 5rem;
+    height: 8.5rem;
+    width: 26rem;
+    margin-left: 1rem;
 }
 
 /*.play-buttons-default{*/
@@ -137,18 +174,23 @@
 /*}*/
 
 .tall-xl{
-    height: 45rem;
-    width: 27rem;
+    height: 56.5rem;
+    width: 32rem;
+}
+
+.tall-chris {
+    height: 57.5rem;
+    width: 37rem;
 }
 
 .tall-lg{
-    height: 38rem;
-    width: 18rem;
+    height: 35.5rem;
+    width: 16rem;
 }
 
 .tall-md{
-    height: 21rem;
-    width: 18rem;
+    height: 19.5rem;
+    width: 16rem;
 }
 
 /*.tall-default{*/
@@ -157,18 +199,23 @@
 /*}*/
 
 .friendsWidget-xl{
-    height: 16rem;
-    width: 29rem;
+    height: 15rem;
+    width: 34rem;
+}
+
+.friendsWidget-chris {
+    height: 24rem;
+    width: 39rem;
 }
 
 .friendsWidget-lg{
     height: 16rem;
-    width: 20rem;
+    width: 18rem;
 }
 
 .friendsWidget-md{
-    height: 10rem;
-    width: 20rem;
+    height: 9rem;
+    width: 18rem;
 }
 
 /*.friendsWidget-default{*/
@@ -177,18 +224,23 @@
 /*}*/
 
 .friends-xl{
-    height: 11rem;
-    width: 27rem;
+    height: 10rem;
+    width: 32rem;
+}
+
+.friends-chris{
+    height: 19rem;
+    width: 37rem;
 }
 
 .friends-lg{
     height: 11rem;
-    width: 18rem;
+    width: 16rem;
 }
 
 .friends-md{
-    height: 5rem;
-    width: 18rem;
+    height: 4rem;
+    width: 16rem;
 }
 
 /*.friends-default{*/

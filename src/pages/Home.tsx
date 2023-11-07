@@ -17,12 +17,14 @@ export default function Home() {
     useEffect(() => {
         function handleResize() {
             if (window.innerWidth >= 3200) {
-                setScreenSize('xl');
+                setScreenSize('xl'); //3440 x 1440
+            } else if(window.innerWidth >= 2500){
+                setScreenSize('chris') //2560 x 1664
             } else if (window.innerWidth >= 1900) {
-                setScreenSize('lg');
-            } else if (window.innerWidth >= 700) {
-                setScreenSize('md');
-            }else {
+                setScreenSize('lg'); //1920 x 1080
+            } else if (window.innerWidth >= 1300) {
+                setScreenSize('md'); //1536 x 864
+            } else {
                 setScreenSize('default'); // Set a default class name if no condition is met
             }
         }
@@ -39,8 +41,9 @@ export default function Home() {
     return (
         <div>
             <Container>
-                <Row className="flex-nowrap center">
-                    <Col>
+                <div>
+                <Row className="flex-nowrap justify-content-center">
+                    <Col className="centered">
                         <Row>
                             <div className={`half-${screenSize} p-2`}><ProfileWidget /></div>
                         </Row>
@@ -66,6 +69,7 @@ export default function Home() {
                         </Row>
                     </Col>
                 </Row>
+                </div>
             </Container>
         </div>
     )
