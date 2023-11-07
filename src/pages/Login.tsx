@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import FloatingLabel from "react-bootstrap/FloatingLabel"
 import Form from 'react-bootstrap/Form';
-import { signInWithEmailAndPassword } from "firebase/auth"
+import {browserLocalPersistence, signInWithEmailAndPassword} from "firebase/auth"
 import { auth } from "../../firebaseConfig.ts";
 import {Link, useNavigate} from "react-router-dom";
 import {Image} from "react-bootstrap";
@@ -16,9 +16,12 @@ export default function Login() {
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
 
-        signInWithEmailAndPassword(auth, email, password)
-            .then(() => navigate("/"))
-            .catch((error) => alert(error))
+        auth.setPersistence(browserLocalPersistence)
+            .then(() => {
+                signInWithEmailAndPassword(auth, email, password)
+                    .then(() => navigate("/"))
+                    .catch((error) => alert(error))
+            })
     }
 
 

@@ -28,9 +28,9 @@ function App() {
         // if (!auth.currentUser && (location.pathname !== "/login" && location.pathname !== "/register")) {
         //     navigate("/login")
         // }
-        console.log("auth")
-        console.log(auth)
-        console.log("end auth")
+        // console.log("auth")
+        // console.log(auth)
+        // console.log("end auth")
     }, []);
 
 

@@ -19,9 +19,5 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app)
-setPersistence(auth, browserLocalPersistence)
-.then(() => {
-    // return signInWithEmailAndPassword(auth, )
-})
 
 export { auth }

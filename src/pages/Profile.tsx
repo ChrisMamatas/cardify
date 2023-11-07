@@ -46,7 +46,7 @@ export default function Profile() {
 
     const [data, setData] = useState<UserData>()
     const [imageData, setImageData] = useState<string | null>(null);
-
+    const [idToken, setIdToken] = useState("")
 
     useEffect(() => {
         getData()
@@ -54,24 +54,30 @@ export default function Profile() {
 
     async function getData() {
 
-        const idToken = await auth.currentUser?.getIdToken()
-
-        await fetch("http://localhost:8080/user", {
-            headers: {
-                "Authorization": "Bearer " + idToken
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                const idToken = await user.getIdToken()
+                await fetch("http://localhost:8080/user", {
+                    headers: {
+                        "Authorization": "Bearer " + idToken
+                    }
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                    })
+                    .then((data) => {
+                        setData(data)
+                    })
+                    .catch((e) => alert(e))
+            }
+            else {
+                console.log("There is no user")
             }
         })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json()
-                }
-            })
-            .then((data) => {
-                console.log("received data")
-                console.log(data)
-                setData(data)
-            })
-            .catch((e) => alert(e))
+
+
     }
 
     return (
@@ -118,7 +124,7 @@ export default function Profile() {
                             </div>
 
                             <div className={"d-flex mx-5 justify-content-center"} style={{width: "100%"}}>
-                                {[0,0,0,0,0,0,0,0,0,0,0].map(() => {
+                                {[0,0,0,0,0].map(() => {
                                     return <RecentGame />
                                 })}
                             </div>
