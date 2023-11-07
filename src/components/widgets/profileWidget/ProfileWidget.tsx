@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Container, Image, Row, Col } from "react-bootstrap";
 import PreviewCard from "../../cards/PreviewCard";
 import "../../Widgets.css"
+import {useState} from "react";
 
 const profile = {
     username: "username",
@@ -10,6 +11,7 @@ const profile = {
 }
 
 export default function ProfileWidget() {
+
 
     return (
         <Link to={"/Profile"} className={"link"}>

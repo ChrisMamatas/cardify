@@ -26,7 +26,7 @@ export default function Register() {
         createUserWithEmailAndPassword(auth, email, password)
             .then(async() => {
                 const idToken = await auth.currentUser?.getIdToken()
-                fetch(process.env.VITE_URL + "/user", {
+                fetch("http://localhost:8080/user", {
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + idToken
