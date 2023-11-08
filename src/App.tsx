@@ -16,6 +16,7 @@ import ArenaDrafter from "./pages/ArenaDrafter.tsx";
 import BattleMatch from "./pages/BattleMatch.tsx";
 import UpdateInfo from "./pages/UpdateInfo.tsx";
 import UpdateProfile from "./pages/UpdateProfile.tsx";
+import PostRegister from "./pages/PostRegister.tsx";
 
 function App() {
 
@@ -24,13 +25,14 @@ function App() {
     return (
         <>
             {
-                location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/update" && <CustomNavbar />
+                location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/postregister" && location.pathname !== "/update" && <CustomNavbar />
             }
             <Routes>
                 <Route path={"/"} element={<Home />} />
                 <Route path={"/login"} element={<Login />} />
                 <Route path={"/register"} element={<Register />} />
                 <Route path={"/update"} element={<UpdateProfile />} />
+                <Route path={"/postregister"} element={<PostRegister />} />
 
                 <Route path={"/profile"} element={<Profile />} />
                 <Route path={"/updateInfo"} element={<UpdateInfo />} />

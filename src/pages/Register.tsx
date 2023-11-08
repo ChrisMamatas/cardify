@@ -34,7 +34,7 @@ export default function Register() {
                 })
                 .then((response) => {
                     if (response.ok) {
-                        navigate("/")
+                        navigate("/postregister")
                     }
                     else {
                         throw new Error()
