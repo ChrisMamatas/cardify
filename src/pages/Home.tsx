@@ -40,7 +40,7 @@ export default function Home() {
 
     return (
 
-        <div style={{height: "90vh"}} className={"d-flex m-5 justify-content-between"}>
+        <div style={{height: "88vh"}} className={"d-flex m-5 justify-content-between"}>
             <Stack className={"m-2"}>
                 <div style={{height: "30vh", marginBottom: "5vh"}}>
                     <ProfileWidget />
@@ -58,7 +58,7 @@ export default function Home() {
                 </div>
             </Stack>
             <Stack className={"m-2"}>
-                <div style={{height: "50git pvh", marginBottom: "5vh"}}>
+                <div style={{height: "45vh", marginBottom: "5vh"}}>
                     <SocialWidget />
                 </div>
                 <div style={{height: "30vh"}}>
