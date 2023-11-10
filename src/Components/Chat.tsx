@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import {useEffect, useState} from "react";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import './Chat.css';
+// import './Chat.css';
 
 const chats = [
     {
@@ -70,37 +70,38 @@ function ChatMessage({ message } : Message) {
 }
 export default function Chat() {
 
-    const [screenSize, setScreenSize] = useState('');
-
-    useEffect(() => {
-        function handleResize() {
-            if (window.innerWidth >= 3200) {
-                setScreenSize('xl'); //3440 x 1440
-            } else if(window.innerWidth >= 2500){
-                setScreenSize('chris') //2560 x 1664
-            } else if (window.innerWidth >= 1900) {
-                setScreenSize('lg'); //1920 x 1080
-            } else if (window.innerWidth >= 1300) {
-                setScreenSize('md'); //1536 x 864
-            } else {
-                setScreenSize('default'); // Set a default class name if no condition is met
-            }
-        }
-
-        handleResize();
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    // const [screenSize, setScreenSize] = useState('');
+    //
+    // useEffect(() => {
+    //     function handleResize() {
+    //         if (window.innerWidth >= 3200) {
+    //             setScreenSize('xl'); //3440 x 1440
+    //         } else if(window.innerWidth >= 2500){
+    //             setScreenSize('chris') //2560 x 1664
+    //         } else if (window.innerWidth >= 1900) {
+    //             setScreenSize('lg'); //1920 x 1080
+    //         } else if (window.innerWidth >= 1300) {
+    //             setScreenSize('md'); //1536 x 864
+    //         } else {
+    //             setScreenSize('default'); // Set a default class name if no condition is met
+    //         }
+    //     }
+    //
+    //     handleResize();
+    //
+    //     window.addEventListener('resize', handleResize);
+    //
+    //     return () => {
+    //         window.removeEventListener('resize', handleResize);
+    //     };
+    // }, []);
 
     return (
         <div className={"Widget d-flex flex-column"}>
             <Tabs justify style={{backgroundColor: "var(--primary)", padding:"0px"}}>
                 <Tab eventKey="Timeline" title="TimeLine" style={{backgroundColor: "var(--primary)", height: "100%"}}>
-                    <div className={`tall-${screenSize} d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>
+                    {/*<div className={`tall-${screenSize} d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>*/}
+                    <div className={`d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>
                         {
                             chats[0].messages.map((msg) => (
                                 <ChatMessage message={msg} />
@@ -110,7 +111,9 @@ export default function Chat() {
                 </Tab>
 
                 <Tab eventKey="Chat1" title="Chat1" style={{backgroundColor: "var(--primary)", height: "100%"}}>
-                    <div className={`tall-${screenSize} d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>
+                    {/*<div className={`tall-${screenSize} d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>*/}
+                    <div className={`d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>
+
                         {
                             chats[0].messages.map((msg) => (
                                 <ChatMessage message={msg} />
@@ -120,7 +123,8 @@ export default function Chat() {
                 </Tab>
 
                 <Tab eventKey="Chat2" title="Chat2" style={{backgroundColor: "var(--primary)", height: "100%"}}>
-                    <div className={`tall-${screenSize} d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>
+                    {/*<div className={`tall-${screenSize} d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>*/}
+                    <div className={`d-flex flex-column flex-grow-1 justify-content-end`} style={{backgroundColor: "var(--tertiary)"}}>
                         {
                             chats[0].messages.map((msg) => (
                                 <ChatMessage message={msg} />

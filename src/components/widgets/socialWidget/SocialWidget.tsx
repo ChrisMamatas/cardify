@@ -1,5 +1,5 @@
 import "../../Widgets.css"
-import "./SocialWidget.css"
+// import "./SocialWidget.css"
 import { BsPersonAdd } from "react-icons/bs";
 import { Image, OverlayTrigger, Popover, Table } from "react-bootstrap"
 import { Link } from "react-router-dom";
@@ -78,31 +78,31 @@ const friends: Friend[] = [
 
 export default function SocialWidget() {
 
-    const [screenSize, setScreenSize] = useState('');
-
-    useEffect(() => {
-        function handleResize() {
-            if (window.innerWidth >= 3200) {
-                setScreenSize('xl'); //3440 x 1440
-            } else if(window.innerWidth >= 2500){
-                setScreenSize('chris') //2560 x 1664
-            } else if (window.innerWidth >= 1900) {
-                setScreenSize('lg'); //1920 x 1080
-            } else if (window.innerWidth >= 1300) {
-                setScreenSize('md'); //1536 x 864
-            } else {
-                setScreenSize('default'); // Set a default class name if no condition is met
-            }
-        }
-
-        handleResize();
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    // const [screenSize, setScreenSize] = useState('');
+    //
+    // useEffect(() => {
+    //     function handleResize() {
+    //         if (window.innerWidth >= 3200) {
+    //             setScreenSize('xl'); //3440 x 1440
+    //         } else if(window.innerWidth >= 2500){
+    //             setScreenSize('chris') //2560 x 1664
+    //         } else if (window.innerWidth >= 1900) {
+    //             setScreenSize('lg'); //1920 x 1080
+    //         } else if (window.innerWidth >= 1300) {
+    //             setScreenSize('md'); //1536 x 864
+    //         } else {
+    //             setScreenSize('default'); // Set a default class name if no condition is met
+    //         }
+    //     }
+    //
+    //     handleResize();
+    //
+    //     window.addEventListener('resize', handleResize);
+    //
+    //     return () => {
+    //         window.removeEventListener('resize', handleResize);
+    //     };
+    // }, []);
 
     const [currentPopupUsername, setCurrentPopupUsername] = useState<string | null>(null);
     const createPopup = (friend: Friend) => {
@@ -116,12 +116,16 @@ export default function SocialWidget() {
     };
 
     return (
-        <div className={`friendsWidget-${screenSize} Widget`}>
+        // <div className={`friendsWidget-${screenSize} Widget`}>
+        // <div className={`friendsWidget Widget`}>
+            <div style={{height: "100%"}}>
             <div className={"header"} style={{backgroundColor:"var(--tertiary)"}}>
                 <h5 style={{marginBottom:"0rem"}}>Friends</h5>
                 <h5><BsPersonAdd /></h5>
             </div>
-            <div className={`friends-${screenSize} overflow-y-scroll friend-list`}>
+            {/*<div className={`friends-${screenSize} overflow-y-scroll friend-list`}>*/}
+            <div style={{height: "100%", overflowY: "auto"}} className={`friends friend-list`}>
+
                 {friends.map(friend => (
                     <div onClick={() => createPopup(friend)} key={friend.username}>
                         <OverlayTrigger
