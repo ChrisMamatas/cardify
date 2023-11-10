@@ -58,7 +58,7 @@ export default function Home() {
                 </div>
             </Stack>
             <Stack className={"m-2"}>
-                <div style={{height: "50vh"}}>
+                <div style={{height: "50git pvh", marginBottom: "5vh"}}>
                     <SocialWidget />
                 </div>
                 <div style={{height: "30vh"}}>
