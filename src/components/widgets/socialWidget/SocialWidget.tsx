@@ -118,13 +118,13 @@ export default function SocialWidget() {
     return (
         // <div className={`friendsWidget-${screenSize} Widget`}>
         // <div className={`friendsWidget Widget`}>
-            <div style={{height: "100%"}}>
+        <div style={{height: "100%"}}>
             <div className={"header"} style={{backgroundColor:"var(--tertiary)"}}>
                 <h5 style={{marginBottom:"0rem"}}>Friends</h5>
                 <h5><BsPersonAdd /></h5>
             </div>
             {/*<div className={`friends-${screenSize} overflow-y-scroll friend-list`}>*/}
-            <div style={{height: "100%", overflowY: "auto"}} className={`friends friend-list`}>
+            <div style={{height: "90%", overflowY: "auto"}} className={`friends friend-list`}>
 
                 {friends.map(friend => (
                     <div onClick={() => createPopup(friend)} key={friend.username}>
