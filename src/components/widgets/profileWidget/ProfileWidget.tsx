@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { Container, Image, Row, Col } from "react-bootstrap";
 import PreviewCard from "../../cards/PreviewCard";
 import "../../Widgets.css"
-import {useEffect, useState} from "react";
-import {auth} from "../../../../firebaseConfig.ts";
+import { useEffect, useState } from "react";
+import { auth } from "../../../../firebaseConfig.ts";
 
 interface Profile {
     username: string,
@@ -59,17 +59,17 @@ export default function ProfileWidget() {
                         </Col>
 
                         <Col className={"d-flex justify-content-center align-items-center flex-column"}>
-                            <Image src={"https://cdn-icons-png.flaticon.com/512/473/473406.png"} height={100} style={{marginBottom: 20}} />
+                            <Image src={"https://cdn-icons-png.flaticon.com/512/473/473406.png"} height={100} style={{ marginBottom: 20 }} />
                             <p>{profileData?.elo}</p>
                         </Col>
                     </Row>
 
                     <Row>
                         <div style={{ padding: 0, display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}  >
-                            <PreviewCard height="90px" />
-                            <PreviewCard height="90px" />
-                            <PreviewCard height="90px" />
-                            <PreviewCard height="90px" />
+                            <PreviewCard height="90px" cardName={""} baseImage={""} frontCard={""} backCard={""} />
+                            <PreviewCard height="90px" cardName={""} baseImage={""} frontCard={""} backCard={""} />
+                            <PreviewCard height="90px" cardName={""} baseImage={""} frontCard={""} backCard={""} />
+                            <PreviewCard height="90px" cardName={""} baseImage={""} frontCard={""} backCard={""} />
                         </div>
                     </Row>
                 </Container>

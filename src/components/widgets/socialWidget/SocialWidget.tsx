@@ -1,108 +1,27 @@
 import "../../Widgets.css"
 import "./SocialWidget.css"
 import { BsPersonAdd } from "react-icons/bs";
-import { Image, OverlayTrigger, Popover, Table } from "react-bootstrap"
+import { Button, Image, OverlayTrigger, Popover, Table } from "react-bootstrap"
 import { Link } from "react-router-dom";
-import {SetStateAction, useEffect, useState} from "react";
+import BattleRequestToast from "../../toasts/BattleRequestToast";
+import { SetStateAction, useEffect, useState } from "react";
+import { auth } from "../../../../firebaseConfig.ts";
 
 interface Friend {
+    uid: string,
     username: string,
-    online: boolean,
-    profile_picture: string
+    elo: number,
+    profilePicture: string
 }
 
-const friends: Friend[] = [
-    {
-        username: "user1",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },
-    {
-        username: "user2",
-        online: false,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },
-    {
-        username: "user3",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },
-    {
-        username: "user4",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },
-    {
-        username: "user5",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },
-    {
-        username: "user6",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },
-    {
-        username: "user7",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },
-    {
-        username: "user8",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },
-    {
-        username: "user9",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },
-    {
-        username: "user10",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    }, {
-        username: "user11",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    }, {
-        username: "user12",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    }, {
-        username: "user13",
-        online: true,
-        profile_picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    },
-]
+
 
 export default function SocialWidget() {
+    const [friends, setFriends] = useState<Friend[]>([]);
 
-    // const [screenSize, setScreenSize] = useState('');
-    //
-    // useEffect(() => {
-    //     function handleResize() {
-    //         if (window.innerWidth >= 3200) {
-    //             setScreenSize('xl'); //3440 x 1440
-    //         } else if(window.innerWidth >= 2500){
-    //             setScreenSize('chris') //2560 x 1664
-    //         } else if (window.innerWidth >= 1900) {
-    //             setScreenSize('lg'); //1920 x 1080
-    //         } else if (window.innerWidth >= 1300) {
-    //             setScreenSize('md'); //1536 x 864
-    //         } else {
-    //             setScreenSize('default'); // Set a default class name if no condition is met
-    //         }
-    //     }
-    //
-    //     handleResize();
-    //
-    //     window.addEventListener('resize', handleResize);
-    //
-    //     return () => {
-    //         window.removeEventListener('resize', handleResize);
-    //     };
-    // }, []);
+    useEffect(() => {
+        getData()
+    }, []);
 
     const [currentPopupUsername, setCurrentPopupUsername] = useState<string | null>(null);
     const createPopup = (friend: Friend) => {
@@ -115,16 +34,68 @@ export default function SocialWidget() {
         }
     };
 
+    async function getData() {
+
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+
+                fetch("http://localhost:8080/users", {
+                    headers: {
+                        "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
+                    }
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                        else {
+                            throw new Error("Failed to retrieve friends")
+                        }
+                    })
+                    .then((data) => {
+                        setFriends(data)
+                    })
+                    .catch((e) => alert(e))
+            }
+        })
+    }
+
+    async function challengeRequest(uid: string) {
+        fetch("http://localhost:8080/battle/request/" + uid, {
+            method: 'POST',
+            body: "{}",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
+            }
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+                    throw new Error("failed to send challenge request")
+                }
+            })
+            .then((data) => {
+                console.log("data")
+                console.log(data)
+            })
+            .catch((e) => alert(e))
+    }
+
+
     return (
         // <div className={`friendsWidget-${screenSize} Widget`}>
         // <div className={`friendsWidget Widget`}>
-        <div style={{height: "100%", backgroundColor: "#424B54", borderRadius: 10}}>
-            <div className={"header"} style={{backgroundColor:"var(--tertiary)"}}>
-                <h5 style={{marginBottom:"0rem"}}>Friends</h5>
+        <div style={{ height: "100%", backgroundColor: "#424B54", borderRadius: 10 }}>
+            <div className={"header"} style={{ backgroundColor: "var(--tertiary)" }}>
+                <h5 style={{ marginBottom: "0rem" }}>Friends</h5>
                 <h5><BsPersonAdd /></h5>
             </div>
             {/*<div className={`friends-${screenSize} overflow-y-scroll friend-list`}>*/}
-            <div style={{height: "88%", overflowY: "auto"}} className={`friends friend-list`}>
+            <div style={{ height: "88%", overflowY: "auto" }} className={`friends friend-list`}>
 
                 {friends.map(friend => (
                     <div onClick={() => createPopup(friend)} key={friend.username}>
@@ -151,8 +122,9 @@ export default function SocialWidget() {
                                                 <tr>
                                                     <td>Message</td>
                                                 </tr>
-                                                {/* <tr><td>First Name</td></tr> */}
-                                                {/* <tr><td>First Name</td></tr> */}
+                                                <tr>
+                                                    <Button onClick={() => challengeRequest(friend.uid)}>Battle</Button>
+                                                </tr>
                                             </tbody>
                                         </Table>
                                     </Popover.Body>
@@ -160,10 +132,12 @@ export default function SocialWidget() {
                             }
                         >
                             <div className={"d-flex p-2 m-2 align-items-center friend-item"}>
-                                <Image src={friend.profile_picture} height={50} />
+                                <Image src={friend.profilePicture} height={50} />
                                 <div className={"px-2"}>
                                     <p>{friend.username}</p>
-                                    <p style={{ fontSize: "0.75em" }}>{friend.online ? "Online" : "Offline"}</p>
+                                    {/* <p style={{ fontSize: "0.75em" }}>{friend.online ? "Online" : "Offline"}</p> */}
+                                    <p style={{ fontSize: "0.75em" }}>{"Online"}</p>
+
                                 </div>
                             </div>
                         </OverlayTrigger>

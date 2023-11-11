@@ -4,11 +4,12 @@ import "./Home.css"
 import SocialWidget from "../components/widgets/socialWidget/SocialWidget.tsx";
 import DeckWidget from "../components/widgets/deckWidget/DeckWidget.tsx";
 import Chat from "../components/Chat.tsx";
-import {Container, Row, Col, Stack} from "react-bootstrap";
+import { Container, Row, Col, Stack } from "react-bootstrap";
 import ArenaWidget from "../components/widgets/arenaWidget/ArenaWidget.tsx";
-import {auth} from "../../firebaseConfig.ts";
-import {redirect} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { auth } from "../../firebaseConfig.ts";
+import { redirect } from "react-router-dom";
+import { useEffect, useState } from "react";
+import BattleRequestToast from "../components/toasts/BattleRequestToast.tsx";
 
 export default function Home() {
 
@@ -40,28 +41,29 @@ export default function Home() {
 
     return (
 
-        <div style={{height: "88vh"}} className={"d-flex m-5 justify-content-between"}>
+        <div style={{ height: "88vh" }} className={"d-flex m-5 justify-content-between"}>
+            <BattleRequestToast show={false} onClose={() => { }} onAccept={() => { }} onDecline={() => { }} message={"test"} />
             <Stack className={"m-2"}>
-                <div style={{height: "36vh", marginBottom: "2vh"}}>
+                <div style={{ height: "36vh", marginBottom: "2vh" }}>
                     <ProfileWidget />
                 </div>
-                <div style={{height: "20vh", marginBottom: "2vh"}}>
+                <div style={{ height: "20vh", marginBottom: "2vh" }}>
                     <BattleWidget />
                 </div>
-                <div style={{height: "20vh"}}>
+                <div style={{ height: "20vh" }}>
                     <ArenaWidget />
                 </div>
             </Stack>
             <Stack className={"m-2"}>
-                <div style={{height: "80vh"}}>
+                <div style={{ height: "80vh" }}>
                     <DeckWidget />
                 </div>
             </Stack>
             <Stack className={"m-2"}>
-                <div style={{height: "48vh", marginBottom: "2vh"}}>
+                <div style={{ height: "48vh", marginBottom: "2vh" }}>
                     <SocialWidget />
                 </div>
-                <div style={{height: "30vh"}}>
+                <div style={{ height: "30vh" }}>
                     <Chat />
                 </div>
             </Stack>

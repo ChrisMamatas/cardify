@@ -1,12 +1,16 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 import FloatingLabel from "react-bootstrap/FloatingLabel"
 import Form from 'react-bootstrap/Form';
-import {browserLocalPersistence, signInWithEmailAndPassword} from "firebase/auth"
+import { browserLocalPersistence, signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../firebaseConfig.ts";
-import {Link, useNavigate} from "react-router-dom";
-import {Image} from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { Image } from "react-bootstrap";
+import { connectWebSocket } from "../services/WebsocketService.ts";
+import { useToast } from "../components/toasts/ToastContext.tsx";
 
 export default function Login() {
+
+    const { addBattleRequestToast } = useToast();
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -19,14 +23,19 @@ export default function Login() {
         auth.setPersistence(browserLocalPersistence)
             .then(() => {
                 signInWithEmailAndPassword(auth, email, password)
-                    .then(() => navigate("/"))
+                    .then(async (userCredential) => {
+                        navigate("/")
+                        connectWebSocket(await userCredential.user.getIdToken(), addBattleRequestToast)
+                    })
                     .catch((error) => alert(error))
             })
+
+
     }
 
 
     return (
-        <div className={"d-flex flex-grow-1 justify-content-center align-items-center"} style={{height: "100vh"}}>
+        <div className={"d-flex flex-grow-1 justify-content-center align-items-center"} style={{ height: "100vh" }}>
 
             <Form onSubmit={handleSubmit}>
                 <div className={"text-center"}>
@@ -34,10 +43,10 @@ export default function Login() {
 
                     <h3 className={"mt-1 mb-5"}>Cardify</h3>
                     <FloatingLabel label="Email" className="mb-3 p-0">
-                        <Form.Control type="email" placeholder="name@example.com" onChange={e => setEmail(e.target.value)}/>
+                        <Form.Control type="email" placeholder="name@example.com" onChange={e => setEmail(e.target.value)} />
                     </FloatingLabel>
                     <FloatingLabel controlId="floatingPassword" label="Password" >
-                        <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
+                        <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                     </FloatingLabel>
 
                     <button type={"submit"} className={"w-100 p-2 my-3"}>Login</button>
