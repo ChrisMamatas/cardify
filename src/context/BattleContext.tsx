@@ -18,10 +18,10 @@ export const BattleProvider: FC<Props> = ({ children }) => {
     // Other state as needed, e.g., topic subscriptions, battle state
 
     // Function to subscribe to a topic
-    const subscribeToBattleTopic = (topic: string) => {
-        subscribe(topic, handleBattleMessage);
+    const subscribeToBattleTopic = (id: string) => {
+        subscribe('/topic/battle/' + id, handleBattleMessage);
         // Increment subscription count
-        setSubscriptionsCount(prev => ({ ...prev, [topic]: (prev[topic] || 0) + 1 }));
+        setSubscriptionsCount(prev => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
     };
 
     // Function to unsubscribe from a topic

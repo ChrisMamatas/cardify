@@ -3,9 +3,11 @@ import "./SocialWidget.css"
 import { BsPersonAdd } from "react-icons/bs";
 import { Button, Image, OverlayTrigger, Popover, Table } from "react-bootstrap"
 import { useNavigate } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { auth } from "../../../../firebaseConfig.ts";
 import { useEffect, useState, useContext } from "react";
 import { useBattle } from "../../../context/BattleContext.tsx";
+import { useNavigate } from "react-router-dom";
 
 interface Friend {
     uid: string,
@@ -13,7 +15,6 @@ interface Friend {
     elo: number,
     profilePicture: string
 }
-
 
 
 export default function SocialWidget() {
@@ -81,8 +82,8 @@ export default function SocialWidget() {
                 }
             })
             .then((data) => {
-                console.log("data")
-                console.log(data)
+                battleSession?.saveBattleSession(data);
+                navigate('/BattleSelector')
             })
             .catch((e) => alert(e))
     }

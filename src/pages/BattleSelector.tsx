@@ -4,17 +4,39 @@ import { Link } from "react-router-dom";
 import { auth } from "../../firebaseConfig.ts";
 import { useEffect, useState } from "react";
 import "./BattleSelector.css"
-import { useLocation } from 'react-router-dom';
-
+import { useBattle } from "../context/BattleContext.tsx";
 
 
 
 export default function BattleSelector() {
     const [cards, setCards] = useState<Card[]>([]);
+    const battleContext = useBattle();
 
     useEffect(() => {
         getCards()
     }, []);
+
+    useEffect(() => {
+        console.log('Battle session updated:', battleContext?.battleSession)
+
+    }, [battleContext?.battleSession])
+
+    useEffect(() => {
+        const sessionId = battleContext?.battleSession?.id;
+        if (sessionId) {
+
+            battleContext?.subscribeToBattleTopic(`${sessionId}`);
+        }
+
+        return () => {
+            if (sessionId) {
+
+                battleContext?.unsubscribeFromBattleTopic(`${sessionId}`);
+            }
+        };
+    }, []);
+
+
 
     async function getCards() {
         auth.onAuthStateChanged(async (user) => {
@@ -22,6 +44,8 @@ export default function BattleSelector() {
                 fetch("http://localhost:8080/card", {
                     headers: {
                         "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
                     }
                 })
                     .then((response) => {
@@ -83,7 +107,16 @@ export default function BattleSelector() {
                     </Col>
                     <Col className="col-2">
                         <Row>
-                            <p>Test</p>
+                            {battleContext?.battleSession && (
+                                <div>
+                                    <p>Session ID: {battleContext?.battleSession?.id}</p>
+                                    {battleContext?.battleSession?.players.map((player, index) => (
+                                        <p>Player {index + 1}: {player.playerUserName} | Accepted {player.confirmed ? "True" : "False"} </p>
+                                    )
+
+                                    )}
+                                </div>
+                            )}
                         </Row>
                     </Col>
                 </Row>
