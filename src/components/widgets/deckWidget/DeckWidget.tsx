@@ -85,7 +85,7 @@ export default function DeckWidget() {
     return (
         <div className={"Widget center DeckWidget"} >
             <Container className="DeckWidgetContainer">
-                <Row md={12}>
+                <Row md={12} style={{height: "80vh", overflowY: "auto"}}>
                     <h1 className="center">Deck</h1>
                     {
                         cards.map((card, index) => (
