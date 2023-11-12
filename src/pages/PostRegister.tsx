@@ -2,10 +2,11 @@ import {ChangeEvent, useEffect, useState} from "react";
 import { auth } from "../../firebaseConfig.ts"
 import Image from "react-bootstrap/Image"
 import Form from "react-bootstrap/Form"
-import {Col, Container, Row, Modal, Button} from "react-bootstrap";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
+import {Col, Container, Row, Modal, Button, InputGroup} from "react-bootstrap";
 import Cropper, {Area} from 'react-easy-crop'
 import getCroppedImg from "../utils/cropImage.tsx";
+import PreviewCard from "../Components/cards/PreviewCard.tsx";
+import {useNavigate} from "react-router-dom";
 
 const CROP_AREA_ASPECT = 8 / 5;
 
@@ -16,7 +17,40 @@ interface ProfileData {
     showcase: string[]
 }
 
+interface CardAttributes {
+    name: string;
+    colors: {
+        dominantHex: string;
+        dominantRgb: {
+            r: number;
+            g: number;
+            b: number;
+        };
+        accentHex: string;
+        accentRgb: {
+            r: number;
+            g: number;
+            b: number;
+        };
+    };
+    stats: {
+        lightAttack: number;
+        heavyAttack: number;
+        speed: number;
+        defense: number;
+    };
+}
+interface Card {
+    baseImage: string;
+    frontCard: string;
+    backCard: string;
+    cardId: string;
+    cardAttributes: CardAttributes; // Correct the case to match the response
+}
+
 export default function PostRegister() {
+
+    const navigate = useNavigate()
 
     const [data, setData] = useState<ProfileData>()
     const [newUsername, setNewUsername] = useState<string>()
@@ -36,8 +70,24 @@ export default function PostRegister() {
     const [croppedImageThree, setCroppedImageThree] = useState(null)
     const [croppedImageFour, setCroppedImageFour] = useState(null)
 
-    const [modalShown, setModalShown] = useState(false)
+    const [titleOne, setTitleOne] = useState<string | null>(null)
+    const [titleTwo, setTitleTwo] = useState<string | null>(null)
+    const [titleThree, setTitleThree] = useState<string | null>(null)
+    const [titleFour, setTitleFour] = useState<string | null>(null)
+    const [descriptionOne, setDescriptionOne] = useState<string | null>(null)
+    const [descriptionTwo, setDescriptionTwo] = useState<string | null>(null)
+    const [descriptionThree, setDescriptionThree] = useState<string | null>(null)
+    const [descriptionFour, setDescriptionFour] = useState<string | null>(null)
+
+    const [createdCardOne, setCreatedCardOne] = useState<Card>()
+    const [createdCardTwo, setCreatedCardTwo] = useState<Card>()
+    const [createdCardThree, setCreatedCardThree] = useState<Card>()
+    const [createdCardFour, setCreatedCardFour] = useState<Card>()
+
+    const [modalShown, setModalShown] = useState<boolean>(false)
     const [modalImage, setModalImage] = useState<string>("")
+
+    const [confirmModalShown, setConfirmModalShown] = useState<boolean>(false)
 
     useEffect(() => {
         getData()
@@ -112,11 +162,102 @@ export default function PostRegister() {
     }
 
     async function createCards() {
-        console.log("create these")
+
+        setConfirmModalShown(true)
+
+        const idToken = await auth.currentUser?.getIdToken()
+
+        // Make first card
+        await fetch("http://localhost:8080/card", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + idToken
+            },
+            body: JSON.stringify({
+                name: titleOne,
+                description: descriptionOne,
+                image: croppedImageOne
+            })
+        })
+            .then((response) => {
+                if (response.ok) return response.json()
+                throw new Error()
+            })
+            .then((data) => {
+                setCreatedCardOne(data)
+            })
+            .catch((e) => alert(e))
+
+        // Make second card
+        await fetch("http://localhost:8080/card", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + idToken
+            },
+            body: JSON.stringify({
+                name: titleTwo,
+                description: descriptionTwo,
+                image: croppedImageTwo
+            })
+        })
+            .then((response) => {
+                if (response.ok) return response.json()
+                throw new Error()
+            })
+            .then((data) => {
+                setCreatedCardTwo(data)
+            })
+            .catch((e) => alert(e))
+
+        // Make third card
+        await fetch("http://localhost:8080/card", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + idToken
+            },
+            body: JSON.stringify({
+                name: titleThree,
+                description: descriptionThree,
+                image: croppedImageThree
+            })
+        })
+            .then((response) => {
+                if (response.ok) return response.json()
+                throw new Error()
+            })
+            .then((data) => {
+                setCreatedCardThree(data)
+            })
+            .catch((e) => alert(e))
+
+        // Make fourth card
+        await fetch("http://localhost:8080/card", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + idToken
+            },
+            body: JSON.stringify({
+                name: titleFour,
+                description: descriptionFour,
+                image: croppedImageFour
+            })
+        })
+            .then((response) => {
+                if (response.ok) return response.json()
+                throw new Error()
+            })
+            .then((data) => {
+                setCreatedCardFour(data)
+            })
+            .catch((e) => alert(e))
     }
 
     return (
-        <div style={{backgroundColor: "red", height: "100vh"}} className={"d-flex flex-row justify-content-center align-items-center"}>
+        <div style={{height: "100vh"}} className={"d-flex flex-row justify-content-center align-items-center"}>
 
             <Modal show={modalShown} onHide={() => setModalShown(false)}>
                 <Modal.Header closeButton>
@@ -142,6 +283,38 @@ export default function PostRegister() {
                 </Modal.Footer>
             </Modal>
 
+            <Modal show={confirmModalShown}>
+                <Modal.Header>
+                    <Modal.Title>Here Are Your Cards!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body style={{height: "60vh"}}>
+                    <div style={{display: "flex", justifyContent: "space-between"}}>
+                        <PreviewCard
+                            cardName={createdCardOne?.cardAttributes.name}
+                            baseImage={createdCardOne?.baseImage}
+                            frontCard={createdCardOne?.frontCard}
+                            backCard={createdCardOne?.backCard} />
+                        <PreviewCard
+                            cardName={createdCardTwo?.cardAttributes.name}
+                            baseImage={createdCardTwo?.baseImage}
+                            frontCard={createdCardTwo?.frontCard}
+                            backCard={createdCardTwo?.backCard} />
+                        <PreviewCard
+                            cardName={createdCardThree?.cardAttributes.name}
+                            baseImage={createdCardThree?.baseImage}
+                            frontCard={createdCardThree?.frontCard}
+                            backCard={createdCardThree?.backCard} />
+                        <PreviewCard
+                            cardName={createdCardFour?.cardAttributes.name}
+                            baseImage={createdCardFour?.baseImage}
+                            frontCard={createdCardFour?.frontCard}
+                            backCard={createdCardFour?.backCard} />
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={() => navigate("/")}>Lets Play!</Button>
+                </Modal.Footer>
+            </Modal>
 
 
             <Container>
@@ -155,36 +328,32 @@ export default function PostRegister() {
                         </div>
                         <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageOne, "imageOne")}/>
 
-                        <FloatingLabel controlId="floatingInput" label={"Name"} placeholder={"Name"}>
-                            <Form.Control placeholder={"Name"} type={"text"}></Form.Control>
-                        </FloatingLabel>
+                        <Form.Control placeholder={"Title"} onChange={(e) => setTitleOne(e.target.value)} />
+                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionOne(e.target.value)}/>
                     </Col>
                     <Col>
                         <div style={{height: 200, width: 300, backgroundColor: "gray", marginBottom: 10}}>
                             <Image src={croppedImageTwo} height={200} width={300}/>
                         </div>
                         <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageTwo, "imageTwo")}/>
-                        <FloatingLabel controlId="floatingInput" label={"Name"} placeholder={"Name"}>
-                            <Form.Control placeholder={"Name"} type={"text"}></Form.Control>
-                        </FloatingLabel>
+                        <Form.Control placeholder={"Title"} onChange={(e) => setTitleTwo(e.target.value)} />
+                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionTwo(e.target.value)}/>
                     </Col>
                     <Col>
                         <div style={{height: 200, width: 300, backgroundColor: "gray", marginBottom: 10}}>
                             <Image src={croppedImageThree} height={200} width={300}/>
                         </div>
                         <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageThree, "imageThree")}/>
-                        <FloatingLabel controlId="floatingInput" label={"Name"} placeholder={"Name"}>
-                            <Form.Control placeholder={"Name"} type={"text"}></Form.Control>
-                        </FloatingLabel>
+                        <Form.Control placeholder={"Title"} onChange={(e) => setTitleThree(e.target.value)} />
+                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionThree(e.target.value)}/>
                     </Col>
                     <Col>
                         <div style={{height: 200, width: 300, backgroundColor: "gray", marginBottom: 10}}>
                             <Image src={croppedImageFour} height={200} width={300}/>
                         </div>
                         <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageFour, "imageFour")}/>
-                        <FloatingLabel controlId="floatingInput" label={"Name"} placeholder={"Name"}>
-                            <Form.Control placeholder={"Name"} type={"text"}></Form.Control>
-                        </FloatingLabel>
+                        <Form.Control placeholder={"Title"} onChange={(e) => setTitleFour(e.target.value)} />
+                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionFour(e.target.value)}/>
                     </Col>
                 </Row>
                 <Row className={"mt-5"}>
