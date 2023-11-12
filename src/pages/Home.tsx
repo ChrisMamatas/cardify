@@ -42,7 +42,7 @@ export default function Home() {
     return (
 
         <div style={{ height: "88vh" }} className={"d-flex m-5 justify-content-between"}>
-            <Stack className={"m-2"}>
+            <Stack className={"m-2"} style={{width: "16vw"}}>
                 <div style={{ height: "36vh", marginBottom: "2vh" }}>
                     <ProfileWidget />
                 </div>
@@ -53,12 +53,12 @@ export default function Home() {
                     <ArenaWidget />
                 </div>
             </Stack>
-            <Stack className={"m-2"}>
+            <Stack className={"m-2"} style={{width: "40vw"}}>
                 <div style={{ height: "80vh" }}>
                     <DeckWidget />
                 </div>
             </Stack>
-            <Stack className={"m-2"}>
+            <Stack className={"m-2"} style={{width: "10vw"}}>
                 <div style={{ height: "48vh", marginBottom: "2vh" }}>
                     <SocialWidget />
                 </div>

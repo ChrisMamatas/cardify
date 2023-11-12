@@ -2,7 +2,7 @@ import "../../Widgets.css"
 import "./SocialWidget.css"
 import { BsPersonAdd } from "react-icons/bs";
 import { Button, Image, OverlayTrigger, Popover, Table } from "react-bootstrap"
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../../../../firebaseConfig.ts";
 import { useEffect, useState, useContext } from "react";
 import { useBattle } from "../../../context/BattleContext.tsx";
@@ -19,6 +19,7 @@ interface Friend {
 export default function SocialWidget() {
     const [friends, setFriends] = useState<Friend[]>([]);
     const battleSession = useBattle()
+    const navigate = useNavigate()
 
     useEffect(() => {
         getData()
@@ -108,26 +109,33 @@ export default function SocialWidget() {
                             overlay={
                                 <Popover id={`popover-positioned`} style={{ backgroundColor: "#424B54" }} >
                                     <Popover.Body>
-                                        <Table striped bordered hover className="social-popup">
-                                            <thead>
-                                                <tr>
-                                                    <th>{friend.username}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <Link className="social-popup" to={"/trading"}>
-                                                    <tr>
-                                                        <td>Trade</td>
-                                                    </tr>
-                                                </Link>
-                                                <tr>
-                                                    <td>Message</td>
-                                                </tr>
-                                                <tr>
-                                                    <Button onClick={() => challengeRequest(friend.uid)}>Battle</Button>
-                                                </tr>
-                                            </tbody>
-                                        </Table>
+                                        <div style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
+                                            <h6>{friend.username}</h6>
+                                            <button onClick={() => navigate("/trading")} >Trade</button>
+                                            <button>Message</button>
+                                            <button onClick={() => challengeRequest(friend.uid)}>Battle</button>
+                                        </div>
+
+                                        {/*<Table striped bordered hover className="social-popup">*/}
+                                        {/*    <thead>*/}
+                                        {/*        <tr>*/}
+                                        {/*            <th>{friend.username}</th>*/}
+                                        {/*        </tr>*/}
+                                        {/*    </thead>*/}
+                                        {/*    <tbody>*/}
+                                        {/*        <Link className="social-popup" to={"/trading"}>*/}
+                                        {/*            <tr>*/}
+                                        {/*                <td>Trade</td>*/}
+                                        {/*            </tr>*/}
+                                        {/*        </Link>*/}
+                                        {/*        <tr>*/}
+                                        {/*            <td>Message</td>*/}
+                                        {/*        </tr>*/}
+                                        {/*        <tr>*/}
+                                        {/*            <Button onClick={() => challengeRequest(friend.uid)}>Battle</Button>*/}
+                                        {/*        </tr>*/}
+                                        {/*    </tbody>*/}
+                                        {/*</Table>*/}
                                     </Popover.Body>
                                 </Popover>
                             }
