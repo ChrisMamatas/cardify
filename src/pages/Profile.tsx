@@ -91,6 +91,7 @@ export default function Profile() {
 
     useEffect(() => {
         getData()
+        getCards()
     }, []);
 
     async function getData() {
@@ -118,7 +119,7 @@ export default function Profile() {
         })
     }
 
-    async function getData() {
+    async function getCards() {
         auth.onAuthStateChanged(async (user) => {
             if (user) {
                 await fetch("http://localhost:8080/card", {
@@ -135,7 +136,7 @@ export default function Profile() {
                     })
                     .then((data) => {
                         console.log(data);
-                        setProfileData(data);
+                        // setProfileData(data);
                         setCards(data);
                         console.log(cards);
                     })

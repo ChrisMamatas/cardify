@@ -7,7 +7,6 @@ import { Link, redirect } from "react-router-dom";
 import { auth } from "../../../../firebaseConfig.ts";
 import { useEffect, useState, useContext } from "react";
 import { useBattle } from "../../../context/BattleContext.tsx";
-import { useNavigate } from "react-router-dom";
 
 interface Friend {
     uid: string,
