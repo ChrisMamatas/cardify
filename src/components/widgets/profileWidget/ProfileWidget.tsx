@@ -12,39 +12,71 @@ interface Profile {
     uid: string
 }
 
+interface CardAttributes {
+    name: string;
+    colors: {
+        dominantHex: string;
+        dominantRgb: {
+            r: number;
+            g: number;
+            b: number;
+        };
+        accentHex: string;
+        accentRgb: {
+            r: number;
+            g: number;
+            b: number;
+        };
+    };
+    stats: {
+        lightAttack: number;
+        heavyAttack: number;
+        speed: number;
+        defense: number;
+    };
+}
+
+interface Card {
+    baseImage: string;
+    frontCard: string;
+    backCard: string;
+    cardId: string;
+    cardAttributes: CardAttributes; // Correct the case to match the response
+}
+
 export default function ProfileWidget() {
 
     const [profileData, setProfileData] = useState<Profile>()
+    const [cards, setCards] = useState<Card[]>([]);
 
     useEffect(() => {
-
         getData()
     }, [])
 
     async function getData() {
-
         auth.onAuthStateChanged(async (user) => {
             if (user) {
-
-                const idToken = await user.getIdToken()
-                await fetch("http://localhost:8080/user", {
+                await fetch("http://localhost:8080/card", {
                     headers: {
-                        "Authorization": "Bearer " + idToken
+                        "Authorization": "Bearer " + (await auth.currentUser?.getIdToken()),
                     }
                 })
                     .then((response) => {
                         if (response.ok) {
-                            return response.json()
+                            return response.json();
+                        } else {
+                            throw new Error();
                         }
-                        throw new Error()
                     })
                     .then((data) => {
-                        console.log(data)
-                        setProfileData(data)
+                        console.log(data);
+                        setProfileData(data);
+                        setCards(data);
+                        console.log(cards);
                     })
-                    .catch((e) => console.log(e))
+                    .catch((e) => console.log(e));
             }
-        })
+        });
     }
 
     return (
@@ -64,13 +96,18 @@ export default function ProfileWidget() {
                         </Col>
                     </Row>
 
-                    <Row>
-                        <div style={{ padding: 0, display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}  >
-                            <PreviewCard height="90px" cardName={""} baseImage={""} frontCard={""} backCard={""} />
-                            <PreviewCard height="90px" cardName={""} baseImage={""} frontCard={""} backCard={""} />
-                            <PreviewCard height="90px" cardName={""} baseImage={""} frontCard={""} backCard={""} />
-                            <PreviewCard height="90px" cardName={""} baseImage={""} frontCard={""} backCard={""} />
-                        </div>
+                    <Row style={{ padding: 0, display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
+                        {
+                            cards && cards.slice(0,4).map((card, index) => (
+                                <Col md={3} key={index}>
+                                    <PreviewCard
+                                        cardName={card.cardAttributes.name}
+                                        baseImage={card.baseImage}
+                                        frontCard={card.frontCard}
+                                        backCard={card.backCard} />
+                                </Col>
+                            ))
+                        }
                     </Row>
                 </Container>
             </div>

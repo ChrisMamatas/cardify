@@ -89,7 +89,7 @@ export default function DeckWidget() {
                     <h1 className="center">Deck</h1>
                     {
                         cards.map((card, index) => (
-                            <Col md={3} key={index}> {/* Added key for list items */}
+                            <Col md={4} key={index}> {/* Added key for list items */}
                                 <PreviewCard
                                     cardName={card.cardAttributes.name}
                                     baseImage={card.baseImage}

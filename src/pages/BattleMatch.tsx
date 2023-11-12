@@ -67,31 +67,28 @@ export default function BattleMatch() {
                 <div className="center">
                     <Container>
                         <Row>
-                            <Col className="center"><PreviewCard height="100px"/></Col> <Col/> <Col/> <Col/>
+                            <Col className="center"><PreviewCard height="100px"/></Col>
+                            <Col className="center"><PreviewCard height="100px"/></Col>
+                            <Col className="center"><PreviewCard height="100px"/></Col>
+                            <Col className="center"><PreviewCard height="100px"/></Col>
                         </Row>
-
-                        <Row>
-                            <Col className="Divider"/> <Col className="center"><PreviewCard height="100px"/></Col>
-                            <Col/> <Col/>
+                        <Row className="Divider">
+                            <Col className="Start"><button>Your Turn</button></Col>
+                            <Col className="center"/>
+                            <Col className="center"/>
+                            <Col className="center"/>
                         </Row>
-
                         <Row>
-                            <Col className="center"><PreviewCard height="100px"/></Col> <Col className="Divider"/> <Col
-                            className="center"><PreviewCard height="100px"/></Col> <Col/>
+                            <Col className="Start"><button>Your Turn</button></Col>
+                            <Col className="center"/>
+                            <Col className="center"/>
+                            <Col className="center"/>
                         </Row>
-
                         <Row>
-                            <Col/> <Col className="center"><PreviewCard height="100px"/></Col> <Col
-                            className="Divider"/> <Col className="center"><PreviewCard height="100px"/></Col>
-                        </Row>
-
-                        <Row>
-                            <Col/> <Col/> <Col className="center"><PreviewCard height="100px"/></Col> <Col
-                            className="Divider"/>
-                        </Row>
-
-                        <Row>
-                            <Col/> <Col/> <Col/> <Col className="center"><PreviewCard height="100px"/></Col>
+                            <Col className="center"><PreviewCard height="250px"/></Col>
+                            <Col className="center"><PreviewCard height="250px"/></Col>
+                            <Col className="center"><PreviewCard height="250px"/></Col>
+                            <Col className="center"><PreviewCard height="250px"/></Col>
                         </Row>
                     </Container>
                 </div>
