@@ -41,6 +41,8 @@ interface Card {
     cardId: string;
     cardAttributes: CardAttributes; // Correct the case to match the response
 }
+
+
 export default function DeckWidget() {
     const [cards, setCards] = useState<Card[]>([]);
 
@@ -54,26 +56,30 @@ export default function DeckWidget() {
     const handleShow = () => setShowCreateCardModal(true);
 
     async function getData() {
-        fetch("http://localhost:8080/card", {
-            headers: {
-                "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                fetch("http://localhost:8080/card", {
+                    headers: {
+                        "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
+                    }
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                        else {
+                            throw new Error()
+                        }
+                    })
+                    .then((data) => {
+                        console.log("data")
+                        console.log(data)
+                        setCards(data)
+                        console.log(cards)
+                    })
+                    .catch((e) => alert(e))
             }
         })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json()
-                }
-                else {
-                    throw new Error()
-                }
-            })
-            .then((data) => {
-                console.log("data")
-                console.log(data)
-                setCards(data)
-                console.log(cards)
-            })
-            .catch((e) => alert(e))
     }
 
     return (
@@ -101,7 +107,7 @@ export default function DeckWidget() {
                             Create Card
                         </Button>
 
-                        <CreateCard showModal={showCreateCardModal} handleClose={handleClose}  />
+                        <CreateCard showModal={showCreateCardModal} handleClose={handleClose} />
                     </Col>
                     <Col md={6}>
                         <Button variant="primary" size="lg" style={{ width: '100%' }}>Delete Card</Button>

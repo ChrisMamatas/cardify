@@ -1,0 +1,9 @@
+.toast-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 2em;
+    z-index: 1050;
+    /* z-index should be higher than other elements */
+    max-width: 300px;
+}
