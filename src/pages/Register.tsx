@@ -5,8 +5,11 @@ import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../firebaseConfig.ts";
 import { Link, useNavigate } from "react-router-dom";
 import { Image } from "react-bootstrap";
+import { connectWebSocket } from "../services/WebsocketService.ts";
+import { useToast } from "../components/toasts/ToastContext.tsx";
 
 export default function Register() {
+    const { addBattleRequestToast } = useToast();
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -24,23 +27,25 @@ export default function Register() {
         }
 
         createUserWithEmailAndPassword(auth, email, password)
-            .then(async() => {
+            .then(async () => {
                 const idToken = await auth.currentUser?.getIdToken()
+                connectWebSocket(`${idToken}`, addBattleRequestToast)
+
                 fetch("http://localhost:8080/user", {
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + idToken
                     }
                 })
-                .then((response) => {
-                    if (response.ok) {
-                        navigate("/postregister")
-                    }
-                    else {
-                        throw new Error()
-                    }
-                })
-                .catch((e) => alert(e))
+                    .then((response) => {
+                        if (response.ok) {
+                            navigate("/postregister")
+                        }
+                        else {
+                            throw new Error()
+                        }
+                    })
+                    .catch((e) => alert(e))
             })
             .catch((error) => {
                 if (error.code == "auth/email-already-in-use")
@@ -50,7 +55,7 @@ export default function Register() {
     }
 
     return (
-        <div className={"d-flex flex-grow-1 justify-content-center align-items-center"} style={{height: "100vh"}}>
+        <div className={"d-flex flex-grow-1 justify-content-center align-items-center"} style={{ height: "100vh" }}>
 
             <Form onSubmit={handleSubmit}>
                 <div className={"text-center"}>
@@ -58,17 +63,17 @@ export default function Register() {
 
                     <h3 className={"mt-1 mb-5"}>Cardify</h3>
                     <FloatingLabel label="Email" className="mb-3">
-                        <Form.Control required={true} type="email" placeholder="name@example.com" onChange={e => setEmail(e.target.value)}/>
+                        <Form.Control required={true} type="email" placeholder="name@example.com" onChange={e => setEmail(e.target.value)} />
                     </FloatingLabel>
                     <FloatingLabel controlId="floatingPassword" label="Password" className="mb-3">
-                        <Form.Control required={true} type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
+                        <Form.Control required={true} type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                     </FloatingLabel>
                     <FloatingLabel controlId="floatingPassword" label="Confirm Password" className="mb-3">
-                        <Form.Control required={true} type="password" placeholder="Confirm Password" onChange={e => setPassword2(e.target.value)}/>
+                        <Form.Control required={true} type="password" placeholder="Confirm Password" onChange={e => setPassword2(e.target.value)} />
                     </FloatingLabel>
 
                     <div>
-                        <p style={{color: "red"}}>{errorMessage}</p>
+                        <p style={{ color: "red" }}>{errorMessage}</p>
                     </div>
 
                     <button type={"submit"} className={"w-100 p-2 my-3"}>Sign Up</button>
