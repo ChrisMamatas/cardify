@@ -135,10 +135,7 @@ export default function Profile() {
                         }
                     })
                     .then((data) => {
-                        console.log(data);
-                        // setProfileData(data);
                         setCards(data);
-                        console.log(cards);
                     })
                     .catch((e) => console.log(e));
             }
