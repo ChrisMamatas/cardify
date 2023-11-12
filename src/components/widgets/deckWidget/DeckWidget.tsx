@@ -41,6 +41,8 @@ interface Card {
     cardId: string;
     cardAttributes: CardAttributes; // Correct the case to match the response
 }
+
+
 export default function DeckWidget() {
     const [cards, setCards] = useState<Card[]>([]);
 

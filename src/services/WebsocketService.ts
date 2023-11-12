@@ -1,5 +1,5 @@
 import SockJS from 'sockjs-client';
-import Stomp, { Client } from 'webstomp-client';
+import Stomp, { Client, Message } from 'webstomp-client';
 
 
 let stompClient: Client | null = null;
@@ -98,3 +98,16 @@ export const closeWebSocket = () => {
         stompClient.disconnect();
     }
 };
+
+export const subscribe = (topic: string, callback: ((message: Message) => any)) => {
+    if (stompClient && isConnected) {
+        return stompClient.subscribe(topic, callback).id;
+
+    }
+}
+
+export const unsubscribe = (id: string) => {
+    if (stompClient) {
+        stompClient.unsubscribe(id)
+    }
+}

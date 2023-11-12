@@ -1,5 +1,5 @@
 import { Toast, Button } from 'react-bootstrap';
-import "./Toast.css"
+import "./BattleRequestToast.css"
 
 interface BattleRequestToastProps {
     show: boolean;

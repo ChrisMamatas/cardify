@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import BattleRequestToast from './BattleRequestToast';
+import { BattleProvider } from '../../context/BattleContext';
 
 interface ToastData {
     id: string;
@@ -13,7 +14,6 @@ interface ToastData {
 
 interface ToastProviderProps {
     children: ReactNode;
-    // other props if necessary
 }
 
 interface ToastContextProps {

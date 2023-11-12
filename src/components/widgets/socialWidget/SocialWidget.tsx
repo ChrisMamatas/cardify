@@ -3,9 +3,9 @@ import "./SocialWidget.css"
 import { BsPersonAdd } from "react-icons/bs";
 import { Button, Image, OverlayTrigger, Popover, Table } from "react-bootstrap"
 import { Link } from "react-router-dom";
-import BattleRequestToast from "../../toasts/BattleRequestToast";
-import { SetStateAction, useEffect, useState } from "react";
 import { auth } from "../../../../firebaseConfig.ts";
+import { useEffect, useState, useContext } from "react";
+import { useBattle } from "../../../context/BattleContext.tsx";
 
 interface Friend {
     uid: string,
@@ -18,6 +18,7 @@ interface Friend {
 
 export default function SocialWidget() {
     const [friends, setFriends] = useState<Friend[]>([]);
+    const battleSession = useBattle()
 
     useEffect(() => {
         getData()

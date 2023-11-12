@@ -42,7 +42,6 @@ export default function Home() {
     return (
 
         <div style={{ height: "88vh" }} className={"d-flex m-5 justify-content-between"}>
-            <BattleRequestToast show={false} onClose={() => { }} onAccept={() => { }} onDecline={() => { }} message={"test"} />
             <Stack className={"m-2"}>
                 <div style={{ height: "36vh", marginBottom: "2vh" }}>
                     <ProfileWidget />

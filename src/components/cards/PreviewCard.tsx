@@ -24,7 +24,7 @@ const PreviewCard: React.FC<PreviewProps> = ({
 }) => {
     const [showComponent, setShowComponent] = useState(false);
     return (
-        <div>
+        <div style={{ width: 'auto' }}>
             <Card className={cardStyles.card} style={{ height: height }} onClick={() => { setShowComponent(true) }}>
                 <Card.Img variant="top" src={baseImage} />
                 <Card.ImgOverlay className={cardStyles["overlay-content"] + " align-middle"}>
