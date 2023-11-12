@@ -51,9 +51,33 @@ export default function ProfileWidget() {
 
     useEffect(() => {
         getData()
+        getCards()
     }, [])
 
     async function getData() {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                await fetch("http://localhost:8080/user", {
+                    headers: {
+                        "Authorization": "Bearer " + (await auth.currentUser?.getIdToken()),
+                    }
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error();
+                        }
+                    })
+                    .then((data) => {
+                        setProfileData(data)
+                    })
+                    .catch((e) => console.log(e));
+            }
+        });
+    }
+
+    async function getCards() {
         auth.onAuthStateChanged(async (user) => {
             if (user) {
                 await fetch("http://localhost:8080/card", {
@@ -69,10 +93,7 @@ export default function ProfileWidget() {
                         }
                     })
                     .then((data) => {
-                        console.log(data);
-                        setProfileData(data);
                         setCards(data);
-                        console.log(cards);
                     })
                     .catch((e) => console.log(e));
             }
