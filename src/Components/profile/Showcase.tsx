@@ -75,6 +75,7 @@ export default function Showcase() {
             }
         });
     }
+
     return (
         <Container>
             <Row>
@@ -92,15 +93,6 @@ export default function Showcase() {
                         </Col>
                     ))
                 }
-                <Col>
-                    <Card />
-                </Col>
-                <Col>
-                    <Card />
-                </Col>
-                <Col>
-                    <Card />
-                </Col>
             </Row>
         </Container>
     )

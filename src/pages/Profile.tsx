@@ -15,6 +15,45 @@ interface UserData {
     profilePicture: String
 }
 
+interface Profile {
+    username: string,
+    profilePicture: string,
+    elo: number,
+    uid: string
+}
+
+interface CardAttributes {
+    name: string;
+    colors: {
+        dominantHex: string;
+        dominantRgb: {
+            r: number;
+            g: number;
+            b: number;
+        };
+        accentHex: string;
+        accentRgb: {
+            r: number;
+            g: number;
+            b: number;
+        };
+    };
+    stats: {
+        lightAttack: number;
+        heavyAttack: number;
+        speed: number;
+        defense: number;
+    };
+}
+
+interface Card {
+    baseImage: string;
+    frontCard: string;
+    backCard: string;
+    cardId: string;
+    cardAttributes: CardAttributes; // Correct the case to match the response
+}
+
 function RecentGame() {
     return (
         <div style={{ display: "inline-block", padding: 5, marginRight: 10, textAlign: "center", backgroundColor: "green" }}>
@@ -47,13 +86,14 @@ export default function Profile() {
     const [data, setData] = useState<UserData>()
     const [imageData, setImageData] = useState<string | null>(null);
     const [idToken, setIdToken] = useState("")
+    const [profileData, setProfileData] = useState<Profile>()
+    const [cards, setCards] = useState<Card[]>([]);
 
     useEffect(() => {
         getData()
     }, []);
 
     async function getData() {
-
         auth.onAuthStateChanged(async (user) => {
             if (user) {
                 const idToken = await user.getIdToken()
@@ -76,8 +116,32 @@ export default function Profile() {
                 console.log("There is no user")
             }
         })
+    }
 
-
+    async function getData() {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                await fetch("http://localhost:8080/card", {
+                    headers: {
+                        "Authorization": "Bearer " + (await auth.currentUser?.getIdToken()),
+                    }
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error();
+                        }
+                    })
+                    .then((data) => {
+                        console.log(data);
+                        setProfileData(data);
+                        setCards(data);
+                        console.log(cards);
+                    })
+                    .catch((e) => console.log(e));
+            }
+        });
     }
 
     return (
@@ -93,15 +157,45 @@ export default function Profile() {
                             <div>
                                 <div className={"d-flex mx-4"}>
                                     <div>
-                                        <PreviewCard height={"14em"} />
+                                        {
+                                            cards && cards.slice(0,1).map((card, index) => (
+                                                <Col md={10} key={index}>
+                                                    <PreviewCard
+                                                        cardName={card.cardAttributes.name}
+                                                        baseImage={card.baseImage}
+                                                        frontCard={card.frontCard}
+                                                        backCard={card.backCard} />
+                                                </Col>
+                                            ))
+                                        }
                                         <h6 style={{ textAlign: "center" }}>Most HP - 1273</h6>
                                     </div>
                                     <div>
-                                        <PreviewCard height={"14em"} />
+                                        {
+                                            cards && cards.slice(1,2).map((card, index) => (
+                                                <Col md={10} key={index}>
+                                                    <PreviewCard
+                                                        cardName={card.cardAttributes.name}
+                                                        baseImage={card.baseImage}
+                                                        frontCard={card.frontCard}
+                                                        backCard={card.backCard} />
+                                                </Col>
+                                            ))
+                                        }
                                         <h6 style={{ textAlign: "center" }}>Most Damage - 349</h6>
                                     </div>
                                     <div>
-                                        <PreviewCard height={"14em"} />
+                                        {
+                                            cards && cards.slice(2,3).map((card, index) => (
+                                                <Col md={10} key={index}>
+                                                    <PreviewCard
+                                                        cardName={card.cardAttributes.name}
+                                                        baseImage={card.baseImage}
+                                                        frontCard={card.frontCard}
+                                                        backCard={card.backCard} />
+                                                </Col>
+                                            ))
+                                        }
                                         <h6 style={{ textAlign: "center" }}>Highest Winrate - 89%</h6>
                                     </div>
                                 </div>
@@ -153,14 +247,17 @@ export default function Profile() {
                 <Row>
                     <Col className={"t ml-1 p-2"}>
                         <h3>Cards</h3>
-                        <div className={"d-flex flex-wrap justify-content-center"} style={{ height: "85vh", overflowY: "auto" }}>
-                            {[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].map(() => {
-                                return (
-                                    <div className={"m-2"} >
-                                        <PreviewCard height={"12em"} />
-                                    </div>
-                                )
-                            })
+                        <div className={"d-flex flex-wrap justify-content-center"} style={{ height: "85vh", overflowY: "auto"}}>
+                            {
+                                cards && cards.map((card, index) => (
+                                    <Col md={3} key={index}>
+                                        <PreviewCard
+                                            cardName={card.cardAttributes.name}
+                                            baseImage={card.baseImage}
+                                            frontCard={card.frontCard}
+                                            backCard={card.backCard} />
+                                    </Col>
+                                ))
                             }
                         </div>
                     </Col>
