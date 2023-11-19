@@ -5,11 +5,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../firebaseConfig.ts";
 import { Link, useNavigate } from "react-router-dom";
 import { Image } from "react-bootstrap";
-import { connectWebSocket } from "../services/WebsocketService.ts";
-import { useToast } from "../components/toasts/ToastContext.tsx";
 
 export default function Register() {
-    const { addBattleRequestToast } = useToast();
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -29,8 +26,6 @@ export default function Register() {
         createUserWithEmailAndPassword(auth, email, password)
             .then(async () => {
                 const idToken = await auth.currentUser?.getIdToken()
-                connectWebSocket(`${idToken}`, addBattleRequestToast)
-
                 fetch("http://localhost:8080/user", {
                     method: "POST",
                     headers: {

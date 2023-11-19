@@ -5,12 +5,9 @@ import { browserLocalPersistence, signInWithEmailAndPassword } from "firebase/au
 import { auth } from "../../firebaseConfig.ts";
 import { Link, useNavigate } from "react-router-dom";
 import { Image } from "react-bootstrap";
-import { connectWebSocket } from "../services/WebsocketService.ts";
-import { useToast } from "../components/toasts/ToastContext.tsx";
 
 export default function Login() {
 
-    const { addBattleRequestToast } = useToast();
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -25,7 +22,6 @@ export default function Login() {
                 signInWithEmailAndPassword(auth, email, password)
                     .then(async (userCredential) => {
                         navigate("/")
-                        connectWebSocket(await userCredential.user.getIdToken(), addBattleRequestToast)
                     })
                     .catch((error) => alert(error))
             })

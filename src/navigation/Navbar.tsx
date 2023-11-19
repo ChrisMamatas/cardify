@@ -6,7 +6,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "./Navbar.css"
 import { auth } from "../../firebaseConfig.ts";
-import { closeWebSocket } from "../services/WebsocketService.ts";
 
 export default function CustomNavbar() {
 
@@ -20,7 +19,6 @@ export default function CustomNavbar() {
     async function logout() {
 
         await auth.signOut()
-        closeWebSocket()
 
         navigate("/login")
     }

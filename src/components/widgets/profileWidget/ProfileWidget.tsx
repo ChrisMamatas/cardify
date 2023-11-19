@@ -49,32 +49,41 @@ export default function ProfileWidget() {
     const [profileData, setProfileData] = useState<Profile>()
     const [cards, setCards] = useState<Card[]>([]);
 
+
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
     useEffect(() => {
-        getData()
-        getCards()
-    }, [])
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            setIsAuthenticated(!!user);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            getData()
+            getCards()
+        }
+    }, [isAuthenticated]);
 
     async function getData() {
-        auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                await fetch("http://localhost:8080/user", {
-                    headers: {
-                        "Authorization": "Bearer " + (await auth.currentUser?.getIdToken()),
-                    }
-                })
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json();
-                        } else {
-                            throw new Error();
-                        }
-                    })
-                    .then((data) => {
-                        setProfileData(data)
-                    })
-                    .catch((e) => console.log(e));
+        await fetch("http://localhost:8080/user", {
+            headers: {
+                "Authorization": "Bearer " + (await auth.currentUser?.getIdToken()),
             }
-        });
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error();
+                }
+            })
+            .then((data) => {
+                setProfileData(data)
+            })
+            .catch((e) => console.log(e));
     }
 
     async function getCards() {
@@ -119,7 +128,7 @@ export default function ProfileWidget() {
 
                     <Row style={{ padding: 0, display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
                         {
-                            cards && cards.slice(0,4).map((card, index) => (
+                            cards && cards.slice(0, 4).map((card, index) => (
                                 <Col md={3} key={index}>
                                     <PreviewCard
                                         cardName={card.cardAttributes.name}
