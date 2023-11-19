@@ -20,10 +20,21 @@ export default function SocialWidget() {
     const [friends, setFriends] = useState<Friend[]>([]);
     const battleSession = useBattle()
     const navigate = useNavigate()
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     useEffect(() => {
-        getData()
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            setIsAuthenticated(!!user);
+        });
+
+        return () => unsubscribe();
     }, []);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            getData()
+        }
+    }, [isAuthenticated]);
 
     const [currentPopupUsername, setCurrentPopupUsername] = useState<string | null>(null);
     const createPopup = (friend: Friend) => {
@@ -38,28 +49,23 @@ export default function SocialWidget() {
 
     async function getData() {
 
-        auth.onAuthStateChanged(async (user) => {
-            if (user) {
-
-                fetch("http://localhost:8080/users", {
-                    headers: {
-                        "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
-                    }
-                })
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json()
-                        }
-                        else {
-                            // throw new Error("Failed to retrieve friends")
-                        }
-                    })
-                    .then((data) => {
-                        setFriends(data)
-                    })
-                    .catch((e) => alert(e))
+        fetch("http://localhost:8080/users", {
+            headers: {
+                "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
             }
         })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+                    // throw new Error("Failed to retrieve friends")
+                }
+            })
+            .then((data) => {
+                setFriends(data)
+            })
+            .catch((e) => alert(e))
     }
 
     async function challengeRequest(uid: string) {
@@ -109,33 +115,13 @@ export default function SocialWidget() {
                             overlay={
                                 <Popover id={`popover-positioned`} style={{ backgroundColor: "#424B54" }} >
                                     <Popover.Body>
-                                        <div style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
+                                        <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
                                             <h6>{friend.username}</h6>
                                             <button onClick={() => navigate("/trading")} >Trade</button>
                                             <button>Message</button>
                                             <button onClick={() => challengeRequest(friend.uid)}>Battle</button>
                                         </div>
 
-                                        {/*<Table striped bordered hover className="social-popup">*/}
-                                        {/*    <thead>*/}
-                                        {/*        <tr>*/}
-                                        {/*            <th>{friend.username}</th>*/}
-                                        {/*        </tr>*/}
-                                        {/*    </thead>*/}
-                                        {/*    <tbody>*/}
-                                        {/*        <Link className="social-popup" to={"/trading"}>*/}
-                                        {/*            <tr>*/}
-                                        {/*                <td>Trade</td>*/}
-                                        {/*            </tr>*/}
-                                        {/*        </Link>*/}
-                                        {/*        <tr>*/}
-                                        {/*            <td>Message</td>*/}
-                                        {/*        </tr>*/}
-                                        {/*        <tr>*/}
-                                        {/*            <Button onClick={() => challengeRequest(friend.uid)}>Battle</Button>*/}
-                                        {/*        </tr>*/}
-                                        {/*    </tbody>*/}
-                                        {/*</Table>*/}
                                     </Popover.Body>
                                 </Popover>
                             }

@@ -1,4 +1,3 @@
-import { Link, Route, Routes } from "react-router-dom"
 import { useEffect, useState } from "react";
 
 import { auth } from "../../../../firebaseConfig.ts";
@@ -45,10 +44,22 @@ interface Card {
 
 export default function DeckWidget() {
     const [cards, setCards] = useState<Card[]>([]);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     useEffect(() => {
-        getData()
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            setIsAuthenticated(!!user);
+        });
+
+        return () => unsubscribe();
     }, []);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            getData();
+        }
+    }, [isAuthenticated]);
+
 
     const [showCreateCardModal, setShowCreateCardModal] = useState<boolean>(false);
 
@@ -56,36 +67,32 @@ export default function DeckWidget() {
     const handleShow = () => setShowCreateCardModal(true);
 
     async function getData() {
-        auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                fetch("http://localhost:8080/card", {
-                    headers: {
-                        "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
-                    }
-                })
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json()
-                        }
-                        else {
-                            throw new Error()
-                        }
-                    })
-                    .then((data) => {
-                        console.log("data")
-                        console.log(data)
-                        setCards(data)
-                        console.log(cards)
-                    })
-                    .catch((e) => alert(e))
+        fetch("http://localhost:8080/card", {
+            headers: {
+                "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
             }
         })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+                    throw new Error()
+                }
+            })
+            .then((data) => {
+                console.log("data")
+                console.log(data)
+                setCards(data)
+                console.log(cards)
+            })
+            .catch((e) => alert(e))
     }
 
     return (
         <div className={"Widget center DeckWidget"} >
             <Container className="DeckWidgetContainer">
-                <Row md={12} style={{height: "80vh", overflowY: "auto"}}>
+                <Row md={12} style={{ height: "80vh", overflowY: "auto" }}>
                     <h1 className="center">Deck</h1>
                     {
                         cards.map((card, index) => (

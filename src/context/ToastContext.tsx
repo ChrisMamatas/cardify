@@ -1,11 +1,9 @@
 // ToastContext.tsx
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import BattleRequestToast from './BattleRequestToast';
-import { BattleProvider, useBattle } from '../../context/BattleContext';
-import { auth } from "../../../firebaseConfig";
+import BattleRequestToast from '../components/toasts/BattleRequestToast';
+import { auth } from "../../firebaseConfig";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { BattleContextType } from '../../@types/battleSession';
 
 
 interface ToastData {
@@ -14,6 +12,7 @@ interface ToastData {
     senderUid: string;
     senderUsername: string;
     battleSessionId: string;
+    acceptHandler: any;
 }
 
 interface ToastProviderProps {
@@ -29,7 +28,7 @@ const ToastContext = createContext<ToastContextProps>({
 });
 
 
-const HandleAccept = (battleSessionId: string, navigate: NavigateFunction, battleContext: BattleContextType | null) => {
+const HandleAccept = (battleSessionId: string, navigate: NavigateFunction, accecptHandler: any) => {
     auth.onAuthStateChanged(async (user) => {
         if (user) {
             fetch("http://localhost:8080/battle/confirm/" + battleSessionId, {
@@ -52,7 +51,7 @@ const HandleAccept = (battleSessionId: string, navigate: NavigateFunction, battl
                 })
                 .then((data) => {
                     console.log(data)
-                    battleContext?.saveBattleSession(data)
+                    accecptHandler(data)
                     navigate('/BattleSelector')
                 })
                 .catch((e) => alert(e))
@@ -68,7 +67,6 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     const [toasts, setToasts] = useState<ToastData[]>([]);
 
     const navigate = useNavigate()
-    const battleSession = useBattle()
 
     const addBattleRequestToast = useCallback((data: Omit<ToastData, 'id'>) => {
         console.log("Creating battle request toast");
@@ -91,7 +89,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
                     show={true}
                     onClose={() => removeToast(toast.id)}
                     onAccept={() => {
-                        HandleAccept(toast.battleSessionId, navigate, battleSession)
+                        HandleAccept(toast.battleSessionId, navigate, toast.acceptHandler)
                         removeToast(toast.id)
                     }}
                     onDecline={() => removeToast(toast.id)}

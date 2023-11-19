@@ -15,9 +15,10 @@ import BattleMatch from "./pages/BattleMatch.tsx";
 import UpdateInfo from "./pages/UpdateInfo.tsx";
 import UpdateProfile from "./pages/UpdateProfile.tsx";
 import PostRegister from "./pages/PostRegister.tsx";
-import { ToastProvider } from './components/toasts/ToastContext.tsx';
+import { ToastProvider } from './context/ToastContext.tsx';
 import BattleSelector from './pages/BattleSelector.tsx';
 import { BattleProvider } from './context/BattleContext.tsx';
+import { WebSocketProvider } from './context/WebSocketContext.tsx';
 
 function App() {
 
@@ -28,28 +29,29 @@ function App() {
             {
                 location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/postregister" && location.pathname !== "/update" && <CustomNavbar />
             }
-            <BattleProvider>
+            <WebSocketProvider>
                 <ToastProvider>
-                    <Routes>
-                        <Route path={"/"} element={<Home />} />
-                        <Route path={"/login"} element={<Login />} />
-                        <Route path={"/register"} element={<Register />} />
-                        <Route path={"/update"} element={<UpdateProfile />} />
-                        <Route path={"/postregister"} element={<PostRegister />} />
-                        <Route path={"/BattleSelector"} element={<BattleSelector />} />
-                        <Route path={"/profile"} element={<Profile />} />
-                        <Route path={"/updateInfo"} element={<UpdateInfo />} />
-                        <Route path={"/battle"} element={<Battle />} />
-                        <Route path={"/battleMatch"} element={<BattleMatch />} />
-                        <Route path={"/arenaMatch"} element={<ArenaMatch />} />
-                        <Route path={"/arenaSelector"} element={<ArenaSelector />} />
-                        <Route path={"/social"} element={<Social />} />
-                        <Route path={"/ArenaDrafter"} element={<ArenaDrafter />} />
-                        <Route path={"/trading"} element={<Trading />} />
-
-                    </Routes>
+                    <BattleProvider>
+                        <Routes>
+                            <Route path={"/"} element={<Home />} />
+                            <Route path={"/login"} element={<Login />} />
+                            <Route path={"/register"} element={<Register />} />
+                            <Route path={"/update"} element={<UpdateProfile />} />
+                            <Route path={"/postregister"} element={<PostRegister />} />
+                            <Route path={"/BattleSelector"} element={<BattleSelector />} />
+                            <Route path={"/profile"} element={<Profile />} />
+                            <Route path={"/updateInfo"} element={<UpdateInfo />} />
+                            <Route path={"/battle"} element={<Battle />} />
+                            <Route path={"/battleMatch"} element={<BattleMatch />} />
+                            <Route path={"/arenaMatch"} element={<ArenaMatch />} />
+                            <Route path={"/arenaSelector"} element={<ArenaSelector />} />
+                            <Route path={"/social"} element={<Social />} />
+                            <Route path={"/ArenaDrafter"} element={<ArenaDrafter />} />
+                            <Route path={"/trading"} element={<Trading />} />
+                        </Routes>
+                    </BattleProvider>
                 </ToastProvider>
-            </BattleProvider>
+            </WebSocketProvider>
         </>
     )
 }

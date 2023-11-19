@@ -1,12 +1,12 @@
-import {ChangeEvent, useEffect, useState} from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { auth } from "../../firebaseConfig.ts"
 import Image from "react-bootstrap/Image"
 import Form from "react-bootstrap/Form"
-import {Col, Container, Row, Modal, Button, InputGroup} from "react-bootstrap";
-import Cropper, {Area} from 'react-easy-crop'
+import { Col, Container, Row, Modal, Button, InputGroup } from "react-bootstrap";
+import Cropper, { Area } from 'react-easy-crop'
 import getCroppedImg from "../utils/cropImage.tsx";
 import PreviewCard from "../Components/cards/PreviewCard.tsx";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CROP_AREA_ASPECT = 8 / 5;
 
@@ -60,7 +60,7 @@ export default function PostRegister() {
     const [imageThree, setImageThree] = useState<string | null>(null)
     const [imageFour, setImageFour] = useState<string | null>(null)
 
-    const [crop, setCrop] = useState({x: 0, y: 0})
+    const [crop, setCrop] = useState({ x: 0, y: 0 })
     const [zoom, setZoom] = useState(1)
     const [croppedArea, setCroppedArea] = useState(null);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
@@ -118,7 +118,7 @@ export default function PostRegister() {
         })
     }
 
-    const handleFileUpload = (event: ChangeEvent<HTMLInputElement>, setImage:any, whichImage:string) => {
+    const handleFileUpload = (event: ChangeEvent<HTMLInputElement>, setImage: any, whichImage: string) => {
         const selectedImage = event.target.files[0];
 
         if (selectedImage) {
@@ -257,13 +257,13 @@ export default function PostRegister() {
     }
 
     return (
-        <div style={{height: "100vh"}} className={"d-flex flex-row justify-content-center align-items-center"}>
+        <div style={{ height: "100vh" }} className={"d-flex flex-row justify-content-center align-items-center"}>
 
             <Modal show={modalShown} onHide={() => setModalShown(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Size Your Image</Modal.Title>
                 </Modal.Header>
-                <Modal.Body style={{height: "60vh"}}>
+                <Modal.Body style={{ height: "60vh" }}>
                     <div className={"cropper"}>
                         <Cropper
                             image={modalImage === "imageOne" ? imageOne : modalImage === "imageTwo" ? imageTwo : modalImage === "imageThree" ? imageThree : imageFour}
@@ -287,8 +287,8 @@ export default function PostRegister() {
                 <Modal.Header>
                     <Modal.Title>Here Are Your Cards!</Modal.Title>
                 </Modal.Header>
-                <Modal.Body style={{height: "60vh"}}>
-                    <div style={{display: "flex", justifyContent: "space-between"}}>
+                <Modal.Body style={{ height: "60vh" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <PreviewCard
                             cardName={createdCardOne?.cardAttributes.name}
                             baseImage={createdCardOne?.baseImage}
@@ -319,41 +319,41 @@ export default function PostRegister() {
 
             <Container>
                 <Row>
-                    <h3 style={{textAlign: "center", marginBottom: "10vh"}}>Create Your First Cards</h3>
+                    <h3 style={{ textAlign: "center", marginBottom: "10vh" }}>Create Your First Cards</h3>
                 </Row>
                 <Row>
                     <Col>
-                        <div style={{height: 200, width: 300, backgroundColor: "gray", marginBottom: 10}}>
-                            <Image src={croppedImageOne} height={200} width={300}/>
+                        <div style={{ height: 200, width: 300, backgroundColor: "gray", marginBottom: 10 }}>
+                            <Image src={croppedImageOne} height={200} width={300} />
                         </div>
-                        <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageOne, "imageOne")}/>
+                        <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageOne, "imageOne")} />
 
                         <Form.Control placeholder={"Title"} onChange={(e) => setTitleOne(e.target.value)} />
-                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionOne(e.target.value)}/>
+                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionOne(e.target.value)} />
                     </Col>
                     <Col>
-                        <div style={{height: 200, width: 300, backgroundColor: "gray", marginBottom: 10}}>
-                            <Image src={croppedImageTwo} height={200} width={300}/>
+                        <div style={{ height: 200, width: 300, backgroundColor: "gray", marginBottom: 10 }}>
+                            <Image src={croppedImageTwo} height={200} width={300} />
                         </div>
-                        <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageTwo, "imageTwo")}/>
+                        <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageTwo, "imageTwo")} />
                         <Form.Control placeholder={"Title"} onChange={(e) => setTitleTwo(e.target.value)} />
-                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionTwo(e.target.value)}/>
+                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionTwo(e.target.value)} />
                     </Col>
                     <Col>
-                        <div style={{height: 200, width: 300, backgroundColor: "gray", marginBottom: 10}}>
-                            <Image src={croppedImageThree} height={200} width={300}/>
+                        <div style={{ height: 200, width: 300, backgroundColor: "gray", marginBottom: 10 }}>
+                            <Image src={croppedImageThree} height={200} width={300} />
                         </div>
-                        <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageThree, "imageThree")}/>
+                        <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageThree, "imageThree")} />
                         <Form.Control placeholder={"Title"} onChange={(e) => setTitleThree(e.target.value)} />
-                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionThree(e.target.value)}/>
+                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionThree(e.target.value)} />
                     </Col>
                     <Col>
-                        <div style={{height: 200, width: 300, backgroundColor: "gray", marginBottom: 10}}>
-                            <Image src={croppedImageFour} height={200} width={300}/>
+                        <div style={{ height: 200, width: 300, backgroundColor: "gray", marginBottom: 10 }}>
+                            <Image src={croppedImageFour} height={200} width={300} />
                         </div>
-                        <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageFour, "imageFour")}/>
+                        <input type="file" accept={"image/*"} onChange={(e) => handleFileUpload(e, setImageFour, "imageFour")} />
                         <Form.Control placeholder={"Title"} onChange={(e) => setTitleFour(e.target.value)} />
-                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionFour(e.target.value)}/>
+                        <Form.Control as={"textarea"} placeholder={"Description"} onChange={(e) => setDescriptionFour(e.target.value)} />
                     </Col>
                 </Row>
                 <Row className={"mt-5"}>
