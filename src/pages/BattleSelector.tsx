@@ -12,6 +12,8 @@ export default function BattleSelector() {
     const [selected, setSelected] = useState<string[]>([])
     const [playerOneImage, setPlayerOneImage] = useState<string>("")
     const [playerTwoImage, setPlayerTwoImage] = useState<string>("")
+    const [playerOneUsername, setPlayerOneUsername] = useState<string | undefined>("")
+    const [playerTwoUsername, setPlayerTwoUsername] = useState<string | undefined>("")
     const battleContext = useBattle();
 
     useEffect(() => {
@@ -102,6 +104,7 @@ export default function BattleSelector() {
 
     async function getImage() {
         console.log("getting image")
+        setPlayerOneUsername(battleContext?.battleSession?.players[0].playerUserName)
         fetch("http://localhost:8080/user/" + battleContext?.battleSession?.players[0].playerUserName,{
             headers: {
                 "Authorization": "Bearer " + await auth.currentUser?.getIdToken()
@@ -114,6 +117,7 @@ export default function BattleSelector() {
             })
             .then((data) => setPlayerOneImage(data.profilePicture))
 
+        setPlayerTwoUsername(battleContext?.battleSession?.players[1].playerUserName)
         fetch("http://localhost:8080/user/" + battleContext?.battleSession?.players[1].playerUserName,{
             headers: {
                 "Authorization": "Bearer " + await auth.currentUser?.getIdToken()
@@ -142,7 +146,7 @@ export default function BattleSelector() {
                                             <Image src={index == 0 ? playerOneImage : playerTwoImage} style={{marginLeft: 10, marginRight: 10, height: 100, width: 100, float: index === 0 ? "left" : "right"}} />
                                         </div>
                                         <div>
-                                            <p style={{fontWeight: "bold", textAlign: index === 1 ? "right" : "left"}}>{player.playerUserName + "hi"}</p>
+                                            <p style={{fontWeight: "bold", textAlign: index === 1 ? "right" : "left"}}>{index == 0 ? playerOneUsername : playerTwoUsername}</p>
                                             <p style={{textAlign: index === 1 ? "right" : "left"}}>{player.confirmed ? "Connected" : "Not Connected"} </p>
                                             <p style={{textAlign: index === 1 ? "right" : "left"}}>{player.ready ? "Ready" : "Not Ready"}</p>
                                         </div>
