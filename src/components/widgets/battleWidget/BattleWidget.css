@@ -2,5 +2,6 @@
     position: relative;
     text-align: center;
     padding: 20px;
-    background: linear-gradient(to left top, red 45%, white 50%, blue 55%);
+    /*background: linear-gradient(to left top, red 45%, white 50%, blue 55%);*/
+    background-image: url("../../../assets/giphy.gif");
 }
