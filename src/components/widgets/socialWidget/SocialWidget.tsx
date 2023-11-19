@@ -51,7 +51,7 @@ export default function SocialWidget() {
                             return response.json()
                         }
                         else {
-                            throw new Error("Failed to retrieve friends")
+                            // throw new Error("Failed to retrieve friends")
                         }
                     })
                     .then((data) => {
@@ -99,7 +99,7 @@ export default function SocialWidget() {
             {/*<div className={`friends-${screenSize} overflow-y-scroll friend-list`}>*/}
             <div style={{ height: "88%", overflowY: "auto" }} className={`friends friend-list`}>
 
-                {friends.map(friend => (
+                {friends?.map(friend => (
                     <div onClick={() => createPopup(friend)} key={friend.username}>
                         <OverlayTrigger
                             show={currentPopupUsername === friend.username}

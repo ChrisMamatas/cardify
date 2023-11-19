@@ -6,13 +6,20 @@
     border-style: solid;
     border-width: 20px;
     background-color: var(--primary);
-
 }
 
 .BattleSelectorCards {
     height: 60vh;
     overflow-y: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: left;
+}
+
+.card-container {
+    padding: 10px;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-container:hover {
+    cursor: pointer;
 }
