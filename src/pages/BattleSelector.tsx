@@ -1,5 +1,5 @@
 import { Button, Col, Container, Row, Stack } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebaseConfig.ts";
 import { useEffect, useState } from "react";
 import "./BattleSelector.css"
@@ -13,6 +13,7 @@ export default function BattleSelector() {
     const [playerOneImage, setPlayerOneImage] = useState<string>("")
     const [playerTwoImage, setPlayerTwoImage] = useState<string>("")
     const battleContext = useBattle();
+    const navigate = useNavigate()
 
     useEffect(() => {
         getCards()
@@ -20,7 +21,10 @@ export default function BattleSelector() {
 
     useEffect(() => {
         console.log('Battle session updated:', battleContext?.battleSession)
-
+        if (battleContext?.battleSession?.players[0].ready && battleContext?.battleSession?.players[1].ready) {
+            console.log('Both players ready, starting battle')
+            navigate("/battleMatch");
+        }
     }, [battleContext?.battleSession])
 
     useEffect(() => {

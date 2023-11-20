@@ -7,6 +7,7 @@ export interface IBattleSession {
         ready: boolean,
         acknowledged: boolean,
         confirmed: boolean
+        selectedCardIds: string[]
     }]
 
 }
