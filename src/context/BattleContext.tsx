@@ -1,7 +1,8 @@
-import { subscribe, unsubscribe } from '../services/WebsocketService'
 import { Message } from 'webstomp-client';
-import { BattleContextType, IBattleSession } from '../@types/battleSession';
-import { FC, PropsWithChildren, ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { BattleContextType, IBattleSession, BattleRequestMessage, BattleSetupMessage } from '../@types/battleSession';
+import { FC, createContext, useContext, useEffect, useState } from 'react';
+import { useToast } from './ToastContext';
+import { useWebSocket } from './WebSocketContext';
 
 
 
@@ -15,11 +16,37 @@ interface Props {
 export const BattleProvider: FC<Props> = ({ children }) => {
     const [battleSession, saveBattleSession] = useState<IBattleSession | null>(null);
     const [subscriptionsCount, setSubscriptionsCount] = useState<{ [key: string]: number }>({});
-    // Other state as needed, e.g., topic subscriptions, battle state
+    const { addBattleRequestToast } = useToast();
+    const { subscribe, unsubscribe, sendWebSocketMessage } = useWebSocket();
 
-    // Function to subscribe to a topic
+    useEffect(() => {
+        const battleRequestSubscription = subscribe('/user/queue/battle-requests', (battleRequestMessage: Message) => {
+            try {
+                const battleRequest: BattleRequestMessage = JSON.parse(battleRequestMessage.body);
+                handleBattleRequestMessage(battleRequest);
+            } catch (error) {
+                console.error('Error parsing battle request message:', error);
+            }
+        });
+
+        const battleSetupSubscription = subscribe('/user/queue/battle-setup', (battleSetupMessage: Message) => {
+            try {
+                const battleSetup: BattleSetupMessage = JSON.parse(battleSetupMessage.body);
+                handleBattleSetupMessage(battleSetup);
+            } catch (error) {
+                console.error('Error parsing battle request message:', error);
+            }
+        });
+
+        return () => {
+            unsubscribe(battleRequestSubscription || '');
+            unsubscribe(battleSetupSubscription || '');
+        };
+
+    }, [subscribe])
+
+
     const subscribeToBattleTopic = (id: string) => {
-        subscribe('/topic/battle/' + id, handleBattleMessage);
         // Increment subscription count
         setSubscriptionsCount(prev => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
     };
@@ -38,12 +65,36 @@ export const BattleProvider: FC<Props> = ({ children }) => {
     };
 
     const handleBattleMessage = (battleSessionMessage: Message) => {
+        console.log("battle-message: " + battleSessionMessage.body);
         try {
             saveBattleSession(JSON.parse(battleSessionMessage.body));
 
         } catch (error) {
             console.error('Error parsing battle request message:', error);
         }
+    }
+
+    function handleBattleRequestMessage(message: BattleRequestMessage) {
+        console.log("battle-request: " + message.battleSessionId);
+        addBattleRequestToast({
+            message: message.message,
+            senderUid: message.senderUid,
+            senderUsername: message.senderUsername,
+            battleSessionId: message.battleSessionId,
+            acceptHandler: (battleContext: IBattleSession) => {
+                saveBattleSession(battleContext);
+            }
+
+        });
+    }
+
+    function handleBattleSetupMessage(message: BattleSetupMessage) {
+        // Handle received messages
+        console.log("battle-setup: " + message);
+        subscribe("/topic/battle/" + message.battleSessionId, (battleMessage: Message) => {
+            handleBattleMessage(battleMessage)
+        });
+        sendWebSocketMessage('/app/subscribe-ack', JSON.stringify({ battleId: message.battleSessionId }));
     }
 
 
@@ -58,3 +109,4 @@ export const BattleProvider: FC<Props> = ({ children }) => {
 export const useBattle = () => {
     return useContext(BattleContext);
 };
+

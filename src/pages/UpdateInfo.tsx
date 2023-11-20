@@ -1,60 +1,25 @@
-import { Container, Row, Col, Image } from "react-bootstrap";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./Profile.css"
+import {Image} from "react-bootstrap";
+
 export default function UpdateInfo() {
+
+    const { state } = useLocation()
+    const [newImage, setNewImage] = useState()
+
+    function imageChange() {
+        // console.log(e.target.files[0])
+        // setNewImage(e.target)
+    }
+
 
     return (
         <div>
-            <Container fluid className={"justify-content-between"}>
-                <Row>
-                    <Col className="center">
-                        <Image src={"https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={200} />
-                    </Col>
-                    <Col className="center">
-                        <button>Change Profile Pic</button>
-                    </Col>
-                    <Col/>
-                    <Col className="center">
-                        <div className="center">
-                            <h1>hello</h1>
-                        </div>
-                    </Col>
-                    <Col className="center">
-                        <button>hello</button>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className="center">
-                        <div>
-                            <h1>"Username"</h1>
-                        </div>
-                    </Col>
-                    <Col className="center">
-                        <button>Change Username</button>
-                    </Col>
-                    <Col/>
-                    <Col className="center">
-                        <h1>Hello</h1>
-                    </Col>
-                    <Col className="center">
-                        <h1>Hello</h1>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className="center">
-                        <Image src={"https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={200} />
-                    </Col>
-                    <Col className="center">
-                        <h1>Hello</h1>
-                    </Col>
-                    <Col/>
-                    <Col className="center">
-                        <h1>Hello</h1>
-                    </Col>
-                    <Col className="center">
-                        <h1>Hello</h1>
-                    </Col>
-                </Row>
-            </Container>
+
+            <Image src={state.image} style={{height: 200, width: 200}} />
+            <input type={"image"} accept={"image/*"} onChange={imageChange} />
+
         </div>
     )
 }

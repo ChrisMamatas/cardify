@@ -15,9 +15,10 @@ import BattleMatch from "./pages/BattleMatch.tsx";
 import UpdateInfo from "./pages/UpdateInfo.tsx";
 import UpdateProfile from "./pages/UpdateProfile.tsx";
 import PostRegister from "./pages/PostRegister.tsx";
-import { ToastProvider } from './components/toasts/ToastContext.tsx';
+import { ToastProvider } from './context/ToastContext.tsx';
 import BattleSelector from './pages/BattleSelector.tsx';
 import { BattleProvider } from './context/BattleContext.tsx';
+import { WebSocketProvider } from './context/WebSocketContext.tsx';
 import Navbar from "react-bootstrap/Navbar";
 import FooterBar from "./navigation/FooterBar.tsx";
 
@@ -26,13 +27,13 @@ function App() {
     const location = useLocation()
 
     return (
-        <div>
-            <>
-                {
-                    location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/postregister" && location.pathname !== "/update" && <CustomNavbar />
-                }
-                <BattleProvider>
-                    <ToastProvider>
+        <>
+            {
+                location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/postregister" && location.pathname !== "/update" && <CustomNavbar />
+            }
+            <WebSocketProvider>
+                <ToastProvider>
+                    <BattleProvider>
                         <Routes>
                             <Route path={"/"} element={<Home />} />
                             <Route path={"/login"} element={<Login />} />
@@ -50,16 +51,17 @@ function App() {
                             <Route path={"/ArenaDrafter"} element={<ArenaDrafter />} />
                             <Route path={"/trading"} element={<Trading />} />
                         </Routes>
-                    </ToastProvider>
-                </BattleProvider>
-            </>
-
+                    </BattleProvider>
+                </ToastProvider>
+            </WebSocketProvider>
+        </>
             <>
                 {
                     location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/postregister" && location.pathname !== "/update" && <FooterBar />
                 }
             </>
         </div>
+        <div>
     )
 }
 

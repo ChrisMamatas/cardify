@@ -8,6 +8,8 @@ import "./Profile.css"
 import { auth } from "../../firebaseConfig.ts";
 import FullCard from "../Components/cards/FullCard.tsx";
 import PreviewCard from "../Components/cards/PreviewCard.tsx";
+import { useNavigate} from "react-router-dom";
+
 interface UserData {
     uid: String,
     username: String
@@ -83,6 +85,8 @@ function MostRecentGame() {
 
 export default function Profile() {
 
+    const navigate = useNavigate()
+
     const [data, setData] = useState<UserData>()
     const [imageData, setImageData] = useState<string | null>(null);
     const [idToken, setIdToken] = useState("")
@@ -145,12 +149,12 @@ export default function Profile() {
     return (
         <div className={"d-flex m-5"}>
             <Container className={"mx-1"}>
-                <Row className={"t"} style={{ height: "25vh" }}>
+                <Row className={"t"} style={{ height: "30vh" }}>
                     <Col>
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <div>
                                 <Image className={"py-2"} src={data ? data.profilePicture : "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={225} width={225} />
-                                <h3>{data?.username}</h3>
+                                <h3>{data?.username} {data?.uid == auth.currentUser?.uid && <button onClick={() => navigate('/updateInfo', { state: { image: data?.profilePicture, username: data?.username }})}>Edit</button>}</h3>
                             </div>
                             <div>
                                 <div className={"d-flex mx-4"}>
@@ -226,7 +230,7 @@ export default function Profile() {
                 </Row>
 
                 <Row className={"my-2"}>
-                    <Col className={"t"} style={{ height: "43vh", overflowY: "auto" }}>
+                    <Col className={"t"} style={{ height: "35vh", overflowY: "auto" }}>
                         <h3>Activity</h3>
                         {["Gunther won their first game today!"].map((txt) => {
                             return (
@@ -245,7 +249,7 @@ export default function Profile() {
                 <Row>
                     <Col className={"t ml-1 p-2"}>
                         <h3>Cards</h3>
-                        <div className={"d-flex flex-wrap justify-content-center"} style={{ height: "85vh", overflowY: "auto"}}>
+                        <div className={"d-flex flex-wrap justify-content-center"} style={{ height: "80vh", overflowY: "auto"}}>
                             {
                                 cards?.map((card, index) => (
                                     <Col md={3} key={index}>

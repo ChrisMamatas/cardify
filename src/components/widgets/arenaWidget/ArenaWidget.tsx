@@ -7,9 +7,7 @@ export default function ArenaWidget() {
     return (
         <Link to={"/ArenaSelector"} className={"link"}>
             <div className={"Widget center GradientArena"}>
-                <h1 style={{ color: "Black" }}>
-                    Arena
-                </h1>
+                <h1>Arena</h1>
             </div>
         </Link>
     )

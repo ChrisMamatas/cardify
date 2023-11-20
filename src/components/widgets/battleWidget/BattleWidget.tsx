@@ -6,11 +6,10 @@ export default function BattleWidget() {
 
     return (
         <Link to={"/battle"} className={"link"}>
-            <div className={"Widget center GradientBattle"}>
-                <h1 style={{ color: "black" }}>
-                    Battle
-                </h1>
+            <div className={"Widget center GradientArena"}>
+                <h1>Battle</h1>
             </div>
+
         </Link>
     )
 }
