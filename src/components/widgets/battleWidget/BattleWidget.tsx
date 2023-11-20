@@ -1,7 +1,6 @@
 import "../../Widgets.css"
 import "./BattleWidget.css"
 import { Link } from "react-router-dom";
-import {Image} from "react-bootstrap";
 
 export default function BattleWidget() {
 
