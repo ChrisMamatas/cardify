@@ -19,7 +19,6 @@ import { ToastProvider } from './context/ToastContext.tsx';
 import BattleSelector from './pages/BattleSelector.tsx';
 import { BattleProvider } from './context/BattleContext.tsx';
 import { WebSocketProvider } from './context/WebSocketContext.tsx';
-import Navbar from "react-bootstrap/Navbar";
 import FooterBar from "./navigation/FooterBar.tsx";
 
 function App() {
@@ -27,41 +26,41 @@ function App() {
     const location = useLocation()
 
     return (
-        <>
-            {
-                location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/postregister" && location.pathname !== "/update" && <CustomNavbar />
-            }
-            <WebSocketProvider>
-                <ToastProvider>
-                    <BattleProvider>
-                        <Routes>
-                            <Route path={"/"} element={<Home />} />
-                            <Route path={"/login"} element={<Login />} />
-                            <Route path={"/register"} element={<Register />} />
-                            <Route path={"/update"} element={<UpdateProfile />} />
-                            <Route path={"/postregister"} element={<PostRegister />} />
-                            <Route path={"/BattleSelector"} element={<BattleSelector />} />
-                            <Route path={"/profile"} element={<Profile />} />
-                            <Route path={"/updateInfo"} element={<UpdateInfo />} />
-                            <Route path={"/battle"} element={<Battle />} />
-                            <Route path={"/battleMatch"} element={<BattleMatch />} />
-                            <Route path={"/arenaMatch"} element={<ArenaMatch />} />
-                            <Route path={"/arenaSelector"} element={<ArenaSelector />} />
-                            <Route path={"/social"} element={<Social />} />
-                            <Route path={"/ArenaDrafter"} element={<ArenaDrafter />} />
-                            <Route path={"/trading"} element={<Trading />} />
-                        </Routes>
-                    </BattleProvider>
-                </ToastProvider>
-            </WebSocketProvider>
-        </>
+        <div>
+            <>
+                {
+                    location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/postregister" && location.pathname !== "/update" && <CustomNavbar />
+                }
+                <WebSocketProvider>
+                    <ToastProvider>
+                        <BattleProvider>
+                            <Routes>
+                                <Route path={"/"} element={<Home />} />
+                                <Route path={"/login"} element={<Login />} />
+                                <Route path={"/register"} element={<Register />} />
+                                <Route path={"/update"} element={<UpdateProfile />} />
+                                <Route path={"/postregister"} element={<PostRegister />} />
+                                <Route path={"/BattleSelector"} element={<BattleSelector />} />
+                                <Route path={"/profile"} element={<Profile />} />
+                                <Route path={"/updateInfo"} element={<UpdateInfo />} />
+                                <Route path={"/battle"} element={<Battle />} />
+                                <Route path={"/battleMatch"} element={<BattleMatch />} />
+                                <Route path={"/arenaMatch"} element={<ArenaMatch />} />
+                                <Route path={"/arenaSelector"} element={<ArenaSelector />} />
+                                <Route path={"/social"} element={<Social />} />
+                                <Route path={"/ArenaDrafter"} element={<ArenaDrafter />} />
+                                <Route path={"/trading"} element={<Trading />} />
+                            </Routes>
+                        </BattleProvider>
+                    </ToastProvider>
+                </WebSocketProvider>
+            </>
             <>
                 {
                     location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/postregister" && location.pathname !== "/update" && <FooterBar />
                 }
             </>
         </div>
-        <div>
     )
 }
 
