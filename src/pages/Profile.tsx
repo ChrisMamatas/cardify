@@ -156,7 +156,7 @@ export default function Profile() {
                                 <div className={"d-flex mx-4"}>
                                     <div>
                                         {
-                                            cards && cards.slice(0,1).map((card, index) => (
+                                            cards?.slice(0,1).map((card, index) => (
                                                 <Col md={10} key={index}>
                                                     <PreviewCard
                                                         cardName={card.cardAttributes.name}
@@ -170,7 +170,7 @@ export default function Profile() {
                                     </div>
                                     <div>
                                         {
-                                            cards && cards.slice(1,2).map((card, index) => (
+                                            cards?.slice(1,2).map((card, index) => (
                                                 <Col md={10} key={index}>
                                                     <PreviewCard
                                                         cardName={card.cardAttributes.name}
@@ -184,7 +184,7 @@ export default function Profile() {
                                     </div>
                                     <div>
                                         {
-                                            cards && cards.slice(2,3).map((card, index) => (
+                                            cards?.slice(2,3).map((card, index) => (
                                                 <Col md={10} key={index}>
                                                     <PreviewCard
                                                         cardName={card.cardAttributes.name}
@@ -247,7 +247,7 @@ export default function Profile() {
                         <h3>Cards</h3>
                         <div className={"d-flex flex-wrap justify-content-center"} style={{ height: "85vh", overflowY: "auto"}}>
                             {
-                                cards && cards.map((card, index) => (
+                                cards?.map((card, index) => (
                                     <Col md={3} key={index}>
                                         <PreviewCard
                                             cardName={card.cardAttributes.name}

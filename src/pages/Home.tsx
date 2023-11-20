@@ -10,10 +10,11 @@ import { auth } from "../../firebaseConfig.ts";
 import { redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BattleRequestToast from "../components/toasts/BattleRequestToast.tsx";
+import Navbar from "react-bootstrap/Navbar";
 
 export default function Home() {
 
-    const [screenSize, setScreenSize] = useState('');
+    //const [screenSize, setScreenSize] = useState('');
 
     // useEffect(() => {
     //     function handleResize() {
@@ -67,6 +68,7 @@ export default function Home() {
                 </div>
             </Stack>
         </div>
+
         // <div>
         //     <Container>
         //         <div>

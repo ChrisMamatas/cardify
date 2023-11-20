@@ -83,7 +83,7 @@ export default function Showcase() {
             </Row>
             <Row>
                 {
-                    cards && cards.map((card, index) => (
+                    cards?.map((card, index) => (
                         <Col md={3} key={index}> {/* Added key for list items */}
                             <PreviewCard
                                 cardName={card.cardAttributes.name}

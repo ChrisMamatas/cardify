@@ -2,7 +2,41 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Modal, ModalProps, Button } from 'react-bootstrap';
 import PreviewCard from "../components/cards/PreviewCard.tsx";
 import "./BattleMatch.css"
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import {auth} from "../../firebaseConfig.ts";
+
+
+interface CardAttributes {
+    name: string;
+    colors: {
+        dominantHex: string;
+        dominantRgb: {
+            r: number;
+            g: number;
+            b: number;
+        };
+        accentHex: string;
+        accentRgb: {
+            r: number;
+            g: number;
+            b: number;
+        };
+    };
+    stats: {
+        lightAttack: number;
+        heavyAttack: number;
+        speed: number;
+        defense: number;
+    };
+}
+
+interface Card {
+    baseImage: string;
+    frontCard: string;
+    backCard: string;
+    cardId: string;
+    cardAttributes: CardAttributes; // Correct the case to match the response
+}
 
 function WinModal(props: ModalProps) {
     return (
@@ -50,6 +84,38 @@ function LoseModal(props: ModalProps) {
 export default function BattleMatch() {
     const [isWin, setWin] = useState(false);
     const [isLoss, setLoss] = useState(false);
+    const [cards, setCards] = useState<Card[]>([]);
+
+    useEffect(() => {
+        getData()
+    }, []);
+
+    async function getData() {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                fetch("http://localhost:8080/card", {
+                    headers: {
+                        "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
+                    }
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                        else {
+                            throw new Error()
+                        }
+                    })
+                    .then((data) => {
+                        console.log("data")
+                        console.log(data)
+                        setCards(data)
+                        console.log(cards)
+                    })
+                    .catch((e) => alert(e))
+            }
+        })
+    }
 
     return (
         <div>
@@ -60,58 +126,65 @@ export default function BattleMatch() {
             {isLoss && (
                 <LoseModal show={true} onHide={() => setLoss(false)} />
             )}
-
-                <h1 className="center">
+            <h1 className="center">
                     FIGHT BATTLE
-                </h1>
-                <div className="center">
-                    <Container>
-                        <Row>
-                            <Col className="center"><PreviewCard height="100px"/></Col>
-                            <Col className="center"><PreviewCard height="100px"/></Col>
-                            <Col className="center"><PreviewCard height="100px"/></Col>
-                            <Col className="center"><PreviewCard height="100px"/></Col>
-                        </Row>
-                        <Row className="Divider">
-                            <Col className="Start"><button>Your Turn</button></Col>
-                            <Col className="center"/>
-                            <Col className="center"/>
-                            <Col className="center"/>
-                        </Row>
-                        <Row>
-                            <Col className="Start"><button>Your Turn</button></Col>
-                            <Col className="center"/>
-                            <Col className="center"/>
-                            <Col className="center"/>
-                        </Row>
-                        <Row>
-                            <Col className="center"><PreviewCard height="250px"/></Col>
-                            <Col className="center"><PreviewCard height="250px"/></Col>
-                            <Col className="center"><PreviewCard height="250px"/></Col>
-                            <Col className="center"><PreviewCard height="250px"/></Col>
-                        </Row>
-                    </Container>
-                </div>
+            </h1>
 
-            <Button
-                variant="primary"
-                onClick={() => {
-                    setWin(true) ;
-                    setLoss(false);
-                }}
-            >
-                Click here to win
-            </Button>
-
-            <Button
-                variant="primary"
-                onClick={() => {
-                        setWin(false);
-                        setLoss(true);
-                }}
-            >
-                Click to lose
-            </Button>
+            <Container>
+                <Row className="flex-nowrap">
+                    <Col md={2}>
+                        <Row>
+                            <Button variant="primary" onClick={() => {
+                                setWin(true) ;
+                                setLoss(false);
+                            }}>
+                                Click here to win
+                            </Button>
+                        </Row>
+                        <Row><button style={{height:"5vh", width:"10vw", marginTop:"28vh"}}>Opponent's Turn</button></Row>
+                        <Row className="Divider"></Row>
+                        <Row><button style={{height:"5vh", width:"10vw", marginBottom:"28vh"}}>My Turn</button></Row>
+                        <Row>
+                            <Button variant="primary" onClick={() => {
+                                setWin(false);
+                                setLoss(true);
+                            }}>
+                                Click to lose
+                            </Button>
+                        </Row>
+                    </Col>
+                    <Col  style={{height: "52vh", width: "50vw"}}>
+                        <Row style={{justifyContent:"space-between"}}>
+                            {
+                                cards.slice(0,4).map((card, index) => (
+                                    <Col md={2} key={index}>
+                                        <PreviewCard
+                                            cardName={card.cardAttributes.name}
+                                            baseImage={card.baseImage}
+                                            frontCard={card.frontCard}
+                                            backCard={card.backCard} />
+                                    </Col>
+                                ))
+                            }
+                        </Row>
+                        <Row style={{height:"30vh"}}>
+                        </Row>
+                        <Row style={{justifyContent:"space-between"}}>
+                            {
+                                cards.slice(0,4).map((card, index) => (
+                                    <Col md={2} key={index}>
+                                        <PreviewCard
+                                            cardName={card.cardAttributes.name}
+                                            baseImage={card.baseImage}
+                                            frontCard={card.frontCard}
+                                            backCard={card.backCard} />
+                                    </Col>
+                                ))
+                            }
+                        </Row>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 }
