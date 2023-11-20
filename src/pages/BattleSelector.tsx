@@ -84,7 +84,7 @@ export default function BattleSelector() {
 
         auth.onAuthStateChanged(async (user) => {
             if (user) {
-                await fetch("http://localhost:8080/battle/set-cards", {
+                await fetch("http://localhost:8080/battle/set-cards/" + battleContext?.battleSession?.id, {
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
@@ -92,7 +92,6 @@ export default function BattleSelector() {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        battleId: battleContext?.battleSession?.id,
                         cardIds: selected
                     })
                 }).then((response) => console.log(response))
