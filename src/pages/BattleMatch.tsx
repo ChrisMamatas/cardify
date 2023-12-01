@@ -1,11 +1,18 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import { Modal, ModalProps, Button } from 'react-bootstrap';
-import PreviewCard from "../components/cards/PreviewCard.tsx";
+import {BattleCard} from "../components/cards/SelectCard.tsx";
 import "./BattleMatch.css"
 import { useEffect, useState } from "react";
 import { auth } from "../../firebaseConfig.ts";
 import { useBattle } from "../context/BattleContext.tsx";
 import { motion } from "framer-motion"
+
+interface Player {
+    uid: string,
+    username: string,
+    elo: number,
+    profilePicture: string
+}
 
 function WinModal(props: ModalProps) {
     return (
@@ -56,6 +63,8 @@ export default function BattleMatch() {
     const battleContext = useBattle();
     const [localPlayerCards, setLocalPlayerCards] = useState<Card[]>([]);
     const [opponentPlayerCards, setOpponentPlayerCards] = useState<Card[]>([]);
+    const [localPlayer, setLocalPlayer] = useState<Player>()
+    const [opponentPlayer, setOpponentPlayer] = useState<Player>()
 
     useEffect(() => {
         getCards()
@@ -89,8 +98,10 @@ export default function BattleMatch() {
                     if (player.playerId === user.uid) {
 
                         getPlayerCards(player.selectedCardIds, true);
+                        getPlayer(player.playerUserName, true)
                     } else {
                         getPlayerCards(player.selectedCardIds, false);
+                        getPlayer(player.playerUserName, false)
                     }
                 });
 
@@ -99,10 +110,33 @@ export default function BattleMatch() {
         })
     }
 
+    async function getPlayer(username: string, isLocalPlayer: boolean) {
+
+        await fetch("http://localhost:8080/user/" + username, {
+            headers: {
+                "Authorization": "Bearer " + await auth.currentUser?.getIdToken()
+            }
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                }
+            })
+            .then((data) => {
+                if (isLocalPlayer) {
+                    setLocalPlayer(data)
+                }
+                else {
+                    setOpponentPlayer(data)
+                }
+            })
+            .catch((e) => console.log(e))
+    }
+
     async function getPlayerCards(cardIds: string[], isLocalPlayer: boolean) {
         const encodedString = cardIds.join(",")
         const url = new URL('http://localhost:8080/card');
-        url.searchParams.append('cardIds', encodedString);
+        url.searchParams.append('ids', encodedString);
 
         fetch(url, {
             headers: {
@@ -118,20 +152,18 @@ export default function BattleMatch() {
                 }
             })
             .then((data) => {
-                console.log(isLocalPlayer)
-                console.log(JSON.stringify(data))
-                console.log("------")
+
                 if (isLocalPlayer) {
                     setLocalPlayerCards(data)
                 } else {
                     setOpponentPlayerCards(data)
                 }
             })
-            .catch((e) => alert(e))
+            .catch((e) => console.log(e))
     }
 
     return (
-        <div>
+        <div className={"custom-container"}>
             {isWin && (
                 <WinModal show={true} onHide={() => setWin(false)} />
             )}
@@ -139,68 +171,51 @@ export default function BattleMatch() {
             {isLoss && (
                 <LoseModal show={true} onHide={() => setLoss(false)} />
             )}
-            <h1 className="center">
-                FIGHT BATTLE
-            </h1>
 
-            <Container>
-                <Row className="flex-nowrap">
-                    <Col md={2}>
-                        <Row>
-                            <Button variant="primary" onClick={() => {
-                                setWin(true);
-                                setLoss(false);
-                            }}>
-                                Click here to win
-                            </Button>
-                        </Row>
-                        <Row><button style={{ height: "5vh", width: "10vw", marginTop: "28vh" }}>Opponent's Turn</button></Row>
-                        <Row className="Divider"></Row>
-                        <Row><button style={{ height: "5vh", width: "10vw", marginBottom: "28vh" }}>My Turn</button></Row>
-                        <Row>
-                            <Button variant="primary" onClick={() => {
-                                setWin(false);
-                                setLoss(true);
-                            }}>
-                                Click to lose
-                            </Button>
-                        </Row>
-                    </Col>
-                    <Col style={{ height: "52vh", width: "50vw" }}>
-                        <Row style={{ justifyContent: "space-between" }}>
-                            {
-                                opponentPlayerCards.map((card, index) => (
-                                    <Col md={2} key={index}>
-                                        <motion.button whileHover={{ scale: 1.1 }}>
-                                            <PreviewCard
-                                                cardName={card.cardAttributes.name}
-                                                baseImage={card.baseImage}
-                                                frontCard={card.frontCard}
-                                                backCard={card.backCard} />
-                                        </motion.button>
+            <div className={"two-column"}>
+                <div className={"name-column"}>
 
-                                    </Col>
-                                ))
-                            }
-                        </Row>
-                        <Row style={{ height: "30vh" }}>
-                        </Row>
-                        <Row style={{ justifyContent: "space-between" }}>
-                            {
-                                localPlayerCards.map((card, index) => (
-                                    <Col md={2} key={index}>
-                                        <PreviewCard
-                                            cardName={card.cardAttributes.name}
-                                            baseImage={card.baseImage}
-                                            frontCard={card.frontCard}
-                                            backCard={card.backCard} />
-                                    </Col>
-                                ))
-                            }
-                        </Row>
-                    </Col>
-                </Row>
-            </Container>
+                    <div className={"center"}>
+                        <Image src={opponentPlayer?.profilePicture} style={{height: "100px", width: "100px"}} />
+                        <h3>{opponentPlayer?.username}</h3>
+                    </div>
+
+                    <div className={"center"}>
+                        <Image src={localPlayer?.profilePicture} style={{height: "100px", width: "100px"}} />
+                        <h3>{localPlayer?.username}</h3>
+                    </div>
+                </div>
+
+                <div className={"card-column"}>
+                    <div className={"card-row"}>
+                        {opponentPlayerCards.map((card, index) => {
+                            return (
+                                <BattleCard
+                                    card={card}
+                                    key={card.cardId}
+                                    height={"300px"}
+                                />
+                            )
+                        })}
+                    </div>
+
+                    <div style={{height: "10vh"}} />
+
+                    <div className={"card-row"}>
+                        {localPlayerCards.map((card, index) => {
+                            return (
+                                <BattleCard
+                                    card={card}
+                                    key={card.cardId}
+                                    height={"300px"}
+                                />
+                            )
+                        })}
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     );
 }

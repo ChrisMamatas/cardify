@@ -2,6 +2,8 @@ import "../../@types/card.ts"
 import Image from "react-bootstrap/Image"
 import React from "react";
 import "./SelectCard.css"
+import { Card } from 'react-bootstrap';
+import cardStyles from "./PreviewCard.module.css";
 
 interface CardAttributes {
     name: string;
@@ -20,9 +22,9 @@ interface CardAttributes {
         };
     };
     stats: {
-        lightAttack: number;
-        heavyAttack: number;
-        speed: number;
+        attack: number;
+        criticalChance: number;
+        health: number;
         defense: number;
     };
 }
@@ -37,15 +39,35 @@ interface Card {
 
 interface SelectCardProps {
     card: Card;
+    height?: string;
 }
 
-const SelectCard: React.FC<SelectCardProps> = ({ card}) => {
+export const SelectCard: React.FC<SelectCardProps> = ({ card, height}) => {
 
     return (
         <div>
-            <Image src={"data:image/png;base64, " + card.frontCard} style={{height: 400}} />
+            <Image src={"data:image/png;base64, " + card.frontCard} style={{height: height}} />
         </div>
     )
 }
 
-export default SelectCard
+export const BattleCard: React.FC<SelectCardProps> = ({ card, height, currHealth }) => {
+
+    return (
+        <div style={{ width: 'auto' }}>
+            <Card className={cardStyles.card} style={{ height: height }} >
+                <Card.Img variant="top" src={card.baseImage} />
+            </Card>
+
+            <div className={"stats"}>
+                <Card className={"attack"}>
+                    <p className={"text"}>{card.cardAttributes.stats.attack}</p>
+                </Card>
+                <Card className={"health"}>
+                    <p className={"text"}>{currHealth ? currHealth : card.cardAttributes.stats.health}</p>
+                </Card>
+            </div>
+
+        </div>
+    )
+}

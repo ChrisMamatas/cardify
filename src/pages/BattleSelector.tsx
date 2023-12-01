@@ -4,7 +4,7 @@ import { auth } from "../../firebaseConfig.ts";
 import { useEffect, useState } from "react";
 import "./BattleSelector.css"
 import { useBattle } from "../context/BattleContext.tsx";
-import SelectCard from "../components/cards/SelectCard.tsx";
+import {SelectCard} from "../components/cards/SelectCard.tsx";
 import Image from "react-bootstrap/Image"
 
 export default function BattleSelector() {

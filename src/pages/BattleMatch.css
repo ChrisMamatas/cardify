@@ -4,3 +4,52 @@
     padding: 20px;
     background: linear-gradient(to right, var(--primary) 45%, white 50%, var(--primary) 55%);
 }
+
+.custom-container {
+    display: flex;
+    height: 94vh;
+    justify-content: center;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-row {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    width: 100%;
+}
+
+.two-column {
+    display: flex;
+    width: 100vw;
+    justify-content: space-around;
+    margin-outside: 20px;
+}
+
+.name-column {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-column {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-right: 5vw;
+}

@@ -1,0 +1,30 @@
+.stats {
+    display: flex;
+    justify-content: space-around
+}
+
+.attack {
+    height: 50px;
+    width: 50px;
+    background-color: yellow;
+    margin-top: -20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.health {
+    height: 50px;
+    width: 50px;
+    background-color: red;
+    margin-top: -20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.text {
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
