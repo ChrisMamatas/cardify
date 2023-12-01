@@ -5,7 +5,7 @@ import "./BattleMatch.css"
 import { useEffect, useState } from "react";
 import { auth } from "../../firebaseConfig.ts";
 import { useBattle } from "../context/BattleContext.tsx";
-
+import { motion } from "framer-motion"
 
 function WinModal(props: ModalProps) {
     return (
@@ -83,6 +83,8 @@ export default function BattleMatch() {
         auth.onAuthStateChanged(async (user) => {
             if (user) {
 
+                console.log("[][]][]")
+                console.log(battleContext?.battleSession?.players)
                 battleContext?.battleSession?.players.forEach((player) => {
                     if (player.playerId === user.uid) {
 
@@ -98,9 +100,10 @@ export default function BattleMatch() {
     }
 
     async function getPlayerCards(cardIds: string[], isLocalPlayer: boolean) {
-        const queryParams = new URLSearchParams();
-        cardIds.forEach(id => queryParams.append('ids', id));
-        const url = `http://localhost:8080/card?${queryParams.toString()}`;
+        const encodedString = cardIds.join(",")
+        const url = new URL('http://localhost:8080/card');
+        url.searchParams.append('cardIds', encodedString);
+
         fetch(url, {
             headers: {
                 "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
@@ -115,6 +118,9 @@ export default function BattleMatch() {
                 }
             })
             .then((data) => {
+                console.log(isLocalPlayer)
+                console.log(JSON.stringify(data))
+                console.log("------")
                 if (isLocalPlayer) {
                     setLocalPlayerCards(data)
                 } else {
@@ -165,11 +171,14 @@ export default function BattleMatch() {
                             {
                                 opponentPlayerCards.map((card, index) => (
                                     <Col md={2} key={index}>
-                                        <PreviewCard
-                                            cardName={card.cardAttributes.name}
-                                            baseImage={card.baseImage}
-                                            frontCard={card.frontCard}
-                                            backCard={card.backCard} />
+                                        <motion.button whileHover={{ scale: 1.1 }}>
+                                            <PreviewCard
+                                                cardName={card.cardAttributes.name}
+                                                baseImage={card.baseImage}
+                                                frontCard={card.frontCard}
+                                                backCard={card.backCard} />
+                                        </motion.button>
+
                                     </Col>
                                 ))
                             }
