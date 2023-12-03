@@ -2,7 +2,7 @@ import { Image } from "react-bootstrap";
 import { Modal, ModalProps, Button } from 'react-bootstrap';
 import {BattleCard} from "../components/cards/SelectCard.tsx";
 import "./BattleMatch.css"
-import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from "react";
+import {ForwardedRef, forwardRef, useEffect, useImperativeHandle, useRef, useState} from "react";
 import { auth } from "../../firebaseConfig.ts";
 import { useBattle } from "../context/BattleContext.tsx";
 import { motion } from "framer-motion"
@@ -20,7 +20,35 @@ interface AnimatedCardProps {
     animate: (value: number) => void
 }
 
-const AnimatedCard = forwardRef( ({ card, index, animate }: AnimatedCardProps, ref: React.Ref<HTMLDivElement>) => {
+interface Move {
+    player1CardId: number;
+    player2CardId: number;
+    isPlayer1Move: boolean;
+    player1CardIdKilled?: string;
+    player2CardIdKilled?: string;
+    damageDealt: number;
+}
+
+// Define the main data structure type
+interface BattleData {
+    _id: {
+        $oid: string;
+    };
+    sessionId: string;
+    turns: {
+        Player1CardStates: Card[];
+        Player2CardStates: Card[];
+        CurrentMove: Move;
+    }[];
+    player1Id: string;
+    player2Id: string;
+    player1Win: boolean;
+    date: string;
+    _class: string;
+}
+
+
+const AnimatedCard = forwardRef( ({ card, index }: AnimatedCardProps, ref: ForwardedRef<unknown>) => {
     useImperativeHandle(ref, () => {
 
         return {
@@ -104,6 +132,7 @@ export default function BattleMatch() {
     const [opponentPlayer, setOpponentPlayer] = useState<Player>()
 
     const cardRefs = useRef<any>({})
+    const [moves, setMoves] = useState<BattleData | null>()
 
     useEffect(() => {
         getCards()
@@ -115,6 +144,7 @@ export default function BattleMatch() {
         if (sessionId) {
 
             battleContext?.subscribeToBattleTopic(`${sessionId}`);
+            getBattle()
         }
 
         return () => {
@@ -126,6 +156,40 @@ export default function BattleMatch() {
     }, []);
 
 
+    async function getBattle() {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                await fetch("http://localhost:8080/battle/" + battleContext?.battleSession?.id, {
+                    headers: {
+                        "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
+                        "Content-Type": "application/json"
+                    }
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                        throw new Error("Could Not Get Battle")
+                    })
+                    .then((data) => {
+                        setMoves(data)
+                        gameLoop()
+                    })
+                    .catch((e) => console.log(e))
+            }
+        })
+    }
+
+    function gameLoop() {
+
+        console.log(moves)
+        // let turns = moves.turns
+        // turns.map((turn, index) => {
+        //     // PLAY THE MOTION
+        //     // cardRefs.current[turn.isPlayer1Move ? turn.CurrentMove.player1CardId : turn.currentMove.player2CardId].animate()
+        //
+        // })
+    }
 
     async function getCards() {
         auth.onAuthStateChanged(async (user) => {
@@ -201,11 +265,6 @@ export default function BattleMatch() {
             .catch((e) => console.log(e))
     }
 
-    const [id, setId] = useState(0)
-    function animate(id: number) {
-        cardRefs.current[id].animate()
-    }
-
     return (
         <div className={"custom-container"}>
             {isWin && (
@@ -238,7 +297,7 @@ export default function BattleMatch() {
                     <div className={"card-row"}>
                         {opponentPlayerCards.map((card, index) => {
                             return (
-                                <AnimatedCard card={card} ref={el => cardRefs.current[index] = el} index={index} animate={animate} />
+                                <AnimatedCard card={card} ref={el => cardRefs.current[index] = el} index={index} />
                             )
                         })}
                     </div>
@@ -248,7 +307,7 @@ export default function BattleMatch() {
                     <div className={"card-row"}>
                         {localPlayerCards.map((card, index) => {
                             return (
-                                <AnimatedCard card={card} ref={el => cardRefs.current[index + 4] = el} index={index + 4} animate={animate} />
+                                <AnimatedCard card={card} ref={el => cardRefs.current[index + 4] = el} index={index + 4} />
                             )
                         })}
                     </div>
