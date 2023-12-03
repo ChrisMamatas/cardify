@@ -82,23 +82,21 @@ export default function Profile() {
                                 <Image className={"py-2"} src={profile ? profile.profilePicture : "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={225} width={225} />
                                 <h3>{profile?.username} {profile?.uid == auth.currentUser?.uid && <button onClick={() => navigate('/updateInfo', { state: { image: profile?.profilePicture, username: profile?.username } })}>Edit</button>}</h3>
                             </div>
-                            <div>
+                            <div >
                                 <div className={"d-flex mx-4"}>
                                     <div>
-                                        {
-                                            <Col md={10} >
-                                                <PreviewCard
-                                                    cardName={profile?.bestCards.bestAttack.cardAttributes.name || ""}
-                                                    baseImage={profile?.bestCards.bestAttack.baseImage || ""}
-                                                    frontCard={profile?.bestCards.bestAttack.frontCard || ""}
-                                                    backCard={profile?.bestCards.bestAttack.backCard || ""} />
-                                            </Col>
-                                        }
-                                        <h6 style={{ textAlign: "center" }}>Best Attack: {profile?.bestCards.bestAttack.cardAttributes.stats.attack}</h6>
+                                        <Col md={12} >
+                                            <PreviewCard
+                                                cardName={profile?.bestCards.bestAttack.cardAttributes.name || ""}
+                                                baseImage={profile?.bestCards.bestAttack.baseImage || ""}
+                                                frontCard={profile?.bestCards.bestAttack.frontCard || ""}
+                                                backCard={profile?.bestCards.bestAttack.backCard || ""} />
+                                        </Col>
+                                        <h3 style={{ textAlign: "center" }}>Best Attack: {profile?.bestCards.bestAttack.cardAttributes.stats.attack}</h3>
                                     </div>
                                     <div>
                                         {
-                                            <Col md={10} >
+                                            <Col md={12} >
                                                 <PreviewCard
                                                     cardName={profile?.bestCards.bestDefense.cardAttributes.name || ""}
                                                     baseImage={profile?.bestCards.bestDefense.baseImage || ""}
@@ -106,11 +104,11 @@ export default function Profile() {
                                                     backCard={profile?.bestCards.bestDefense.backCard || ""} />
                                             </Col>
                                         }
-                                        <h6 style={{ textAlign: "center" }}>Base Defense: {profile?.bestCards.bestDefense.cardAttributes.stats.defense}</h6>
+                                        <h3 style={{ textAlign: "center" }}>Base Defense: {profile?.bestCards.bestDefense.cardAttributes.stats.defense}</h3>
                                     </div>
                                     <div>
                                         {
-                                            <Col md={10} >
+                                            <Col md={12} >
                                                 <PreviewCard
                                                     cardName={profile?.bestCards.bestHealth.cardAttributes.name || ""}
                                                     baseImage={profile?.bestCards.bestHealth.baseImage || ""}
@@ -118,7 +116,7 @@ export default function Profile() {
                                                     backCard={profile?.bestCards.bestHealth.backCard || ""} />
                                             </Col>
                                         }
-                                        <h6 style={{ textAlign: "center" }}>Base Health: {profile?.bestCards.bestHealth.cardAttributes.stats.health}</h6>
+                                        <h3 style={{ textAlign: "center" }}>Base Health: {profile?.bestCards.bestHealth.cardAttributes.stats.health}</h3>
 
                                     </div>
                                 </div>
