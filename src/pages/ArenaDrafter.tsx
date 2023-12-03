@@ -48,9 +48,9 @@ export default function ArenaDrafter() {
                             <Row key ={item.record} className={"m-4"}>
                                 {record.map(item =>(
                                     <Col key ={item.card} className="d-flex">
-                                        <div className="browse justify-content-center">
+                                        <div className="justify-content-center">
                                             <PreviewCard height="90px"/>
-                                            <div className="flex-nowrap button-container">
+                                            <div className="browse flex-nowrap button-container">
                                                 <button className="customBookmark">
                                                     <FiBookmark/>
                                                 </button>

@@ -97,11 +97,13 @@ export default function DeckWidget() {
                     {
                         cards.map((card, index) => (
                             <Col md={4} key={index}> {/* Added key for list items */}
-                                <PreviewCard
-                                    cardName={card.cardAttributes.name}
-                                    baseImage={card.baseImage}
-                                    frontCard={card.frontCard}
-                                    backCard={card.backCard} />
+                                <div className="browse center flex-wrap p-2">
+                                    <PreviewCard
+                                        cardName={card.cardAttributes.name}
+                                        baseImage={card.baseImage}
+                                        frontCard={card.frontCard}
+                                        backCard={card.backCard} />
+                                </div>
                             </Col>
                         ))
                     }

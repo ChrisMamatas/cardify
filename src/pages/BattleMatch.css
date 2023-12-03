@@ -2,7 +2,8 @@
     position: relative;
     text-align: center;
     padding: 20px;
-    background: linear-gradient(to right, var(--primary) 45%, white 50%, var(--primary) 55%);
+    height: 5px;
+    background: linear-gradient(var(--primary) 45%, white 50%, var(--primary) 55%);
 }
 
 .custom-container {

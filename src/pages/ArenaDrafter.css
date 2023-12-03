@@ -40,3 +40,46 @@ div.browse:hover .customDraft{
     visibility: visible;
     font-size: 0.7em;
 }
+
+div.browse:hover{
+    background-color: var(--accent);
+    border-radius: 10%;
+    margin-top: 0;
+    justify-content: center;
+}
+
+.customBookmark {
+    visibility: hidden;
+    justify-content: center;
+    font-size: 0.7em;
+}
+
+.customDraft {
+    visibility: hidden;
+    justify-content: center;
+    font-size: 0.7em;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.browse:hover .customBookmark{
+    background-color: var(--secondary);
+    margin-top: 0;
+    border-bottom-left-radius:30%;
+    justify-content: center;
+    visibility: visible;
+    font-size: 0.7em;
+}
+
+div.browse:hover .customDraft{
+    background-color: var(--secondary);
+    margin-top: 0;
+    border-Bottom-Right-Radius: 30%;
+    justify-content: center;
+    visibility: visible;
+    font-size: 0.7em;
+}

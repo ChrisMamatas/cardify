@@ -68,39 +68,5 @@ export default function Home() {
                 </div>
             </Stack>
         </div>
-
-        // <div>
-        //     <Container>
-        //         <div>
-        //         <Row className="flex-nowrap justify-content-center">
-        //             <Col className="centered">
-        //                 <Row>
-        //                     <div className={`half-${screenSize} p-2`}><ProfileWidget /></div>
-        //                 </Row>
-        //                 <Row>
-        //                     <div className={`play-buttons-${screenSize} p-2`} ><BattleWidget /></div>
-        //                 </Row>
-        //                 <Row>
-        //                     <div className={`play-buttons-${screenSize} p-2`} ><ArenaWidget /></div>
-        //                 </Row>
-        //             </Col>
-        //             <Col className="centred">
-        //                 <Row>
-        //                     <div className={`full-${screenSize} p-2`}><DeckWidget /></div>
-        //                 </Row>
-        //             </Col>
-        //
-        //             <Col className="centred">
-        //                 <Row>
-        //                     <div className={`quarter-${screenSize} p-2`}><SocialWidget /></div>
-        //                 </Row>
-        //                 <Row>
-        //                     <div className={`threefourths-${screenSize} p-2`}><Chat /></div>
-        //                 </Row>
-        //             </Col>
-        //         </Row>
-        //         </div>
-        //     </Container>
-        // </div>
     )
 }
