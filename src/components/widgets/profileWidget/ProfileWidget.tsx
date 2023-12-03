@@ -47,7 +47,6 @@ interface Card {
 export default function ProfileWidget() {
 
     const [profileData, setProfileData] = useState<Profile>()
-    const [cards, setCards] = useState<Card[]>([]);
     const [profile, setProfile] = useState<Profile>()
 
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -144,8 +143,10 @@ export default function ProfileWidget() {
                 <Container>
                     <Row className={"d-flex justify-content-center align-items-center"}>
                         <Col>
-                            <Image src={profileData?.profilePicture} max-height={150} width={150} />
-                            <h3>{profileData?.username}</h3>
+                            <Image src={profileData?.profilePicture} max-height={150} />
+                        </Col>
+                        <Col>
+                            <h3 >{profileData?.username}</h3>
                         </Col>
 
                     </Row>
