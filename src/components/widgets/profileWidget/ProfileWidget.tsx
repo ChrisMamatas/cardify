@@ -141,9 +141,9 @@ export default function ProfileWidget() {
             <div className={"Widget"}>
 
                 <Container>
-                    <Row className={"d-flex justify-content-center align-items-center"}>
+                    <Row className={"d-flex justify-content-center align-items-center"} style={{ height: "100px" }}>
                         <Col>
-                            <Image src={profileData?.profilePicture} max-height={150} />
+                            <Image src={profileData?.profilePicture} style={{ maxHeight: "100px", maxWidth: "100%" }} />
                         </Col>
                         <Col>
                             <h3 >{profileData?.username}</h3>

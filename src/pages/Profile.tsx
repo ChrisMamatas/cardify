@@ -134,7 +134,6 @@ export default function Profile() {
                             </div>
                         </div>
                     </Col>
-
                 </Row>
 
                 <Row className={"my-2"}>
