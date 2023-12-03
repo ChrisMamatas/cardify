@@ -75,50 +75,55 @@ export default function Profile() {
     return (
         <div className={"d-flex m-5"}>
             <Container className={"mx-1"}>
-                <Row className={"t"} style={{ height: "30vh" }}>
+                <Row className={"t"} style={{ height: "30vh", borderRadius: "3%" }}>
                     <Col>
-                        <div style={{ display: "flex", flexDirection: "row" }}>
+                        <div style={{ display: "flex", flexDirection: "row"}}>
                             <div>
                                 <Image className={"py-2"} src={profile ? profile.profilePicture : "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={225} width={225} />
-                                <h3>{profile?.username} {profile?.uid == auth.currentUser?.uid && <button onClick={() => navigate('/updateInfo', { state: { image: profile?.profilePicture, username: profile?.username } })}>Edit</button>}</h3>
+                                <h3>{profile?.username} {profile?.uid == auth.currentUser?.uid}</h3>
                             </div>
                             <div>
                                 <h3 style={{ textAlign: "center" }}>Best Cards</h3>
                                 <div className={"d-flex mx-4"}>
                                     <div>
-                                        <Col md={12} >
-                                            <PreviewCard
-                                                cardName={profile?.bestCards.bestAttack.cardAttributes.name || ""}
-                                                baseImage={profile?.bestCards.bestAttack.baseImage || ""}
-                                                frontCard={profile?.bestCards.bestAttack.frontCard || ""}
-                                                backCard={profile?.bestCards.bestAttack.backCard || ""} />
+                                        <Col md={10} >
+                                            <div className="browse flex-nowrap button-container p-2">
+                                                <PreviewCard
+                                                    cardName={profile?.bestCards.bestAttack.cardAttributes.name || ""}
+                                                    baseImage={profile?.bestCards.bestAttack.baseImage || ""}
+                                                    frontCard={profile?.bestCards.bestAttack.frontCard || ""}
+                                                    backCard={profile?.bestCards.bestAttack.backCard || ""} />
+                                            </div>
                                         </Col>
-                                        <h3 style={{ textAlign: "center" }}>Best Attack: {profile?.bestCards.bestAttack.cardAttributes.stats.attack}</h3>
+                                        <h6 style={{ textAlign: "center" }}>Best Attack: {profile?.bestCards.bestAttack.cardAttributes.stats.attack}</h6>
                                     </div>
                                     <div>
                                         {
-                                            <Col md={12} >
-                                                <PreviewCard
-                                                    cardName={profile?.bestCards.bestDefense.cardAttributes.name || ""}
-                                                    baseImage={profile?.bestCards.bestDefense.baseImage || ""}
-                                                    frontCard={profile?.bestCards.bestDefense.frontCard || ""}
-                                                    backCard={profile?.bestCards.bestDefense.backCard || ""} />
+                                            <Col md={10} >
+                                                <div className="browse flex-nowrap button-container p-2">
+                                                    <PreviewCard
+                                                        cardName={profile?.bestCards.bestDefense.cardAttributes.name || ""}
+                                                        baseImage={profile?.bestCards.bestDefense.baseImage || ""}
+                                                        frontCard={profile?.bestCards.bestDefense.frontCard || ""}
+                                                        backCard={profile?.bestCards.bestDefense.backCard || ""} />
+                                                </div>
                                             </Col>
                                         }
                                         <h3 style={{ textAlign: "center" }}>Base Defense: {profile?.bestCards.bestDefense.cardAttributes.stats.defense}</h3>
                                     </div>
                                     <div>
                                         {
-                                            <Col md={12} >
-                                                <PreviewCard
-                                                    cardName={profile?.bestCards.bestHealth.cardAttributes.name || ""}
-                                                    baseImage={profile?.bestCards.bestHealth.baseImage || ""}
-                                                    frontCard={profile?.bestCards.bestHealth.frontCard || ""}
-                                                    backCard={profile?.bestCards.bestHealth.backCard || ""} />
+                                            <Col md={10} >
+                                                <div className="browse flex-nowrap button-container p-2">
+                                                    <PreviewCard
+                                                        cardName={profile?.bestCards.bestHealth.cardAttributes.name || ""}
+                                                        baseImage={profile?.bestCards.bestHealth.baseImage || ""}
+                                                        frontCard={profile?.bestCards.bestHealth.frontCard || ""}
+                                                        backCard={profile?.bestCards.bestHealth.backCard || ""} />
+                                                </div>
                                             </Col>
                                         }
-                                        <h3 style={{ textAlign: "center" }}>Base Health: {profile?.bestCards.bestHealth.cardAttributes.stats.health}</h3>
-
+                                        <h6 style={{ textAlign: "center" }}>Base Health: {profile?.bestCards.bestHealth.cardAttributes.stats.health}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +141,7 @@ export default function Profile() {
                 </Row>
 
                 <Row className={"my-2"}>
-                    <Col className={"t"} style={{ height: "35vh", overflowY: "auto" }}>
+                    <Col className={"t"} style={{ height: "35vh", overflowY: "auto", borderRadius: "3%" }}>
                         <h3>Activity</h3>
                         {["Gunther won their first game today!"].map((txt) => {
                             return (
@@ -147,18 +152,16 @@ export default function Profile() {
                         })}
                     </Col>
                 </Row>
-
-
             </Container>
 
             <Container className={"mx-1"}>
                 <Row>
-                    <Col className={"t ml-1 p-2"}>
+                    <Col className={"t ml-1 p-2"} style={{borderRadius: "3%"}}>
                         <h3>Cards</h3>
-                        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "left", height: "80vh", overflowY: "auto", padding: "10px" }}>
+                        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "left", height: "80vh", overflowY: "auto", padding: "10px"}}>
                             {
                                 cards.map((card, index) => (
-                                    <div className={"card-container"} >
+                                    <div className={"card-container browse"} >
                                         <PreviewCard
                                             height="auto"
                                             cardName={card.cardAttributes.name}

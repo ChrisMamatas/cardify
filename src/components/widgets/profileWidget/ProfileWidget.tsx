@@ -148,35 +148,39 @@ export default function ProfileWidget() {
                         <Col>
                             <h3 >{profileData?.username}</h3>
                         </Col>
-
                     </Row>
                     <div className={"best-cards-container"}>
-
                         <Row className={".card-row"} style={{ padding: 0, display: "flex", flexWrap: "wrap", justifyContent: "space-between", marginTop: "2em", padding: "1em" }}>
-                            <h1 style={{ textAlign: "center" }}>Best Cards</h1>
+                            <h3 style={{ textAlign: "center" }}>Best Cards</h3>
                             <Col md={3} >
-                                <PreviewCard
-                                    height="100px"
-                                    cardName={profile?.bestCards.bestAttack.cardAttributes.name || ""}
-                                    baseImage={profile?.bestCards.bestAttack.baseImage || ""}
-                                    frontCard={profile?.bestCards.bestAttack.frontCard || ""}
-                                    backCard={profile?.bestCards.bestAttack.backCard || ""} />
+                                <div className="browse flex-nowrap button-container p-2">
+                                    <PreviewCard
+                                        height="100px"
+                                        cardName={profile?.bestCards.bestAttack.cardAttributes.name || ""}
+                                        baseImage={profile?.bestCards.bestAttack.baseImage || ""}
+                                        frontCard={profile?.bestCards.bestAttack.frontCard || ""}
+                                        backCard={profile?.bestCards.bestAttack.backCard || ""} />
+                                </div>
                             </Col>
                             <Col md={3} >
-                                <PreviewCard
-                                    height="100px"
-                                    cardName={profile?.bestCards.bestDefense.cardAttributes.name || ""}
-                                    baseImage={profile?.bestCards.bestDefense.baseImage || ""}
-                                    frontCard={profile?.bestCards.bestDefense.frontCard || ""}
-                                    backCard={profile?.bestCards.bestDefense.backCard || ""} />
+                                <div className="browse flex-nowrap button-container p-2">
+                                    <PreviewCard
+                                        height="100px"
+                                        cardName={profile?.bestCards.bestDefense.cardAttributes.name || ""}
+                                        baseImage={profile?.bestCards.bestDefense.baseImage || ""}
+                                        frontCard={profile?.bestCards.bestDefense.frontCard || ""}
+                                        backCard={profile?.bestCards.bestDefense.backCard || ""} />
+                                </div>
                             </Col>
                             <Col md={3} >
-                                <PreviewCard
-                                    height="100px"
-                                    cardName={profile?.bestCards.bestHealth.cardAttributes.name || ""}
-                                    baseImage={profile?.bestCards.bestHealth.baseImage || ""}
-                                    frontCard={profile?.bestCards.bestHealth.frontCard || ""}
-                                    backCard={profile?.bestCards.bestHealth.backCard || ""} />
+                                <div className="browse flex-nowrap button-container p-2">
+                                    <PreviewCard
+                                        height="100px"
+                                        cardName={profile?.bestCards.bestHealth.cardAttributes.name || ""}
+                                        baseImage={profile?.bestCards.bestHealth.baseImage || ""}
+                                        frontCard={profile?.bestCards.bestHealth.frontCard || ""}
+                                        backCard={profile?.bestCards.bestHealth.backCard || ""} />
+                                </div>
                             </Col>
 
                         </Row>
