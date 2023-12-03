@@ -109,7 +109,7 @@ export default function Profile() {
                                                 </div>
                                             </Col>
                                         }
-                                        <h3 style={{ textAlign: "center" }}>Base Defense: {profile?.bestCards.bestDefense.cardAttributes.stats.defense}</h3>
+                                        <h6 style={{ textAlign: "center" }}>Base Defense: {profile?.bestCards.bestDefense.cardAttributes.stats.defense}</h6>
                                     </div>
                                     <div>
                                         {

@@ -151,7 +151,7 @@ export default function ProfileWidget() {
                     </Row>
                     <div className={"best-cards-container"}>
                         <Row className={".card-row"} style={{ padding: 0, display: "flex", flexWrap: "wrap", justifyContent: "space-between", marginTop: "2em", padding: "1em" }}>
-                            <h3 style={{ textAlign: "center" }}>Best Cards</h3>
+                            <h5 style={{ textAlign: "center" }}>Best Cards</h5>
                             <Col md={3} >
                                 <div className="browse flex-nowrap button-container p-2">
                                     <PreviewCard
