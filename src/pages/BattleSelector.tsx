@@ -165,8 +165,10 @@ export default function BattleSelector() {
                 <div style={{ display: "flex", flexWrap: "wrap", width: "60vw", justifyContent: "center", height: "60vh", overflowY: "auto", backgroundColor: "gray", padding: "10px", borderRadius: "10px" }}>
                     {
                         cards.map((card, index) => (
-                            <div className={"card-container"} onClick={() => cardPress(card.cardId)} style={{ backgroundColor: selected.includes(card.cardId) && "green" || "" }}>
-                                <SelectCard card={card} />
+                            <div className="browse center flex-wrap p-2">
+                                <div className={"card-container"} onClick={() => cardPress(card.cardId)} style={{ backgroundColor: selected.includes(card.cardId) && "green" || "" }}>
+                                    <SelectCard card={card} />
+                                </div>
                             </div>
                         ))
                     }
