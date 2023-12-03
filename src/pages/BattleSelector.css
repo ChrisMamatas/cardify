@@ -14,10 +14,9 @@
 }
 
 .card-container {
-    padding: 10px;
     margin: 10px;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .card-container:hover {

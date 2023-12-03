@@ -15,9 +15,9 @@ interface CardAttributes {
         };
     };
     stats: {
-        lightAttack: number;
-        heavyAttack: number;
-        speed: number;
+        attack: number;
+        criticalChance: number;
+        health: number;
         defense: number;
     };
 }

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { Container, Image, Row, Col } from "react-bootstrap";
-import PreviewCard from "../../cards/PreviewCard";
 import "../../Widgets.css"
 import { useEffect, useState } from "react";
 import { auth } from "../../../../firebaseConfig.ts";
+import PreviewCard from "../../cards/PreviewCard.tsx";
 
 interface Profile {
     username: string,
@@ -48,7 +48,7 @@ export default function ProfileWidget() {
 
     const [profileData, setProfileData] = useState<Profile>()
     const [cards, setCards] = useState<Card[]>([]);
-
+    const [profile, setProfile] = useState<Profile>()
 
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
@@ -64,6 +64,8 @@ export default function ProfileWidget() {
         if (isAuthenticated) {
             getData()
             getCards()
+            getProfile()
+
         }
     }, [isAuthenticated]);
 
@@ -109,6 +111,32 @@ export default function ProfileWidget() {
         });
     }
 
+    async function getProfile() {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                const idToken = await user.getIdToken()
+                await fetch("http://localhost:8080/user/profile", {
+                    headers: {
+                        "Authorization": "Bearer " + idToken
+                    }
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                    })
+                    .then((data) => {
+                        setProfile(data)
+                    })
+                    .catch((e) => alert(e))
+            }
+            else {
+                console.log("There is no user")
+            }
+        })
+    }
+
+
     return (
         <Link to={"/Profile"} className={"link"}>
             <div className={"Widget"}>
@@ -116,32 +144,45 @@ export default function ProfileWidget() {
                 <Container>
                     <Row className={"d-flex justify-content-center align-items-center"}>
                         <Col>
-                            <Image src={profileData?.profilePicture} height={150} width={150} />
+                            <Image src={profileData?.profilePicture} max-height={150} width={150} />
                             <h3>{profileData?.username}</h3>
                         </Col>
 
-                        <Col className={"d-flex justify-content-center align-items-center flex-column"}>
-                            <Image src={"https://cdn-icons-png.flaticon.com/512/473/473406.png"} height={100} style={{ marginBottom: 20 }} />
-                            <p>{profileData?.elo}</p>
-                        </Col>
                     </Row>
+                    <div className={"best-cards-container"}>
 
-                    <Row style={{ padding: 0, display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
-                        {
-                            cards && cards.slice(0, 4).map((card, index) => (
-                                <Col md={3} key={index}>
-                                    <PreviewCard
-                                        cardName={card.cardAttributes.name}
-                                        baseImage={card.baseImage}
-                                        frontCard={card.frontCard}
-                                        backCard={card.backCard} />
-                                </Col>
-                            ))
-                        }
-                    </Row>
+                        <Row className={".card-row"} style={{ padding: 0, display: "flex", flexWrap: "wrap", justifyContent: "space-between", marginTop: "2em", padding: "1em" }}>
+                            <h1 style={{ textAlign: "center" }}>Best Cards</h1>
+                            <Col md={3} >
+                                <PreviewCard
+                                    height="100px"
+                                    cardName={profile?.bestCards.bestAttack.cardAttributes.name || ""}
+                                    baseImage={profile?.bestCards.bestAttack.baseImage || ""}
+                                    frontCard={profile?.bestCards.bestAttack.frontCard || ""}
+                                    backCard={profile?.bestCards.bestAttack.backCard || ""} />
+                            </Col>
+                            <Col md={3} >
+                                <PreviewCard
+                                    height="100px"
+                                    cardName={profile?.bestCards.bestDefense.cardAttributes.name || ""}
+                                    baseImage={profile?.bestCards.bestDefense.baseImage || ""}
+                                    frontCard={profile?.bestCards.bestDefense.frontCard || ""}
+                                    backCard={profile?.bestCards.bestDefense.backCard || ""} />
+                            </Col>
+                            <Col md={3} >
+                                <PreviewCard
+                                    height="100px"
+                                    cardName={profile?.bestCards.bestHealth.cardAttributes.name || ""}
+                                    baseImage={profile?.bestCards.bestHealth.baseImage || ""}
+                                    frontCard={profile?.bestCards.bestHealth.frontCard || ""}
+                                    backCard={profile?.bestCards.bestHealth.backCard || ""} />
+                            </Col>
+
+                        </Row>
+                    </div>
                 </Container>
             </div>
 
-        </Link>
+        </Link >
     )
 }

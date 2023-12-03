@@ -1,108 +1,33 @@
 
 import { useState, useEffect } from "react"
 import { Container, Row, Col, Image } from "react-bootstrap";
-import Showcase from "../components/profile/Showcase"
-import BestCards from "../components/profile/BestCards.tsx";
-import "./Profile.css"
 import "./Profile.css"
 import { auth } from "../../firebaseConfig.ts";
-import FullCard from "../Components/cards/FullCard.tsx";
-import PreviewCard from "../Components/cards/PreviewCard.tsx";
-import { useNavigate} from "react-router-dom";
+import PreviewCard from "../components/cards/PreviewCard.tsx";
+import { useNavigate } from "react-router-dom";
+import RecentGame from "../components/profile/RecentGames.tsx";
 
-interface UserData {
-    uid: String,
-    username: String
-    elo: Number
-    profilePicture: String
-}
 
-interface Profile {
-    username: string,
-    profilePicture: string,
-    elo: number,
-    uid: string
-}
-
-interface CardAttributes {
-    name: string;
-    colors: {
-        dominantHex: string;
-        dominantRgb: {
-            r: number;
-            g: number;
-            b: number;
-        };
-        accentHex: string;
-        accentRgb: {
-            r: number;
-            g: number;
-            b: number;
-        };
-    };
-    stats: {
-        lightAttack: number;
-        heavyAttack: number;
-        speed: number;
-        defense: number;
-    };
-}
-
-interface Card {
-    baseImage: string;
-    frontCard: string;
-    backCard: string;
-    cardId: string;
-    cardAttributes: CardAttributes; // Correct the case to match the response
-}
-
-function RecentGame() {
-    return (
-        <div style={{ display: "inline-block", padding: 5, marginRight: 10, textAlign: "center", backgroundColor: "green" }}>
-            <Image src={"https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={50} width={50} />
-            <h3 style={{ margin: 20 }}>W</h3>
-            <h6>+14</h6>
-        </div>
-    )
-}
-
-function MostRecentGame() {
-    return (
-        <div style={{ display: "inline-block", padding: 5, marginRight: 10, textAlign: "center", backgroundColor: "green" }}>
-            <div>
-                <PreviewCard height={"5em"} />
-            </div>
-            <div>
-                <Image src={"https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={50} width={50} />
-                <h3 style={{ margin: 20 }}>W</h3>
-                <h6>+14</h6>
-            </div>
-        </div>
-    )
-}
-
-// import Stomp from 'stompjs';
 
 export default function Profile() {
 
     const navigate = useNavigate()
 
-    const [data, setData] = useState<UserData>()
-    const [imageData, setImageData] = useState<string | null>(null);
-    const [idToken, setIdToken] = useState("")
-    const [profileData, setProfileData] = useState<Profile>()
+    const [profile, setProfile] = useState<Profile>()
     const [cards, setCards] = useState<Card[]>([]);
 
     useEffect(() => {
-        getData()
+        getProfile()
         getCards()
     }, []);
 
-    async function getData() {
+
+
+    async function getProfile() {
         auth.onAuthStateChanged(async (user) => {
             if (user) {
                 const idToken = await user.getIdToken()
-                await fetch("http://localhost:8080/user", {
+                await fetch("http://localhost:8080/user/profile", {
                     headers: {
                         "Authorization": "Bearer " + idToken
                     }
@@ -113,7 +38,7 @@ export default function Profile() {
                         }
                     })
                     .then((data) => {
-                        setData(data)
+                        setProfile(data)
                     })
                     .catch((e) => alert(e))
             }
@@ -122,6 +47,7 @@ export default function Profile() {
             }
         })
     }
+
 
     async function getCards() {
         auth.onAuthStateChanged(async (user) => {
@@ -153,52 +79,47 @@ export default function Profile() {
                     <Col>
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <div>
-                                <Image className={"py-2"} src={data ? data.profilePicture : "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={225} width={225} />
-                                <h3>{data?.username} {data?.uid == auth.currentUser?.uid && <button onClick={() => navigate('/updateInfo', { state: { image: data?.profilePicture, username: data?.username }})}>Edit</button>}</h3>
+                                <Image className={"py-2"} src={profile ? profile.profilePicture : "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={225} width={225} />
+                                <h3>{profile?.username} {profile?.uid == auth.currentUser?.uid && <button onClick={() => navigate('/updateInfo', { state: { image: profile?.profilePicture, username: profile?.username } })}>Edit</button>}</h3>
                             </div>
                             <div>
                                 <div className={"d-flex mx-4"}>
                                     <div>
                                         {
-                                            cards?.slice(0,1).map((card, index) => (
-                                                <Col md={10} key={index}>
-                                                    <PreviewCard
-                                                        cardName={card.cardAttributes.name}
-                                                        baseImage={card.baseImage}
-                                                        frontCard={card.frontCard}
-                                                        backCard={card.backCard} />
-                                                </Col>
-                                            ))
+                                            <Col md={10} >
+                                                <PreviewCard
+                                                    cardName={profile?.bestCards.bestAttack.cardAttributes.name || ""}
+                                                    baseImage={profile?.bestCards.bestAttack.baseImage || ""}
+                                                    frontCard={profile?.bestCards.bestAttack.frontCard || ""}
+                                                    backCard={profile?.bestCards.bestAttack.backCard || ""} />
+                                            </Col>
                                         }
-                                        <h6 style={{ textAlign: "center" }}>Most HP - 1273</h6>
+                                        <h6 style={{ textAlign: "center" }}>Best Attack: {profile?.bestCards.bestAttack.cardAttributes.stats.attack}</h6>
                                     </div>
                                     <div>
                                         {
-                                            cards?.slice(1,2).map((card, index) => (
-                                                <Col md={10} key={index}>
-                                                    <PreviewCard
-                                                        cardName={card.cardAttributes.name}
-                                                        baseImage={card.baseImage}
-                                                        frontCard={card.frontCard}
-                                                        backCard={card.backCard} />
-                                                </Col>
-                                            ))
+                                            <Col md={10} >
+                                                <PreviewCard
+                                                    cardName={profile?.bestCards.bestDefense.cardAttributes.name || ""}
+                                                    baseImage={profile?.bestCards.bestDefense.baseImage || ""}
+                                                    frontCard={profile?.bestCards.bestDefense.frontCard || ""}
+                                                    backCard={profile?.bestCards.bestDefense.backCard || ""} />
+                                            </Col>
                                         }
-                                        <h6 style={{ textAlign: "center" }}>Most Damage - 349</h6>
+                                        <h6 style={{ textAlign: "center" }}>Base Defense: {profile?.bestCards.bestDefense.cardAttributes.stats.defense}</h6>
                                     </div>
                                     <div>
                                         {
-                                            cards?.slice(2,3).map((card, index) => (
-                                                <Col md={10} key={index}>
-                                                    <PreviewCard
-                                                        cardName={card.cardAttributes.name}
-                                                        baseImage={card.baseImage}
-                                                        frontCard={card.frontCard}
-                                                        backCard={card.backCard} />
-                                                </Col>
-                                            ))
+                                            <Col md={10} >
+                                                <PreviewCard
+                                                    cardName={profile?.bestCards.bestHealth.cardAttributes.name || ""}
+                                                    baseImage={profile?.bestCards.bestHealth.baseImage || ""}
+                                                    frontCard={profile?.bestCards.bestHealth.frontCard || ""}
+                                                    backCard={profile?.bestCards.bestHealth.backCard || ""} />
+                                            </Col>
                                         }
-                                        <h6 style={{ textAlign: "center" }}>Highest Winrate - 89%</h6>
+                                        <h6 style={{ textAlign: "center" }}>Base Health: {profile?.bestCards.bestHealth.cardAttributes.stats.health}</h6>
+
                                     </div>
                                 </div>
                             </div>
@@ -208,21 +129,8 @@ export default function Profile() {
                 <Row>
                     <Col className={"d-flex t mt-2"} style={{ height: "20vh" }}>
                         <div className={"d-flex mt-2 align-items-center"}>
-                            <div>
-                                <Image src={"https://mtek3d.com/wp-content/uploads/2018/01/image-placeholder-500x500.jpg"} height={100} />
-                            </div>
-
-                            <div className={"d-flex"}>
-                                <div style={{ marginLeft: 10, marginTop: 10, textAlign: "center" }}>
-                                    <h6>Rank</h6>
-                                    <h6>{data?.elo}</h6>
-                                </div>
-                            </div>
-
-                            <div className={"d-flex mx-5 justify-content-center"} style={{ width: "100%" }}>
-                                {[0, 0, 0, 0, 0].map(() => {
-                                    return <RecentGame />
-                                })}
+                            <div className={"d-flex mx-5"} style={{ width: "100%" }}>
+                                <RecentGame recentBattles={profile?.recentBattles || []} />
                             </div>
                         </div>
                     </Col>
@@ -249,19 +157,21 @@ export default function Profile() {
                 <Row>
                     <Col className={"t ml-1 p-2"}>
                         <h3>Cards</h3>
-                        <div className={"d-flex flex-wrap justify-content-center"} style={{ height: "80vh", overflowY: "auto"}}>
+                        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "left", height: "80vh", overflowY: "auto", padding: "10px" }}>
                             {
-                                cards?.map((card, index) => (
-                                    <Col md={3} key={index}>
+                                cards.map((card, index) => (
+                                    <div className={"card-container"} >
                                         <PreviewCard
+                                            height="auto"
                                             cardName={card.cardAttributes.name}
                                             baseImage={card.baseImage}
                                             frontCard={card.frontCard}
                                             backCard={card.backCard} />
-                                    </Col>
+                                    </div>
                                 ))
                             }
                         </div>
+
                     </Col>
                 </Row>
             </Container>

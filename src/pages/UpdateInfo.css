@@ -1,6 +1,40 @@
-.profile-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* This will make the container take up the full height of the viewport */
+.update-form {
+    max-width: 300px;
+    margin: auto;
+    background: #f3f3f3;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.profile-pic-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 100px;
+    /* Adjust as needed */
+    height: 100px;
+    /* Adjust as needed */
+    border-radius: 50%;
+    object-fit: cover;
+    /* Ensures the image covers the area without stretching */
+}
+
+.update-form Form Button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.update-form Form Button {
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+}
+
+.update-form Form Button:hover {
+    background-color: #4cae4c;
 }

@@ -1,0 +1,9 @@
+.best-cards-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack children vertically */
+    align-items: center;
+    /* Center children horizontally */
+    justify-content: center;
+    /* Center children vertically if the container has a set height */
+}
