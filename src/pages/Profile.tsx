@@ -82,7 +82,8 @@ export default function Profile() {
                                 <Image className={"py-2"} src={profile ? profile.profilePicture : "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} height={225} width={225} />
                                 <h3>{profile?.username} {profile?.uid == auth.currentUser?.uid && <button onClick={() => navigate('/updateInfo', { state: { image: profile?.profilePicture, username: profile?.username } })}>Edit</button>}</h3>
                             </div>
-                            <div >
+                            <div>
+                                <h3 style={{ textAlign: "center" }}>Best Cards</h3>
                                 <div className={"d-flex mx-4"}>
                                     <div>
                                         <Col md={12} >
@@ -126,8 +127,8 @@ export default function Profile() {
                 </Row>
                 <Row>
                     <Col className={"d-flex t mt-2"} style={{ height: "20vh" }}>
-                        <div className={"d-flex mt-2 align-items-center"}>
-                            <div className={"d-flex mx-5"} style={{ width: "100%" }}>
+                        <div className={"mt-2 align-items-center"}>
+                            <div className={"d-flex"} style={{ width: "100%" }}>
                                 <RecentGame recentBattles={profile?.recentBattles || []} />
                             </div>
                         </div>
