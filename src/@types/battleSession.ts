@@ -1,6 +1,8 @@
 
 export interface IBattleSession {
-    id: string
+    id: string;
+    confirmed: boolean;
+    battleGenerated: boolean;
     players: [{
         playerId: string,
         playerUserName: string,
