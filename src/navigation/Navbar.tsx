@@ -42,9 +42,6 @@ export default function CustomNavbar() {
                             <NavDropdown.Item onClick={updateinfo}>
                                 Update Info
                             </NavDropdown.Item>
-                            <NavDropdown.Item>
-                                Something
-                            </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item onClick={logout}>
                                 Logout
