@@ -87,7 +87,6 @@ const AnimatedCard = forwardRef(({ card, index }: AnimatedCardProps, ref: Forwar
 
     function takeDamage(damage: number) {
 
-        console.log(hp, "taking ", damage)
         setHp(hp - damage)
         setHpLoss(damage)
         setOpacity(1)
@@ -111,9 +110,7 @@ const AnimatedCard = forwardRef(({ card, index }: AnimatedCardProps, ref: Forwar
     }, []);
 
     return (
-        <>
-        {
-            hp > 0 && (
+        <div style={{opacity: hp <= 0 ? 0.25 : 1}}>
             <motion.div
                 ref={parentRef}
                 initial={{ x: 0, y: 0}}
@@ -140,9 +137,7 @@ const AnimatedCard = forwardRef(({ card, index }: AnimatedCardProps, ref: Forwar
                 </motion.div>
                 <BattleCard card={card} key={card.cardId} height={'300px'} />
             </motion.div>
-        )
-        }
-        </>
+        </div>
     );
 });
 
