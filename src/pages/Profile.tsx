@@ -129,7 +129,7 @@ export default function Profile() {
                     <Col className={"d-flex t mt-2"} style={{ height: "20vh" }}>
                         <div className={"mt-2 align-items-center"}>
                             <div className={"d-flex"} style={{ width: "100%" }}>
-                                <RecentGame recentBattles={profile?.recentBattles || []} />
+                                {profile?.recentBattles && <RecentGame recentBattles={profile?.recentBattles} />}
                             </div>
                         </div>
                     </Col>
