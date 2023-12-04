@@ -201,15 +201,36 @@ export default function BattleMatch() {
     const cardAnimateRefs = useRef<any>({})
     const [moves, setMoves] = useState<BattleData>()
 
-    useEffect(() => {
-        getCards()
-    }, [battleContext?.battleSession]);
 
     useEffect(() => {
-        if (battleContext?.battleSession?.battleGenerated) {
-            getBattle()
-        }
+        getData().then(() => console.log("THE  END"))
     }, [battleContext?.battleSession?.battleGenerated]);
+
+    useEffect(() => {
+        gameLoop()
+    }, [moves])
+
+    async function getData() {
+        console.log(battleContext?.battleSession?.battleGenerated)
+        if (battleContext?.battleSession?.battleGenerated) {
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    battleContext?.battleSession?.players.forEach( async (player) => {
+                        if (player.playerId === user.uid) {
+                            await getPlayerCards(player.selectedCardIds, true);
+                            await getPlayer(player.playerUserName, true)
+                        } else {
+                            await getPlayerCards(player.selectedCardIds, false);
+                            await getPlayer(player.playerUserName, false)
+                        }
+
+                        await sleep(1000)
+                        await getBattle()
+                    });
+                }
+            })
+        }
+    }
 
     useEffect(() => {
         const sessionId = battleContext?.battleSession?.id;
@@ -244,7 +265,12 @@ export default function BattleMatch() {
                     })
                     .then((data) => {
                         setMoves(data)
-                        gameLoop()
+                        console.log("post set moves")
+                        console.log(data)
+                        console.log("now testing if cards exist")
+                        console.log(localPlayerCards)
+                        console.log(opponentPlayerCards)
+
                     })
                     .catch((e) => console.log(e))
             }
@@ -300,21 +326,7 @@ export default function BattleMatch() {
         }
     }
 
-    async function getCards() {
-        auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                battleContext?.battleSession?.players.forEach((player) => {
-                    if (player.playerId === user.uid) {
-                        getPlayerCards(player.selectedCardIds, true);
-                        getPlayer(player.playerUserName, true)
-                    } else {
-                        getPlayerCards(player.selectedCardIds, false);
-                        getPlayer(player.playerUserName, false)
-                    }
-                });
-            }
-        })
-    }
+
 
     async function getPlayer(username: string, isLocalPlayer: boolean) {
 
@@ -344,7 +356,7 @@ export default function BattleMatch() {
         const url = new URL('http://localhost:8080/card');
         url.searchParams.append('ids', encodedString);
 
-        fetch(url, {
+        await fetch(url, {
             headers: {
                 "Authorization": "Bearer " + await auth.currentUser?.getIdToken(),
             }
