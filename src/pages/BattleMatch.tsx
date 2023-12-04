@@ -135,7 +135,7 @@ const AnimatedCard = forwardRef(({ card, index }: AnimatedCardProps, ref: Forwar
                 >
                     <h1 className={"d-flex justify-content-center align-items-center"}>{"-" + hpLoss}</h1>
                 </motion.div>
-                <BattleCard card={card} key={card.cardId} height={'300px'} />
+                <BattleCard card={card} key={card.cardId} height={'300px'} currHealth={hp} />
             </motion.div>
         </div>
     );

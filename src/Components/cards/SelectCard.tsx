@@ -40,6 +40,7 @@ interface Card {
 interface SelectCardProps {
     card: Card;
     height?: string;
+    currHealth?: number
 }
 
 export const SelectCard: React.FC<SelectCardProps> = ({ card, height}) => {
