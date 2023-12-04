@@ -58,23 +58,27 @@ const AnimatedCard = forwardRef(({ card, index }: AnimatedCardProps, ref: Forwar
         return {
             animate: animate,
             getParentRef: () => parentRef.current,
+            getCardId: getCardId
         };
     });
 
-    function animate(animateId: string, x: number, y: number) {
-        if (card.cardId === animateId) {
-            console.log("PLEASE FUCKING ANIMATE")
-            // Move to the specified (x, y) coordinate
-            console.log(x)
-            setOppX(parseInt(x, 10))
-            setOppY(parseInt(y, 10))
+    function getCardId() {
+        return card.cardId
+    }
 
-            // Set a timeout to reset the position after a delay (e.g., 1000ms)
+    function animate(animateId: string, x: number, y: number) {
+        console.log("PLEASE FUCKING ANIMATE")
+        // Move to the specified (x, y) coordinate
+
+        console.log(animateId)
+        setOppX(parseInt(x, 10))
+        setOppY(parseInt(y, 10))
+
+        // Set a timeout to reset the position after a delay (e.g., 1000ms)
             resetTimeoutRef.current = setTimeout(() => {
                 setOppX(0)
                 setOppY(0)
-            }, 1000);
-        }
+            }, 500);
     }
 
     // Clear the timeout on component unmount or when position changes
@@ -84,14 +88,18 @@ const AnimatedCard = forwardRef(({ card, index }: AnimatedCardProps, ref: Forwar
                 clearTimeout(resetTimeoutRef.current);
             }
         };
-    }, [oppX, oppY]);
+    }, []);
 
     return (
         <motion.div
             ref={parentRef}
             initial={{ x: 0, y: 0}}
             animate={{ x: oppX, y: oppY }}
-            transition={{ duration: 0.25 }}
+            onAnimationEnd={() => {
+                setOppX(0)
+                setOppY(0)
+            }}
+            transition={{ duration: 0.15 }}
         >
             <BattleCard card={card} key={card.cardId} height={'300px'} />
         </motion.div>
@@ -141,6 +149,11 @@ function LoseModal(props: ModalProps) {
     );
 }
 
+// We have to implement a sleep function using promises because javascript is the worst fucking language ever created
+function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 export default function BattleMatch() {
     const [isWin, setWin] = useState(false);
     const [isLoss, setLoss] = useState(false);
@@ -151,8 +164,7 @@ export default function BattleMatch() {
     const [opponentPlayer, setOpponentPlayer] = useState<Player>()
 
     const cardAnimateRefs = useRef<any>({})
-    const cardRefs = useRef<any>()
-    const [moves, setMoves] = useState<BattleData | null>()
+    const [moves, setMoves] = useState<BattleData>()
 
     useEffect(() => {
         getCards()
@@ -163,7 +175,6 @@ export default function BattleMatch() {
             getBattle()
         }
     }, [battleContext?.battleSession?.battleGenerated]);
-
 
     useEffect(() => {
         const sessionId = battleContext?.battleSession?.id;
@@ -198,53 +209,86 @@ export default function BattleMatch() {
                     })
                     .then((data) => {
                         setMoves(data)
-                        gameLoop(data)
+                        gameLoop()
                     })
                     .catch((e) => console.log(e))
             }
         })
     }
 
-    function gameLoop() {
+    async function gameLoop() {
 
-        console.log(moves, "")
-        let turns = moves.turns
-        turns.map((turn, index) => {
+        console.log("GAME LOOP")
+        console.log(moves)
 
-            console.log("mapping")
+        // Fill a hashmap with our cards and their x,y
+        const cardCordMap = new Map();
+        const cardMap = new Map();
+        for (let i = 0; i < 8; i++) {
+            // Get the coords of each card
+            const rect = cardAnimateRefs.current[i].getParentRef().getBoundingClientRect()
+            const x = rect.left + window.pageXOffset
+            const y = rect.top + window.pageYOffset
+
+            cardCordMap.set(cardAnimateRefs.current[i].getCardId(), [x, y])
+            cardMap.set(cardAnimateRefs.current[i].getCardId(), i)
+        }
+
+        // Loop through the game
+
+        for (let i = 0; i < moves?.turns?.length; i++) {
+            let turn = moves.turns[i]
+
+            console.log(turn, "turn")
+
+            await sleep(2000)
+
+
             if (turn.currentMove.player1Move) {
 
-                // Get the coords of the card we are to attack
-                const rect = cardAnimateRefs.current[turn.currentMove.player2CardId].getParentRef().getBoundingClientRect()
-                // const rect = element.getBoundingClientRect()
-                const x = rect.left + window.pageXOffset
-                const y = rect.top + window.pageYOffset
+                let attacker = cardMap.get(turn.currentMove.player1CardId)
+                let victim = cardCordMap.get(turn.currentMove.player2CardId)
 
-                cardAnimateRefs.current[turn.currentMove.player1CardId].animate(opponentPlayerCards[turn.currentMove.player2CardId].cardId, x, y)
-
+                cardAnimateRefs.current[attacker].animate(turn.currentMove.player2CardId, victim[0], victim[1])
             }
             else {
-                // Get the coords of the card we are to attack
-                const rect = cardAnimateRefs.current[turn.currentMove.player1CardId].getParentRef().getBoundingClientRect()
-                // const rect = element.getBoundingClientRect()
-                const x = rect.left + window.pageXOffset
-                const y = rect.top + window.pageYOffset
 
-                cardAnimateRefs.current[turn.currentMove.player2CardId].animate(opponentPlayerCards[turn.currentMove.player2CardId].cardId, x, y)
+                let attacker = cardMap.get(turn.currentMove.player2CardId)
+                let victim = cardCordMap.get(turn.currentMove.player1CardId)
+
+                cardAnimateRefs.current[attacker].animate(turn.currentMove.player1CardId, victim[0], victim[1])
             }
 
-        })
+
+            // if (turn.currentMove.player1Move) {
+            //
+            //     // Get the coords of the card we are to attack
+            //     const rect = cardAnimateRefs.current[turn.currentMove.player2CardId + 4].getParentRef().getBoundingClientRect()
+            //     // const rect = element.getBoundingClientRect()
+            //     const x = rect.left + window.pageXOffset
+            //     const y = rect.top + window.pageYOffset
+            //
+            //     cardAnimateRefs.current[turn.currentMove.player1CardId].animate(opponentPlayerCards[turn.currentMove.player2CardId + 4].cardId, x, y)
+            //
+            // }
+            // else {
+            //     // Get the coords of the card we are to attack
+            //     const rect = cardAnimateRefs.current[turn.currentMove.player1CardId].getParentRef().getBoundingClientRect()
+            //     // const rect = element.getBoundingClientRect()
+            //     const x = rect.left + window.pageXOffset
+            //     const y = rect.top + window.pageYOffset
+            //
+            //     cardAnimateRefs.current[turn.currentMove.player2CardId + 4].animate(opponentPlayerCards[turn.currentMove.player1CardId].cardId, x, y)
+            // }
+
+        }
     }
 
     async function getCards() {
         auth.onAuthStateChanged(async (user) => {
             if (user) {
-
-                console.log("[][]][]")
-                console.log(battleContext?.battleSession?.players)
                 battleContext?.battleSession?.players.forEach((player) => {
                     if (player.playerId === user.uid) {
-
                         getPlayerCards(player.selectedCardIds, true);
                         getPlayer(player.playerUserName, true)
                     } else {
@@ -252,8 +296,6 @@ export default function BattleMatch() {
                         getPlayer(player.playerUserName, false)
                     }
                 });
-
-
             }
         })
     }
