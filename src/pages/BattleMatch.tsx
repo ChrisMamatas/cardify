@@ -249,14 +249,16 @@ export default function BattleMatch() {
                 let attacker = cardMap.get(turn.currentMove.player1CardId)
                 let victim = cardCordMap.get(turn.currentMove.player2CardId)
 
-                cardAnimateRefs.current[attacker].animate(turn.currentMove.player2CardId, victim[0], victim[1])
+                let x = victim[0]
+
+                cardAnimateRefs.current[attacker].animate(turn.currentMove.player2CardId, victim[0] - cardCordMap.get(turn.currentMove.player1CardId)[0], 100)
             }
             else {
 
                 let attacker = cardMap.get(turn.currentMove.player2CardId)
                 let victim = cardCordMap.get(turn.currentMove.player1CardId)
 
-                cardAnimateRefs.current[attacker].animate(turn.currentMove.player1CardId, victim[0], victim[1])
+                cardAnimateRefs.current[attacker].animate(turn.currentMove.player1CardId, victim[0], -100)
             }
 
 
