@@ -17,13 +17,12 @@ interface Player {
 interface AnimatedCardProps {
     card: Card,
     index: number,
-    animate: (value: number) => void
 }
 
 interface Move {
     player1CardId: number;
     player2CardId: number;
-    isPlayer1Move: boolean;
+    player1Move: boolean;
     player1CardIdKilled?: string;
     player2CardIdKilled?: string;
     damageDealt: number;
@@ -36,9 +35,9 @@ interface BattleData {
     };
     sessionId: string;
     turns: {
-        Player1CardStates: Card[];
-        Player2CardStates: Card[];
-        CurrentMove: Move;
+        player1CardStates: Card[];
+        player2CardStates: Card[];
+        currentMove: Move;
     }[];
     player1Id: string;
     player2Id: string;
@@ -48,36 +47,56 @@ interface BattleData {
 }
 
 
-const AnimatedCard = forwardRef( ({ card, index }: AnimatedCardProps, ref: ForwardedRef<unknown>) => {
-    useImperativeHandle(ref, () => {
-
-        return {
-            animate: animate
-        }
-
-    })
-    const [x, setX] = useState(0);
-    const [y, setY] = useState(0);
+const AnimatedCard = forwardRef(({ card, index }: AnimatedCardProps, ref: ForwardedRef<unknown>) => {
+    const [oppX, setOppX] = useState(0)
+    const [oppY, setOppY] = useState(0)
     const [rotate, setRotate] = useState(0);
+    const parentRef = useRef(null);
+    const resetTimeoutRef = useRef<any>(null);
 
-    function animate() {
-        setX(100)
+    useImperativeHandle(ref, () => {
+        return {
+            animate: animate,
+            getParentRef: () => parentRef.current,
+        };
+    });
+
+    function animate(animateId: string, x: number, y: number) {
+        if (card.cardId === animateId) {
+            console.log("PLEASE FUCKING ANIMATE")
+            // Move to the specified (x, y) coordinate
+            console.log(x)
+            setOppX(parseInt(x, 10))
+            setOppY(parseInt(y, 10))
+
+            // Set a timeout to reset the position after a delay (e.g., 1000ms)
+            resetTimeoutRef.current = setTimeout(() => {
+                setOppX(0)
+                setOppY(0)
+            }, 1000);
+        }
     }
+
+    // Clear the timeout on component unmount or when position changes
+    useEffect(() => {
+        return () => {
+            if (resetTimeoutRef.current) {
+                clearTimeout(resetTimeoutRef.current);
+            }
+        };
+    }, [oppX, oppY]);
 
     return (
         <motion.div
-            className={""}
-            animate={{ x, y, rotate }}
-            transition={{ type: "spring" }}
+            ref={parentRef}
+            initial={{ x: 0, y: 0}}
+            animate={{ x: oppX, y: oppY }}
+            transition={{ duration: 0.25 }}
         >
-            <BattleCard
-                card={card}
-                key={card.cardId}
-                height={"300px"}
-            />
+            <BattleCard card={card} key={card.cardId} height={'300px'} />
         </motion.div>
-    )
-})
+    );
+});
 
 function WinModal(props: ModalProps) {
     return (
@@ -131,12 +150,19 @@ export default function BattleMatch() {
     const [localPlayer, setLocalPlayer] = useState<Player>()
     const [opponentPlayer, setOpponentPlayer] = useState<Player>()
 
-    const cardRefs = useRef<any>({})
+    const cardAnimateRefs = useRef<any>({})
+    const cardRefs = useRef<any>()
     const [moves, setMoves] = useState<BattleData | null>()
 
     useEffect(() => {
         getCards()
     }, [battleContext?.battleSession]);
+
+    useEffect(() => {
+        if (battleContext?.battleSession?.battleGenerated) {
+            getBattle()
+        }
+    }, [battleContext?.battleSession?.battleGenerated]);
 
 
     useEffect(() => {
@@ -144,7 +170,6 @@ export default function BattleMatch() {
         if (sessionId) {
 
             battleContext?.subscribeToBattleTopic(`${sessionId}`);
-            getBattle()
         }
 
         return () => {
@@ -173,7 +198,7 @@ export default function BattleMatch() {
                     })
                     .then((data) => {
                         setMoves(data)
-                        gameLoop()
+                        gameLoop(data)
                     })
                     .catch((e) => console.log(e))
             }
@@ -182,13 +207,33 @@ export default function BattleMatch() {
 
     function gameLoop() {
 
-        console.log(moves)
-        // let turns = moves.turns
-        // turns.map((turn, index) => {
-        //     // PLAY THE MOTION
-        //     // cardRefs.current[turn.isPlayer1Move ? turn.CurrentMove.player1CardId : turn.currentMove.player2CardId].animate()
-        //
-        // })
+        console.log(moves, "")
+        let turns = moves.turns
+        turns.map((turn, index) => {
+
+            console.log("mapping")
+            if (turn.currentMove.player1Move) {
+
+                // Get the coords of the card we are to attack
+                const rect = cardAnimateRefs.current[turn.currentMove.player2CardId].getParentRef().getBoundingClientRect()
+                // const rect = element.getBoundingClientRect()
+                const x = rect.left + window.pageXOffset
+                const y = rect.top + window.pageYOffset
+
+                cardAnimateRefs.current[turn.currentMove.player1CardId].animate(opponentPlayerCards[turn.currentMove.player2CardId].cardId, x, y)
+
+            }
+            else {
+                // Get the coords of the card we are to attack
+                const rect = cardAnimateRefs.current[turn.currentMove.player1CardId].getParentRef().getBoundingClientRect()
+                // const rect = element.getBoundingClientRect()
+                const x = rect.left + window.pageXOffset
+                const y = rect.top + window.pageYOffset
+
+                cardAnimateRefs.current[turn.currentMove.player2CardId].animate(opponentPlayerCards[turn.currentMove.player2CardId].cardId, x, y)
+            }
+
+        })
     }
 
     async function getCards() {
@@ -267,6 +312,7 @@ export default function BattleMatch() {
 
     return (
         <div className={"custom-container"}>
+            <button onClick={gameLoop}>GAME TEST</button>
             {isWin && (
                 <WinModal show={true} onHide={() => setWin(false)} />
             )}
@@ -297,7 +343,7 @@ export default function BattleMatch() {
                     <div className={"card-row"}>
                         {opponentPlayerCards.map((card, index) => {
                             return (
-                                <AnimatedCard card={card} ref={el => cardRefs.current[index] = el} index={index} />
+                                <AnimatedCard card={card} ref={el => cardAnimateRefs.current[index] = el} index={index} />
                             )
                         })}
                     </div>
@@ -307,7 +353,7 @@ export default function BattleMatch() {
                     <div className={"card-row"}>
                         {localPlayerCards.map((card, index) => {
                             return (
-                                <AnimatedCard card={card} ref={el => cardRefs.current[index + 4] = el} index={index + 4} />
+                                <AnimatedCard card={card} ref={el => cardAnimateRefs.current[index + 4] = el} index={index + 4} />
                             )
                         })}
                     </div>
