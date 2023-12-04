@@ -1,8 +1,8 @@
-import {Card, Image} from "react-bootstrap";
+import { Card, Image } from "react-bootstrap";
 import { Modal, ModalProps, Button } from 'react-bootstrap';
-import {BattleCard} from "../components/cards/SelectCard.tsx";
+import { BattleCard } from "../components/cards/SelectCard.tsx";
 import "./BattleMatch.css"
-import {ForwardedRef, forwardRef, useEffect, useImperativeHandle, useRef, useState} from "react";
+import { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { auth } from "../../firebaseConfig.ts";
 import { useBattle } from "../context/BattleContext.tsx";
 import { motion } from "framer-motion"
@@ -110,10 +110,10 @@ const AnimatedCard = forwardRef(({ card, index }: AnimatedCardProps, ref: Forwar
     }, []);
 
     return (
-        <div style={{opacity: hp <= 0 ? 0.25 : 1}}>
+        <div style={{ opacity: hp <= 0 ? 0.25 : 1 }}>
             <motion.div
                 ref={parentRef}
-                initial={{ x: 0, y: 0}}
+                initial={{ x: 0, y: 0 }}
                 animate={{ x: oppX, y: oppY }}
                 transition={{ duration: 0.15 }}
                 style={{ position: 'relative', zIndex: 1 }}
@@ -324,6 +324,12 @@ export default function BattleMatch() {
                 cardAnimateRefs.current[cardMap.get(turn.currentMove.player1CardId)].takeDamage(turn.currentMove.damageDealt)
             }
         }
+
+        if (moves.player1Win && battleContext?.battleSession?.players[0].playerId === auth.currentUser?.uid) {
+            setWin(true)
+        } else {
+            setLoss(true)
+        }
     }
 
 
@@ -395,7 +401,7 @@ export default function BattleMatch() {
                 <div className={"name-column"}>
 
                     <div className={"center"}>
-                        <Image src={opponentPlayer?.profilePicture} style={{height: "100px", width: "100px"}} />
+                        <Image src={opponentPlayer?.profilePicture} style={{ height: "100px", width: "100px" }} />
                         <h3>{opponentPlayer?.username}</h3>
                     </div>
 
@@ -404,7 +410,7 @@ export default function BattleMatch() {
                     {/*<input type={'number'} value={id} placeholder={0} onChange={e => setId(parseInt(e.target.value))}/>*/}
 
                     <div className={"center"}>
-                        <Image src={localPlayer?.profilePicture} style={{height: "100px", width: "100px"}} />
+                        <Image src={localPlayer?.profilePicture} style={{ height: "100px", width: "100px" }} />
                         <h3>{localPlayer?.username}</h3>
                     </div>
                 </div>
@@ -418,7 +424,7 @@ export default function BattleMatch() {
                         })}
                     </div>
 
-                    <div style={{height: "10vh"}} />
+                    <div style={{ height: "10vh" }} />
 
                     <div className={"card-row"}>
                         {localPlayerCards.map((card, index) => {
