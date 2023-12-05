@@ -86,8 +86,8 @@ const AnimatedCard = forwardRef(({ card, index }: AnimatedCardProps, ref: Forwar
     }
 
     function takeDamage(damage: number) {
-
-        setHp(hp - damage)
+        console.log("Setting Damage: " + damage)
+        setHp(hp - damage < 0 ? 0 : hp - damage)
         setHpLoss(damage)
         setOpacity(1)
 
@@ -200,14 +200,15 @@ export default function BattleMatch() {
 
     const cardAnimateRefs = useRef<any>({})
     const [moves, setMoves] = useState<BattleData>()
-
+    const [inProgress, setInProgress] = useState<boolean>(false)
 
     useEffect(() => {
         getData().then(() => console.log("THE  END"))
     }, [battleContext?.battleSession?.battleGenerated]);
 
     useEffect(() => {
-        gameLoop()
+            gameLoop()
+
     }, [moves])
 
     async function getData() {
@@ -224,6 +225,7 @@ export default function BattleMatch() {
                             await getPlayer(player.playerUserName, false)
                         }
 
+                         setInProgress(false)
                         await sleep(1000)
                         await getBattle()
                     });
@@ -278,7 +280,15 @@ export default function BattleMatch() {
     }
 
     async function gameLoop() {
-
+        if (inProgress) {
+            console.log("IN PROGRESS")
+            return;
+        }
+        else {
+            console.log("NOT IN PROGRESS")
+            setInProgress(true)
+        }
+    
         console.log("GAME LOOP")
         console.log(moves)
 
@@ -318,7 +328,7 @@ export default function BattleMatch() {
                 let attacker = cardMap.get(turn.currentMove.player2CardId)
                 let victim = cardCordMap.get(turn.currentMove.player1CardId)
 
-                cardAnimateRefs.current[attacker].animate(turn.currentMove.player1CardId, victim[0] - cardCordMap.get(turn.currentMove.player1CardId)[0],
+                cardAnimateRefs.current[attacker].animate(turn.currentMove.player1CardId, victim[0] - cardCordMap.get(turn.currentMove.player2CardId)[0],
                     cardCordMap.get(turn.currentMove.player2CardId)[1] < victim[1] ? 100 : -100)
 
                 cardAnimateRefs.current[cardMap.get(turn.currentMove.player1CardId)].takeDamage(turn.currentMove.damageDealt)
@@ -388,7 +398,6 @@ export default function BattleMatch() {
 
     return (
         <div className={"custom-container"}>
-            <button onClick={gameLoop}>GAME TEST</button>
             {isWin && (
                 <WinModal show={true} onHide={() => setWin(false)} />
             )}
